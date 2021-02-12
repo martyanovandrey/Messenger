@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style_chat.css">
+    <link rel="stylesheet" href="/style/style_reg.css">
+    <link rel="stylesheet" href="/style/style_chat.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -178,17 +179,31 @@
                     </div>
                 </div>
             </div>
+            <div class="page-overlay">
+                <div class="page-overlay__wrap">
+                    <div class="page-dialog__pop-up pop-up-width">
+                        <h1 class="header__descr header-overlay">Добавить пользователя</h1>
+                        <form>
+                            <div class='form_wrap'>
+                                <div class="form__field registration-field">
+                                    <span class="textinput">
+                                        <input type="email" class="textinput-control" placeholder="Логин">
+                                        <label for="name" class="registration__label">Логин</label>
+                                        <label class="registration__invalid">Неверный логин</label>
+                                    </span>
+                                </div>
+                                <div class="button_overlay">
+                                    <button type="submit" class="button_type_submit">
+                                        <span class="button-text">Добавить</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-    <script>
-        document.querySelector(".button.button_send").addEventListener("click", message);
-        
-        function message() {
-        data = {}
-        data.message = document.querySelector('textarea[name="message"]').value
-        console.log(data)
-    }
-    </script>
 </body>
 
 </html>

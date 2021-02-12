@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Регистрация</title>
   <meta charset="utf-8">
-
-  <link rel="stylesheet" href="style_reg.css">
-  <link rel="stylesheet" href="style_profile.css">
+  <link rel="stylesheet" href="/style/style_chat.css">
+  <link rel="stylesheet" href="/style/style_reg.css">
+  <link rel="stylesheet" href="/style/style_profile.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
   <script type="text/javascript" src="http://livejs.com/live.js"></script>
@@ -18,6 +18,28 @@
 <body>
   <main>
     <div class="wrap">
+      <div class="page-overlay">
+        <div class="page-overlay__wrap">
+            <div class="page-dialog__pop-up pop-up-width">
+                <h1 class="header__descr header-input">Загрузите файл</h1>
+                <form>
+                    <div class='form_wrap'>
+                        <div class="form__image-input">
+                          <span class="upload">
+                            <a href='#' class="upload-link">Выбрать файл на компьютере</a>
+                            <input class="upload-input" type='file' />
+                          </span>
+                        </div>
+                        <div class="button_overlay">
+                            <button type="submit" class="button_type_submit">
+                                <span class="button-text">Поменять</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
       <div class="profile-sidebar">
         <div class="profile-sidebar__arrow">
           <button class="profile-button">
@@ -49,7 +71,7 @@
                   Почта
                 </span>
                 <span>
-                  <input name="email" type="email" class="textinput-profile right" placeholder="example@yandex.ru">
+                  <input type="email" class="textinput-profile right" placeholder="example@yandex.ru">
                   <label class="registration__invalid">Неверная почта</label>
                 </span>
               </div>
@@ -58,7 +80,7 @@
                   Логин
                 </span>
                 <span class="textinput-profile">
-                  <input name="login" type="text" class="textinput-profile right" placeholder="ivanivanov">
+                  <input type="text" class="textinput-profile right" placeholder="ivanivanov">
                 </span>
               </div>
               <div class="form__field form-space-between">
@@ -66,7 +88,7 @@
                   Имя
                 </span>
                 <span class="textinput-profile">
-                  <input name="first_name" type="text" class="textinput-profile right" placeholder="Иван">
+                  <input type="text" class="textinput-profile right" placeholder="Иван">
                 </span>
               </div>
               <div class="form__field form-space-between">
@@ -74,7 +96,7 @@
                   Фамилия
                 </span>
                 <span class="textinput-profile">
-                  <input name="second_name" type="text" class="textinput-profile right" placeholder="Иванов">
+                  <input type="text" class="textinput-profile right" placeholder="Иванов">
                 </span>
               </div>
               <div class="form__field form-space-between">
@@ -82,7 +104,7 @@
                   Имя в чате
                 </span>
                 <span class="textinput-profile">
-                  <input name="display_name" type="text" class="textinput-profile right" placeholder="Иван">
+                  <input type="text" class="textinput-profile right" placeholder="Иван">
                 </span>
               </div>
               <div class="form__field form-space-between" style="border: none;">
@@ -90,7 +112,7 @@
                   Телефон
                 </span>
                 <span class="textinput-profile">
-                  <input name="phone" type="text" class="textinput-profile right" placeholder="+7 (909) 967 30 30">
+                  <input type="text" class="textinput-profile right" placeholder="+7 (909) 967 30 30">
                 </span>
               </div>
               <div class="button_profile">
@@ -104,20 +126,6 @@
       </div>
     </div>
   </main>
-  <script>
-    document.querySelector(".button_type_submit").addEventListener("click", profile_change);
-
-    function profile_change() {
-        data = {}
-        data.email = document.querySelector('input[name="email"]').value
-        data.login = document.querySelector('input[name="login"]').value
-        data.first_name = document.querySelector('input[name="first_name"]').value
-        data.second_name = document.querySelector('input[name="second_name"]').value
-        data.display_name = document.querySelector('input[name="display_name"]').value
-        data.phone = document.querySelector('input[name="phone"]').value
-        console.log(data)
-    }
-  </script>
 </body>
 
 </html>

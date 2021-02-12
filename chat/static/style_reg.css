@@ -1,0 +1,198 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.registration__block {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;   
+    height: 100vh;
+    width: 100vw;
+}
+
+.registration__header {
+    position: relative;
+    width: 340px;
+    height: 615px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+}
+
+.auth {
+    margin: auto;
+    height: 450px;
+}
+
+.header-wrap {
+    margin: 55px 40px 25px 40px;
+}
+
+.wraper {
+    padding: 30px 30px;
+}
+
+.header-registraton {
+    margin: 20px 0px 55px 0px;
+}
+.header__descr {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+    color: #1E1E1E;
+
+    
+}
+
+.form__field {
+    position: relative;
+    padding: 0;
+    margin: 35px 0px 0px 0px;
+}
+
+.registration-field {
+    padding: 5px 20px;
+}
+
+.form-auth {
+    margin: 0px;
+    padding: 5px 30px;
+}
+
+.textinput {
+    display: inline-block;
+    width: 280px;
+
+}
+
+.registration__label {    
+    display: block;
+    position: absolute;
+    opacity: 0;
+    bottom: 1.9rem;
+    transition: 0.2s ease-in-out transform;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 9px;
+    color: #999;
+    transform: translate(0,5px);
+    transform-origin: 0 0;
+    white-space: nowrap;
+}
+
+.registration__invalid {
+    display: block;
+    position: absolute;
+    opacity: 0;
+    bottom: 1.9rem;
+    transition: 0.2s ease-in-out transform;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 9px;
+    color: red;
+    transform: translate(0,5px);
+    transform-origin: 0 0;
+    white-space: nowrap;
+}
+
+.input-auth {
+    margin: 25px 0px 0px 0px;
+}
+
+.textinput-control {
+    display: block;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #3369F3;
+    width: 280px;
+    padding: 0;
+
+}
+
+.textinput-control:focus{
+    outline: none;
+}
+
+.textinput-control:placeholder-shown + .registration__label {
+    visibility: hidden;
+    z-index: -1;
+    transition: 0.2s ease-in-out;
+}
+
+.textinput-control:not(:placeholder-shown) + .registration__label,
+.textinput-control:focus:not(:placeholder-shown) + .registration__label {
+    visibility: visible;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(5px);
+    transition: 0.2s ease-in-out transform;
+}
+
+
+.textinput-control:valid ~ .registration__invalid {
+    visibility: hidden;
+    z-index: -1;
+    transition: 0.2s ease-in-out;
+}
+
+.textinput-control:not(:valid) ~ .registration__invalid,
+.textinput-control:focus:not(:valid) ~ .registration__invalid {
+    visibility: visible;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(40px);
+    transition: 0.2s ease-in-out transform;
+}
+
+.button_type_submit{
+    background: #3369F3;
+    border-radius: 8px;
+    border: none;
+    width: 280px;
+    height: 37px;
+    padding: 0px;
+}
+
+.button-text {
+    padding: 12px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    color: #FFFFFF;
+}
+
+.not-registered {
+    text-align: center;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;    
+    color: #3369F3;
+}
+
+.not-registered-text{
+    text-decoration: none;
+}
+
+.registration_page {
+    margin-top: 10px;
+}
+
+.button_bottom {
+    margin: 60px 0px 0px 0px;
+}
+
+.button-auth{
+    margin: 155px 30px 10px 30px;
+}

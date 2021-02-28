@@ -64,7 +64,7 @@ html *
 }
 
 .chat_link {
-    
+    color: inherit;
     display: flex;
     padding: 10px 0px 10px 0px;
     text-decoration: none;
@@ -101,7 +101,7 @@ html *
 }
 
 .chat_meta_badge{
-    display: inline-block;
+    display: block;
     min-width: 10px;
     padding: 3px 7px;
     font-size: 12px;

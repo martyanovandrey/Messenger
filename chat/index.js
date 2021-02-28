@@ -9,7 +9,7 @@ const API_PREFIX = '/api/v1';
 // Если отправим GET-запрос, то получим либо 405 HTTP ошибку, либо 404
 
 var path = require('path');
-app.use('', express.static(path.join(__dirname, 'static')))
+app.use('', express.static(path.join(__dirname, '/static')))
 
 
 
@@ -23,7 +23,7 @@ app.delete(`${API_PREFIX}/delete`, (req, res) => {
   });
 
 app.get(`${API_PREFIX}/text`, function (req, res) {
-    res.status(200).sendFile(__dirname + "/static/index.html")
+    res.status(200).sendFile(__dirname + "/static")
   })
 
 app.put(`${API_PREFIX}/json`, function (req, res) {

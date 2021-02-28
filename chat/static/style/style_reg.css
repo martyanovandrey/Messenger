@@ -91,7 +91,6 @@ body {
     display: block;
     position: absolute;
     opacity: 0;
-    bottom: 1.9rem;
     transition: 0.2s ease-in-out transform;
     font-family: Inter;
     font-style: normal;
@@ -101,7 +100,7 @@ body {
     color: red;
     transform: translate(0,5px);
     transform-origin: 0 0;
-    white-space: nowrap;
+    white-space: pre-wrap;
 }
 
 .input-auth {
@@ -133,7 +132,7 @@ body {
     visibility: visible;
     z-index: 1;
     opacity: 1;
-    transform: translateY(5px);
+    transform: translateY(10px);
     transition: 0.2s ease-in-out transform;
 }
 
@@ -149,7 +148,7 @@ body {
     visibility: visible;
     z-index: 1;
     opacity: 1;
-    transform: translateY(40px);
+    transform: translateY(2px);
     transition: 0.2s ease-in-out transform;
 }
 

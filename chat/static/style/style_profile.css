@@ -30,8 +30,27 @@
     outline: none;
 }
 
+.textinput-profile:valid ~ .registration__invalid {
+    visibility: hidden;
+    z-index: -1;
+    transition: 0.2s ease-in-out;
+}
+
+.textinput-profile:not(:valid) ~ .registration__invalid,
+.textinput-profile:focus:not(:valid) ~ .registration__invalid {
+    visibility: visible;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(2px);
+    transition: 0.2s ease-in-out transform;
+}
+
+
+
+
 .right {
     text-align: right;
+    width: 330px;
 }
 
 .form-space-between {
@@ -49,7 +68,6 @@
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
-    line-height: 13px;
     color: #1E1E1E;
 }
 

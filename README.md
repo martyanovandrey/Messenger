@@ -1,6 +1,6 @@
-# [Messenger](https://optimistic-bhaskara-25a05f.netlify.app/pages/index/login/index.html)
-- [Вход](https://optimistic-bhaskara-25a05f.netlify.app/pages/index/login/index.html)
-- [Регистрация](https://optimistic-bhaskara-25a05f.netlify.app/pages/index/registration/registration.html)
+# [Messenger](https://optimistic-bhaskara-25a05f.netlify.app/pages/login/index.html)
+- [Вход](https://optimistic-bhaskara-25a05f.netlify.app/pages/login/index.html)
+- [Регистрация](https://optimistic-bhaskara-25a05f.netlify.app/pages/registration/registration.html)
 - [Чат](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat/chat.html)
     - [Открытый диалог](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat-dialog/chat-dialog.html)
     - [Поиск](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat-dialog_search/chat-dialog_search.html)
@@ -19,8 +19,14 @@ Messenger это веб-приложения для обмена сообщен�
 
 ## Использованные инструменты и функционал
 
-Приложение построено на компонентном подходе. Реализован единый модуль создания кнопки и модуль реализации валидации форм.
-В проекте используется [TypeScript](https://github.com/microsoft/TypeScript) и шаблонизатор [PUG](https://github.com/pugjs/pug).
+
+Папка src содержит исходные файлы приложения. В проекте используется:
+-  [TypeScript](https://github.com/microsoft/TypeScript) 
+запустить компиляцию всех .ts файлов приложения можно командой 
+    npm build-ts
+- шаблонизатор [PUG](https://github.com/pugjs/pug).
+запустить компиляцию всех .pug файлов приложения можно командой 
+    npm build-pug
 
 ## Дизайн
 

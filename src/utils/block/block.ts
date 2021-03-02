@@ -33,7 +33,7 @@ export default class Block {
      *
      * @returns {void}
      */
-    constructor(tagName: string = "div", props: object = {}): void {
+    constructor(tagName: string = "div", props: object = {}) {
       const eventBus = new EventBus();
       this._meta = {
         tagName,

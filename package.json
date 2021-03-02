@@ -1,0 +1,24 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-ts": "tsc",
+    "build-pug": "pug --pretty src/pages --out ./static",
+    "build": "npm run build-pug -w && npm run build-ts",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  },
+  "engines": {
+    "node": ">= 12.0.0"
+  }
+}

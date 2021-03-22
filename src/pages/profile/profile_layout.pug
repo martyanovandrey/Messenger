@@ -11,10 +11,11 @@ html(lang='ru')
     block extraHeader
     link(rel='preconnect' href='https://fonts.gstatic.com')
     link(href='https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap' rel='stylesheet')
-    script(type='text/javascript' src='http://livejs.com/live.js')
   body
     main
       .wrap
-        a(href='../chat/chat/chat.html')
+        a(href='/chats')
           include ../../components/profile/sidebar/sidebar.pug
         block content
+  script(type="module" src="../../../pages/profile/profile/profile.js")
+  //script(type="module" src="../../../pages/profile/profile_changes/profile_changes.js")

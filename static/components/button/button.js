@@ -9,6 +9,7 @@ class Button extends Block {
 }
 function render(query, block) {
     const root = document.querySelector(query);
+    console.log(block.getContent());
     root.appendChild(block.getContent());
     return root;
 }

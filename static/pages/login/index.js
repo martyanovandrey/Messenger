@@ -1,5 +1,6 @@
 import { Button, render } from '../../components/button/button.js';
 import Validation from '../../utils/input_validation/input_validation.js';
+import { SigninAPI } from '../../api/signin-api.js';
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector(".button_type_submit").addEventListener("click", login);
 });
@@ -14,7 +15,11 @@ function login() {
             console.log(`${el.placeholder} not valid`);
         }
     });
-    console.log(data_json);
+    let signinApiClient = new SigninAPI();
+    signinApiClient.create(JSON.stringify(data)).then(function (data) {
+        console.log('WHAT I GET ');
+        window.location = data.responseURL;
+    });
 }
 //Validate data
 let node_inputs = document.querySelectorAll('.textinput-control');
@@ -52,4 +57,22 @@ button_div_b.classList.add("button_type_submit");
 button_div_b.type = 'submit';
 const button_span = button_div_b.firstElementChild;
 button_span.classList.add("button-text");
+//Send req
+/*
+function sendData(data){
+  const xhr = new HTTPTransport();
+  let options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+  xhr.request('/api/v1/auth/signin', options).then(function(data) {
+    console.log('WHAT I GET ');
+    console.log(data);
+    window.location = data.responseURL;
+  });
+}
+*/
 //# sourceMappingURL=index.js.map

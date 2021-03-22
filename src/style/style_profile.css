@@ -1,0 +1,159 @@
+.wrap {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.profile-sidebar {
+    width: 64px;
+    height: 100vh;
+    background: #FBFBFB;
+    border-right: 1px solid #EAEAEA;;
+    display: flex;
+    
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.textinput-profile {
+    border: none;
+    display: block;
+    background: transparent;
+    padding: 0px;
+    
+}
+
+.textinput-profile:focus {
+    outline: none;
+}
+
+.textinput-profile:valid ~ .registration__invalid {
+    visibility: hidden;
+    z-index: -1;
+    transition: 0.2s ease-in-out;
+}
+
+.textinput-profile:not(:valid) ~ .registration__invalid,
+.textinput-profile:focus:not(:valid) ~ .registration__invalid {
+    visibility: visible;
+    z-index: 1;
+    opacity: 1;
+    transform: translateY(2px);
+    transition: 0.2s ease-in-out transform;
+}
+
+
+
+
+.right {
+    text-align: right;
+    width: 330px;
+}
+
+.form-space-between {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    width: 510px;
+    display: flex;
+    justify-content: space-between;
+    text-align: right;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.form__field-name {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    color: #1E1E1E;
+}
+
+.button_profile {
+    display: flex;
+    justify-content: center;
+    margin: 60px;
+}
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 90px;
+}
+
+.profile-image .profile-svg {
+    display: block;
+}
+.profile-image .profile-svg-change {
+    display: none;
+}
+
+.profile-image:hover .profile-svg,
+.profile-image:active .profile-svg{
+  display: none;
+}
+.profile-image:hover .profile-svg-change,
+.profile-image:active .profile-svg-change{
+  display: block;
+}
+
+
+
+
+.profile-button {
+    background-color: transparent;
+    border: none;
+}
+
+.profile-button:focus {
+    outline: none;
+}
+
+.profile-changes {
+    margin-top: 60px;
+}
+
+.link {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 13px;
+    color: #3369F3;
+    text-decoration: none;
+}
+
+.button-psw {
+    margin-top: 160px;
+}
+
+.upload {
+    cursor: pointer;
+  }
+.upload-link {
+    position: relative;
+    overflow: hidden;
+  }
+.upload:hover .upload-link {
+    color: red;
+  }
+.upload-link + .upload-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+.form__image-input {
+    font-size: 12px;
+    margin: 45px 70px 15px 70px;
+    text-align: center;
+}
+
+.header-input {
+    font-size: 15px;
+    line-height: 20px;
+    margin: 0px;
+}

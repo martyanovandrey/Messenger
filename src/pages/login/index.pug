@@ -8,7 +8,7 @@ block content
             div
               .form__field.form-auth
                 span.textinput.input-auth
-                  include ../components/registration/form__field/form__field.pug
+                  include ../../components/registration/form__field/form__field.pug
                   input.textinput-control(type='text' name='login' placeholder='Логин')
                   label.registration__label(for='name') Логин
                   label.registration__invalid
@@ -20,6 +20,6 @@ block content
             .button_bottom.button-auth
               .app
           .not-registered
-            a.not-registered-text(href='../registration/registration.html') Нет аккаунта?
-      script(type= "module" src="index.js") 
+            a.not-registered-text(href='/signup') Нет аккаунта?
+      script(type= "module" src="/pages/login/index.js")
       

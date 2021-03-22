@@ -1,5 +1,6 @@
 import {Button, render} from '../../components/button/button.js';
 import Validation from '../../utils/input_validation/input_validation.js';
+import {HTTPTransport} from '../../utils/xhr/xhr.js'
 
 //Catch data from fields
 document.addEventListener('DOMContentLoaded', function () {
@@ -21,7 +22,8 @@ function registration() {
       console.log(`${el.placeholder} not valid`)
     }
   })
-  console.log(data_json)
+  console.log(data)
+  sendData(data)
 }
 
 
@@ -67,3 +69,16 @@ button_div_b.classList.add("button_type_submit");
 button_div_b.type = 'submit';
 const button_span = button_div_b.firstElementChild as HTMLSpanElement;
 button_span.classList.add("button-text")
+
+//Send req
+function sendData(data) {
+  const xhr = new HTTPTransport();
+  let options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }
+  xhr.request('/auth/api/v1/signup', options).then(console.log(data))
+}

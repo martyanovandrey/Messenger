@@ -1,7 +1,8 @@
-import { Button, render } from '../../../components/button/button.js';
 import Validation from '../../../utils/input_validation/input_validation.js';
+import { ProfileChangeAPI } from '../../../api/profile-api.js';
+import { Router, Block } from "../../../utils/router/router.js";
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector(".button_type_submit").addEventListener("click", profile_change);
+    document.querySelector("#change_button").addEventListener("click", profile_change_data);
 });
 function profile_change() {
     let form = document.querySelector('form');
@@ -15,6 +16,30 @@ function profile_change() {
         }
     });
     console.log(data_json);
+    return data_json;
+}
+function profile_change_data() {
+    let data = profile_change();
+    let profileChangeApiClient = new ProfileChangeAPI();
+    console.log("UPDATA DATA");
+    console.log(data);
+    profileChangeApiClient.update(data).then(function (data) {
+        console.log(data);
+        window.location = '/profile';
+        class ProfileStatic extends Block {
+            getContent() {
+                let element = document.createElement('template');
+                element.innerHTML = '<h1>TEST</h1>';
+                console.log(element.content.childNodes[0]);
+                return element.content.childNodes[0];
+            }
+        }
+        //let profileRouterBlock = new Profile();
+        const router = new Router('.registration__block');
+        router
+            .use('/profile', ProfileStatic)
+            .start();
+    });
 }
 //Validate data
 let node_inputs = document.querySelectorAll('.textinput-profile.right');
@@ -44,15 +69,4 @@ input_select.map(el => {
         }
     });
 });
-//Create button
-const button = new Button({
-    text: 'Сохранить',
-});
-render(".app", button);
-const button_div = document.querySelector('.app');
-const button_div_b = button_div.firstElementChild;
-button_div_b.classList.add("button_type_submit");
-button_div_b.type = 'submit';
-const button_span = button_div_b.firstElementChild;
-button_span.classList.add("button-text");
 //# sourceMappingURL=profile_changes.js.map

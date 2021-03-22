@@ -3,20 +3,34 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha \\\"./{,!(node_modules)/**/}*.test.js\\\"",
     "build-ts": "tsc",
     "build-pug": "pug --pretty src/pages --out ./static",
     "build": "npm run build-pug -w && npm run build-ts",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "postcss": "postcss src/style/ -d static/style/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pug": "^3.0.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "express": "^4.17.1"
+    "autoprefixer": "^10.2.5",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "cssnano": "^4.1.10",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mocha": "^8.3.2",
+    "nodemon": "^2.0.7",
+    "postcss": "^8.2.8",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.0",
+    "pug": "^3.0.2"
   },
   "engines": {
     "node": ">= 12.0.0"

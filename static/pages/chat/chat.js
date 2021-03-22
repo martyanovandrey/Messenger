@@ -2,7 +2,7 @@ import { ChatAPI } from "../../api/chat-api.js";
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector(".button").addEventListener("click", popup);
 });
-function popup(event) {
+function popup() {
 }
 let chats = document.querySelectorAll('.chat-list__element');
 chats.forEach((el) => {

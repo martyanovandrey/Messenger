@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-function popup(event){
+function popup(){
 
 }
 

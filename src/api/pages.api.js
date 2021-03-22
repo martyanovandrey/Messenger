@@ -1,8 +1,5 @@
-// chat-api.js
 import { HTTPTransport } from '../utils/xhr/xhr.js'
 import { BaseAPI} from "./base-api.js";
-
-console.log('im loadded');
 
 let options = {
     headers: {
@@ -10,32 +7,30 @@ let options = {
     }
 }
 
-let signinAPIInstance = new HTTPTransport();
+let signAPIInstance = new HTTPTransport();
 
-class SigninAPI extends BaseAPI {
+class SigninPageAPI extends BaseAPI {
     create(data) {
         // Здесь уже не нужно писать полный путь /api/v1/chats/
-        return signinAPIInstance.post('/api/v1/auth/signin', {...options, data});
+        return signAPIInstance.post('/', {...options, data});
     }
 
     request() {
         // Здесь уже не нужно писать полный путь /api/v1/chats/
-        return signinAPIInstance.get('/api/v1/auth/signin', {...options});
+        return signAPIInstance.get('/', {...options});
     }
-
 }
 
-class SignupAPI extends BaseAPI {
+class SignupPageAPI extends BaseAPI {
     create(data) {
         // Здесь уже не нужно писать полный путь /api/v1/chats/
-        return signupAPIInstance.post('/api/v1/auth/signup', {...options, data});
+        return signAPIInstance.post('/signup', {...options, data});
     }
 
     request() {
         // Здесь уже не нужно писать полный путь /api/v1/chats/
-        return signupAPIInstance.get('/api/v1/auth/signup', {...options});
+        return signAPIInstance.get('/signup', {...options});
     }
-
 }
 
-export { SigninAPI, SignupAPI }
+export { SigninPageAPI, SignupPageAPI }

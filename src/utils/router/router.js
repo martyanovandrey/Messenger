@@ -18,8 +18,10 @@ function isEqual(lhs, rhs) {
 
 function render(query, block) {
     const root = document.querySelector(query);
+    //console.log(block.getContent());
     root.innerHTML = ''
     root.appendChild(block.getContent());
+    //root.innerHTML = block.getContent();
     return root;
 }
 

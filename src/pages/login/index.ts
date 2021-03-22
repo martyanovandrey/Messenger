@@ -1,6 +1,8 @@
 import {Button, render} from '../../components/button/button.js';
 import Validation from '../../utils/input_validation/input_validation.js';
+import { SigninPageAPI, SignupPageAPI } from '../../api/pages.api.js'
 import { SigninAPI } from '../../api/signin-api.js'
+import {Block, Router} from "../../utils/router/router.js";
 
 document.addEventListener('DOMContentLoaded', function () {
   (<HTMLButtonElement>document.querySelector(".button_type_submit")).addEventListener("click", login);
@@ -29,7 +31,6 @@ function login():void {
     console.log('WHAT I GET ');
     window.location = data.responseURL;
   });
-  
 }
 
 //Validate data
@@ -60,7 +61,6 @@ input_select.map((el: HTMLInputElement) => {
   });
 })
 
-
 //Create button
 const button = new Button({
   text: 'Авторизоваться',
@@ -73,6 +73,62 @@ button_div_b.classList.add("button_type_submit");
 button_div_b.type = 'submit';
 const button_span = button_div_b.firstElementChild as HTMLSpanElement;
 button_span.classList.add("button-text")
+
+
+/*TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER TEST ROUTER */
+
+
+/*
+class loginPage extends Block {
+  getContent(){
+      let signinApiClient = new SigninPageAPI();
+      //console.log(signinApiClient.create())
+    console.log("ok im here all good LOGIN");
+      return signinApiClient.create().then(res => {
+        console.log(res);
+        return res.response
+      }));
+  }
+}
+
+class registationPage extends Block {
+  getContent(){
+    let signupApiClient = new SignupPageAPI();
+    //console.log(signinApiClient.create())
+    console.log("ok im here all good LOGIN");
+    return signupApiClient.create().then(res => {
+      console.log(res);
+      return res.response
+    }));
+  }
+}
+
+
+const router = new Router('.registration__block');
+router
+    .use('/', loginPage)
+    .use('/signup', registationPage)
+    .start()
+
+
+
+
+setTimeout(() => {
+  router.go("/signup");
+}, 2000);
+
+// А можно и назад
+setTimeout(() => {
+  router.back();
+}, 4000);
+
+// И снова вперёд
+setTimeout(() => {
+  router.forward();
+}, 6000);
+
+*/
+
 
 
 //Send req

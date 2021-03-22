@@ -1,5 +1,20 @@
 import Validation from "../../utils/input_validation/input_validation";
 import {HTTPTransport} from "../../utils/xhr/xhr.js";
+import {ChatAPI} from "../../api/chat-api.js";
+import {EventBus} from "../../../static/utils/event-bus/event-bus.js"
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    (<HTMLButtonElement>document.querySelector(".button")).addEventListener("click", popup);
+});
+
+
+function popup(event){
+
+}
+
+
+
 
 let chats = document.querySelectorAll('.chat-list__element')
 chats.forEach((el) => {
@@ -11,22 +26,15 @@ chats.forEach((el) => {
 function chat(id):void {
     //let userName = document.getElementById('1');
     let data = {id: id}
-
     sendData(data)
 
 }
 
 //Send req
 function sendData(data){
-    const xhr = new HTTPTransport();
-    let options = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }
-    xhr.request('/api/v1/chats', options).then(function(data) {
+
+    let chatPage = new ChatAPI()
+    chatPage.create(JSON.stringify(data)).then(function(data) {
         console.log('WHAT I GET ');
         console.log(data);
         let textBlock = document.querySelector('.dialog-text.dialog-mask')
@@ -37,6 +45,6 @@ function sendData(data){
         textBlock.style.display = "none"
         let dialogBlock = document.querySelector('.page-dialog')
         dialogBlock.innerHTML = data.response
-        //window.location += `/${data.body.userName}`;
     });
 }
+

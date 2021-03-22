@@ -7,7 +7,7 @@ import Validation from '../../../utils/input_validation/input_validation.js';
 document.addEventListener('DOMContentLoaded', function () {
     (<HTMLButtonElement>document.querySelector("#change_data")).addEventListener("click", profile_change_request);
     (<HTMLButtonElement>document.querySelector("#change_psw")).addEventListener("click", profile_change_psw_page);
-
+    (<HTMLButtonElement>document.querySelector(".profile-image")).addEventListener("click", profile_change_image);
 });
 
 window.addEventListener('hashchange', function() {
@@ -15,11 +15,14 @@ window.addEventListener('hashchange', function() {
     eventButton.emit(`changeProfile`);
     }, false);
 
+
+//ПЕРЕХОД МЕЖДУ СТРАНИЦАМИ <----------------------------------------------------------------
 function profile_change_request():void {
     let data = {data: 'change_data'}
     let profileApiClient = new ProfileAPI()
     profileApiClient.update(JSON.stringify(data)).then(function(data) {
         window.location += '#change';
+        //НЕ ВЕРНАЯ РЕАЛИЗАЦИЯ <------------------------------------------------------------
     class ProfileChange extends Block {
             getContent(){
                 let element = document.createElement('template');
@@ -90,12 +93,14 @@ function profile_change_psw_page():void {
             router.go("/profile/change");
         }, 1000);
 
+/*
 // А можно и назад
         setTimeout(() => {
             router.back();
         }, 3000);
-
+*/
     }
+
 
 
 

@@ -1,0 +1,410 @@
+body {
+    margin: 0;
+
+  }
+
+html *
+{
+    font-family: Inter;
+    font-style: normal; 
+}
+
+.page-wrap {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    min-height: 100vh;
+
+}
+
+.page-sidebar {
+    max-width: 310px;
+    flex-direction: column;
+    flex: 1;
+    border: 1px solid #EAEAEA;
+}
+
+.page_chat_list{
+    padding: 0px 10px 0px 10px;
+}
+
+.page-dialog {
+    display: flex;
+    flex: 1;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #999999;
+    padding: 10px 20px;
+}
+
+.chat-list {
+    padding: 0px;
+    border-top: 1px solid #EAEAEA;
+    list-style-type: none;
+}
+
+.chat-list__element {
+    border-bottom: 1px solid #EAEAEA; 
+    line-height: 100%;
+}
+
+.chat-list__element:hover {
+    background: #E4EDFD;
+}
+
+.chat_text_wrap {
+    width: 193px;
+    margin: 0px 10px;
+}
+
+.for-search {
+    display: flex;
+    align-items: center;
+}
+
+.chat_link {
+    color: inherit;
+    display: flex;
+    padding: 10px 0px 10px 0px;
+    text-decoration: none;
+}
+
+.chat_image {
+    height: 100%;
+    position: relative;
+}
+
+.chat_text_name {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 13px;
+    color: #1E1E1E;
+    margin: 0px 0px 4px 0px;
+}
+
+.chat_text_message {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #999999;
+}
+
+.chat_meta_wrap{
+    margin: 0px 10px 0px 0px;
+}
+.chat_meta_date{
+    font-weight: 500;
+    font-size: 9px;
+    line-height: 13px;
+    text-align: right;
+}
+
+.chat_meta_badge{
+    display: block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    vertical-align: baseline;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #3369F3;
+    border-radius: 10px;
+    margin-top: 14px;
+}
+
+.search {
+    margin: 21px 10px 14px 10px; 
+}
+.search__profile-wrap {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 0px 0px 23px 0px;
+}
+.search__profile {
+    font-size: 12px;
+    line-height: 12px;
+    color: #999999;
+    text-decoration: none;
+}
+
+.search__bar {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    background: #EFEFEF;
+    border-radius: 5px;
+}
+
+.search__icon {
+    margin-left: 10px;
+}
+
+.search__input {
+    margin-left: 5px;
+    height: 32px;
+    border: none;
+    background: #EFEFEF;
+    
+}
+
+.search__input:focus{
+    outline: none;
+}
+
+.page-dialog__wrap {
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+}
+
+.page-dialog__head {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #EAEAEA;
+}
+
+.page-dialog__head-image {
+    margin-bottom: 10px; 
+}
+
+.page-dialog__head-name {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 13px;
+    color: #1E1E1E;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    
+}
+
+.page-dialog__head-options {
+    margin-left: auto;
+    margin-bottom: 10px;
+}
+
+.dialog-text {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start; 
+}
+
+.dialog-mask {
+    justify-content: center;
+    align-items: center; 
+}
+
+.dialog-text__date-body{
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: center; 
+}
+
+.dialog-text__date{
+    font-size: 12px;
+    line-height: 12px;
+    color: #999999;
+}
+
+.dialog-text__body {
+    display: flex;
+    align-content: flex-end;
+    max-width: 75%;
+    margin-top: 10px;
+    padding: 11px;
+    background-color: #F8F8F8;
+    border-radius: 12px;
+}
+
+.user-message {
+    background: #E4EDFD;
+    align-self: flex-end;
+    margin-top: 30px;
+
+}
+.dialog-text__message {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #1E1E1E;
+}
+
+.read {
+    margin-left: 5px;
+}
+
+.time {
+    margin-left: 3px;
+}
+
+.dialog-text__info {
+    display: flex;
+    align-items: flex-end;
+}
+
+.page-dialog__message-panel {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    border-top: 1px solid #EAEAEA;
+    margin-top: 30px;
+}
+
+.page-dialog__add-file {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.page-dialog__textarea {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.textarea {
+    width: 100%;
+    resize: none;
+    background: #EFEFEF;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    padding: 10px 10px;
+    
+}
+
+.page-dialog__send {
+    margin-top: 10px;
+    margin-left: 30px;
+}
+
+.page-dialog__pop-up-wrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.page-dialog__pop-up{
+    padding: 10px 15px;
+    position: absolute;
+    z-index: 1;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+    border-radius: 12px;
+}
+
+.photo-file-menu {
+    top: 725px;
+}
+
+.user-menu {
+    top: 75px;
+    left: 850px;
+}
+
+.flex_center {
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
+
+.pop-up__margin {
+    margin: 10px 15px 10px 15px;
+}
+
+.button {
+    padding: 0px;
+    background-color: white; 
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button-focus:focus {
+    background: #F5F5F5;
+    border-radius: 25px;
+}
+
+.page-overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.page-overlay__wrap {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_overlay {
+    margin-top: 30px;
+}
+
+.header-overlay {
+    font-size: 15px;
+    line-height: 20px;
+    margin: 0px 0px 30px 0px;
+}
+
+.pop-up-width{
+    /* this margin cover sidebar width */
+    margin-left: 64px;
+    padding: 40px 30px;
+    width: 280px;
+}
+
+.form_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-menu {
+    top: 200px;
+    left: 850px;
+}
+
+.delete-user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+.delete-button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    margin: 0px 10px;
+}
+
+.delete-text {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 13px;
+    color: #1E1E1E;
+    margin-bottom: 15px;
+}

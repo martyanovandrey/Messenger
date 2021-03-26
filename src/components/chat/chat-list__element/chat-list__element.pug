@@ -1,11 +1,11 @@
-mixin chat-list(name, text, date, badge)
-    li.chat-list__element
-        a.chat_link(href='../chat-dialog/chat-dialog.html')
+mixin chat-list(id, name, text, date, badge)
+    li.chat-list__element(id= id)
+        div.chat_link
             .chat_image
-                img(src='../chat-images/circle.png' alt='')
-            .chat_text_wrap
+                img(src='../../../pages/chat/chat-images/circle.png' alt='')
+            .chat_text_wrap #{test}
                 .chat_text_name
-                    span= name 
+                    span= name
                 .chat_text_message
                     span= text
             .chat_meta_wrap

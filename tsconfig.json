@@ -8,6 +8,7 @@
         "downlevelIteration": true,
         "outDir": "static",
         "target": "es6",
+        "module": "es6"
     },
     "include": [
         "**/*"

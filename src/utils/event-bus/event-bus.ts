@@ -1,14 +1,12 @@
-
-
 export default class EventBus{
   listeners: {
-    [key: string]: Array<any>
+    [key: string]: Array<Function>
   };
     constructor() {
       this.listeners = {};
     };
 
-    on(event:string, callback:void) {
+    on(event:string, callback:Function) {
       if (!this.listeners[event]) {
         this.listeners[event] = [];
       }
@@ -16,7 +14,7 @@ export default class EventBus{
       this.listeners[event].push(callback);
     };
   
-    off(event:string, callback:void) {
+    off(event:string, callback:Function) {
           if (!this.listeners[event]) {
         throw new Error(`Нет события: ${event}`);
       };
@@ -26,13 +24,13 @@ export default class EventBus{
       );
     };
   
-      emit(event:string, ...args:any) {
-      if (!this.listeners[event]) {
-        throw new Error(`Нет события: ${event}`);
-      };
-      
-      this.listeners[event].forEach(function(listener) {
-        listener(...args);
-      });
-    }
+    emit(event:string, ...args:any) {
+    if (!this.listeners[event]) {
+      throw new Error(`Нет события: ${event}`);
+    };
+    
+    this.listeners[event].forEach(function(listener) {
+      listener(...args);
+    });
+  }
   };

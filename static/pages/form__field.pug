@@ -1,0 +1,11 @@
+mixin form__field(typeValid, placeholder, name, labelFor, label)
+    .form__field
+        span.textinput
+            if(name)
+                input.textinput-control(type= typeValid placeholder= placeholder name= name)
+                label.registration__label(for= labelFor)= label    
+                label.registration__invalid
+            else
+                input.textinput-control(type= typeValid placeholder= placeholder)
+                label.registration__label(for= labelFor)= label
+                label.registration__invalid

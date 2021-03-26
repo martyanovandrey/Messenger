@@ -1,19 +1,11 @@
-import {messages, users} from "../controllers/storage.js"
+import {messages, users} from "../static/pages/storage.js"
 
 export const profile = (req, res) => {
     console.log('GET PROFILE');
     //let login = req.session.user.login;
     let login = 'test'
     let userName = users.find(x => x.login === login);
-    console.log(userName);
-    res.render("profile/profile_changes/profile_changes.pug", {
-        first_name: userName.first_name,
-        second_name: userName.second_name,
-        display_name: userName.display_name,
-        login: userName.login,
-        email: userName.email,
-        phone: userName.phone
-    })
+    console.log('func profile !!!');
 }
 
 export const profileChange = (req, res) => {
@@ -22,23 +14,9 @@ export const profileChange = (req, res) => {
     let login = 'test'
     let userName = users.find(x => x.login === login);
     let data = req.body
-    for (const [key, value] of Object.entries(data)) {
-        console.log('im here');
-        if(data[key] != ''){
-            console.log('im here222222');
-            console.log(data[key]);
-            userName[key] = data[key]
-            console.log(userName);
-        }
-    }
-    res.render("profile/profile/profile", {
-        first_name: userName.first_name,
-        second_name: userName.second_name,
-        display_name: userName.display_name,
-        login: userName.login,
-        email: userName.email,
-        phone: userName.phone
-    })
+    Object.assign(userName, data)
+    console.log(userName);
+    res.status(200).send(userName)
 }
 
 export const avatar = (req, res) => {
@@ -51,26 +29,6 @@ export const avatar = (req, res) => {
     // console.log(newUser)
     // users.push(newUser)
     // res.status(201).json(newUser)
-}
-
-export const passwordPage = (req, res) => {
-    //let login = req.session.user.login;
-    let login = 'test'
-    let userName = users.find(x => x.login === login);
-    let data = req.body
-    console.log(data);
-    for (const [key, value] of Object.entries(data)) {
-        console.log('im here');
-        if(data[key] != ''){
-            console.log('im here222222');
-            console.log(data[key]);
-            userName[key] = data[key]
-            console.log(userName);
-        }
-    }
-    res.render("profile/profile_change_psw/profile_change_psw", {
-        oldPassword: userName.password
-    })
 }
 
 export const password = (req, res) => {
@@ -89,7 +47,7 @@ export const password = (req, res) => {
             console.log(userName);
         }
     }
-    res.redirect('/profile')
+    res.status(200).send(userName)
 }
 
 export  const getUserById = (req, res) => {

@@ -1,5 +1,5 @@
 import {Router} from 'express'
-import {profile, profileChange, avatar, passwordPage, password, getUserById, search} from '../controllers/profile.js'
+import {profile, profileChange, avatar, password, getUserById, search} from '../controllers/profile.js'
 
 const router = Router()
 
@@ -9,9 +9,7 @@ router.put(`/profile/change`, profileChange)
 
 router.put(`/profile/avatar`, avatar)
 
-router.get(`/password/:params`, passwordPage)
-
-router.put(`/password`, password)
+router.put(`/password/change`, password)
 
 router.get(`/:id`, getUserById)
 

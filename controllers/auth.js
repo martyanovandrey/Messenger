@@ -1,8 +1,9 @@
 import {v4} from "uuid";
-import {users} from '../controllers/storage.js'
+import {users} from '../static/pages/storage.js'
 
 export const signup = (req, res) => {
     const newUser = {id: v4(), ...req.body}
+    console.log(req.body)
     console.log(users)
     if (users.find(el => el.email === newUser.email)) {
         res.status(400).send({
@@ -16,7 +17,8 @@ export const signup = (req, res) => {
     const name = req.body.name
     console.log(newUser)
     users.push(newUser)
-    res.status(201).json(newUser)
+
+    res.redirect('/chat')
 }
 
 export const signin = (req, res) => {
@@ -30,7 +32,7 @@ export const signin = (req, res) => {
         req.session.user = {
             login
         }
-        res.redirect('/chats')
+        res.redirect('/chat')
     } else {
         res.status(403).send({server_msg: 'Wrong login or password'})
     }

@@ -1,3 +1,4 @@
+/*
 import {Router} from 'express'
 import {login, register, chatPage, profilePage} from '../controllers/page.js'
 import validateSession from '../controllers/validateSession.js'
@@ -19,3 +20,4 @@ router.get(`/profile`,validateSession, profilePage)
 export  default  router
 
 
+*/

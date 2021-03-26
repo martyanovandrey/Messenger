@@ -1,4 +1,4 @@
-import {users, messages} from '../controllers/storage.js'
+import {users, messages} from '../static/pages/storage.js'
 
 
 
@@ -8,11 +8,7 @@ export const chats = (req, res) => {
     let chatMessages = messages.find(x => x.chat === userName);
     console.log('GET CHATS');
     //res.mydata={test: 'test'}
-    res.render('chat/chat-dialog2/chat-dialog.pug', {
-        userName: userName,
-        userMessage: chatMessages.userMessage,
-        myMessage: chatMessages.myMessage
-    })
+    res.status(200).send(userName)
 }
 
 /*

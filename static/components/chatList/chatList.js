@@ -11,7 +11,7 @@ ul.chat-list
         li.chat-list__element(data-name= user.name)
             div.chat_link
                 .chat_image(data-action='chatListEvent')
-                    img(src='../../../pages/chat/chat-images/circle.png' alt='')
+                    img(src='../../data/circle.png' alt='')
                 .chat_text_wrap(data-action='chatListEvent')
                     .chat_text_name
                         span= user.name

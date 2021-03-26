@@ -12,8 +12,7 @@ const initialstate = {
     password: "test",
     phone: "test",
     userMessage: "Wuzzzuuuuuup",
-    myMessage: "Wuzzzuuuuuuuuuuuuuuuuuuuup",
-    chatMembers: []
+    myMessage: "Wuzzzuuuuuuuuuuuuuuuuuuuup"
 };
 const store = new Store(updateState, initialstate);
 window.store = store;

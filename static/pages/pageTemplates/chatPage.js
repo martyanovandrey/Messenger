@@ -1,6 +1,6 @@
 export const chatHTML = `
 .page-wrap
-    #chat.page-sidebar
+    .page-sidebar#chat
         .search
             .search__profile-wrap
                 a.search__profile(href='/profile') Профиль >

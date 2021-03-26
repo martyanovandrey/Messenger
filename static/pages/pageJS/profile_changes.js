@@ -68,7 +68,10 @@ document.querySelector("#change_button").addEventListener("click", event => {
     let data = profile_change();
     let profileChangeApiClient = new ProfileChangeAPI();
     profileChangeApiClient.update(data).then(function (data) {
+        console.log(JSON.parse(data.response), 'CHAGE DATA STOREEEE');
         store.update(changeData(JSON.parse(data.response)));
+        console.log(store.state, 'STOREEEESTOREEEESTOREEEESTOREEEE');
+        //window.location = '/profile';
         router.go("/profile");
     });
 });

@@ -23,7 +23,7 @@ export const signup = (req, res) => {
 
 export const signin = (req, res) => {
     const {login, password} = req.body
-    //console.log(user.login, user.password)
+    console.log(user.login, user.password)
     console.log(users)
     console.log(req.body)
     if (users.find((el) => el.login === login && el.password === password)) {

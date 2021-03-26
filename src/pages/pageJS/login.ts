@@ -18,9 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-function signupRedirect(event) {
-
-}
+(<HTMLButtonElement>document.querySelector(".not-registered-text")).addEventListener("click", event => {
+  event.preventDefault()
+  router.go("/signup");
+});
 
 
 
@@ -91,7 +92,7 @@ console.log(button, '<-----------------!!_----');
   signinApiClient.create(JSON.stringify(data)).then(function(data) {
     console.log('WHAT I GET ');
     console.log(data);
-    window.location = data.responseURL;
+    router.go("/chat");
   });
 });
 

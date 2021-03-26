@@ -1,7 +1,6 @@
 import Validation from '../../../utils/input_validation/input_validation.js';
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector("#change_psw").addEventListener("click", profile_change_psw_page);
-    document.querySelector(".profile-image").addEventListener("click", profile_change_image);
 });
 document.querySelector(".profile-sidebar").addEventListener("click", event => {
     event.preventDefault();

@@ -123,7 +123,7 @@ class ChatMembers extends Block {
 function render(query, block) {
     const root = document.querySelector(query);
     console.log(block.getContent());
-    root.appendChild(block.getContent());
+    root.appendChild(block.getContent().firstChild);
     return root;
 }
 export { ChatMembers, render };

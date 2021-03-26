@@ -2,11 +2,13 @@ import cloneDeep from "../cloneDeep/cloneDeep.js";
 
 function updateState(state, action) {
     if (action.type === 'CHANGEDATA'){
+        console.log('IM CHANGEDATA');
         return cloneDeep(state, action.data)
     }
 }
 
 const changeData = {type: 'CHANGEDATA', data: {}}
+
 
 export default class Store{
     constructor(updateState, state) {
@@ -32,8 +34,6 @@ export default class Store{
 }
 const initialState = {count: 0}
 
-
-
 let usersData = [
     {
         id: '1',
@@ -56,4 +56,4 @@ let usersData = [
     },
 ]
 
-const users = new Store(usersData, initialState)
+export const users = new Store(usersData, initialState)

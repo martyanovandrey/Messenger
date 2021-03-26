@@ -6,18 +6,18 @@ class ChatList extends Block {
     }
     render() {
         let pugData = `
-ul.chat-list#chatList
+ul.chat-list
     each user in users
-        li.chat-list__element(id= user.id)
+        li.chat-list__element(data-name= user.name)
             div.chat_link
-                .chat_image
+                .chat_image(data-action='chatListEvent')
                     img(src='../../../pages/chat/chat-images/circle.png' alt='')
-                .chat_text_wrap
+                .chat_text_wrap(data-action='chatListEvent')
                     .chat_text_name
                         span= user.name
                     .chat_text_message
                         span= user.text
-                .chat_meta_wrap
+                .chat_meta_wrap(data-action='chatListEvent')
                     time.chat_meta_date= user.date
                     if (user.badge)
                         span.chat_meta_badge= user.badge
@@ -31,7 +31,7 @@ ul.chat-list#chatList
 function render(query, block) {
     const root = document.querySelector(query);
     console.log(block.getContent());
-    root.appendChild(block.getContent());
+    root.appendChild(block.getContent().firstChild);
     return root;
 }
 export { ChatList, render };

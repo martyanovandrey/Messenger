@@ -131,7 +131,7 @@ class ChatMembers extends Block {
 function render(query:string, block) {
     const root = <Element>document.querySelector(query);
     console.log(block.getContent());
-    root.appendChild(block.getContent());
+    root.appendChild(block.getContent().firstChild);
 
     return root;
 }

@@ -12,8 +12,10 @@ import { SigninAPI } from '../../api/signin-api.js';
 // });
 document.addEventListener('DOMContentLoaded', function () {
 });
-function signupRedirect(event) {
-}
+document.querySelector(".not-registered-text").addEventListener("click", event => {
+    event.preventDefault();
+    router.go("/signup");
+});
 //Validate data
 let node_inputs = document.querySelectorAll('.textinput-control');
 let input_select = [...node_inputs];
@@ -68,7 +70,7 @@ document.querySelector(".button_type_submit").addEventListener("click", function
     signinApiClient.create(JSON.stringify(data)).then(function (data) {
         console.log('WHAT I GET ');
         console.log(data);
-        window.location = data.responseURL;
+        router.go("/chat");
     });
 });
 function login(event) {

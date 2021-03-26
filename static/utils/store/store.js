@@ -1,6 +1,7 @@
 import cloneDeep from "../cloneDeep/cloneDeep.js";
 function updateState(state, action) {
     if (action.type === 'CHANGEDATA') {
+        console.log('IM CHANGEDATA');
         return cloneDeep(state, action.data);
     }
 }
@@ -45,5 +46,5 @@ let usersData = [
         phone: "test2"
     },
 ];
-const users = new Store(usersData, initialState);
+export const users = new Store(usersData, initialState);
 //# sourceMappingURL=store.js.map

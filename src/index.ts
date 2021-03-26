@@ -18,7 +18,6 @@ const initialstate = {
     phone: "test",
     userMessage: "Wuzzzuuuuuup",
     myMessage: "Wuzzzuuuuuuuuuuuuuuuuuuuup"
-    chatMembers: []
 }
 
 const store = new Store(updateState, initialstate)

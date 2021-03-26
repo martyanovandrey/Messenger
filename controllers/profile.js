@@ -14,6 +14,13 @@ export const profileChange = (req, res) => {
     let login = 'test'
     let userName = users.find(x => x.login === login);
     let data = req.body
+    Object.values(data).forEach(value => {
+        if(!value){
+            res.status(400).send({
+                message: 'Value cant be empty'
+            });
+        }
+    })
     Object.assign(userName, data)
     console.log(userName);
     res.status(200).send(userName)

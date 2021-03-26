@@ -2,6 +2,7 @@ import {Button, render} from '../../../components/button/button.js';
 import Validation from '../../../utils/input_validation/input_validation.js';
 import EventBus from "../../../utils/event-bus/event-bus";
 import {ProfileChangeAPI} from '../../../api/profile-api.js'
+import {throws} from "assert";
 
 (<HTMLButtonElement>document.querySelector(".profile-sidebar")).addEventListener("click", event => {
   event.preventDefault()
@@ -86,8 +87,11 @@ function changeData(data){
     let data = profile_change()
     let profileChangeApiClient = new ProfileChangeAPI()
     profileChangeApiClient.update(data).then(function(data) {
+      console.log(JSON.parse(data.response), 'CHAGE DATA STOREEEE');
       store.update(changeData(JSON.parse(data.response)))
+      console.log(store.state, 'STOREEEESTOREEEESTOREEEESTOREEEE');
+      //window.location = '/profile';
       router.go("/profile");
-    }
-});
+    })
+})
 

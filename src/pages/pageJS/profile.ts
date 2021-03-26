@@ -8,7 +8,6 @@ import {users} from '../../pages/storage.js'
 
 document.addEventListener('DOMContentLoaded', function () {
     (<HTMLButtonElement>document.querySelector("#change_psw")).addEventListener("click", profile_change_psw_page);
-    (<HTMLButtonElement>document.querySelector(".profile-image")).addEventListener("click", profile_change_image);
 });
 
 (<HTMLButtonElement>document.querySelector(".profile-sidebar")).addEventListener("click", event => {

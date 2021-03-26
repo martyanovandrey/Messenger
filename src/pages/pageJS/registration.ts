@@ -85,9 +85,10 @@ function sendData(data) {
   signunApiClient.create(JSON.stringify(data)).then(function(data) {
     console.log('WHAT I GET ');
     console.log(data);
-    window.location = data.responseURL;
+    router.go("/chat");
   });
 }
 
   (<HTMLButtonElement>document.querySelector(".button_bottom")).addEventListener("click", registration);
+
 

@@ -9,7 +9,7 @@ class ChatMembers extends Block {
 #headMenu.page-dialog__wrap
     .page-dialog__head
         .page-dialog__head-image
-            img(src='../../../pages/chat/chat-images/circle.png' alt='')
+            img(src='../../data/circle.png' alt='')
         .page-dialog__head-name
             span#chatMembers  #{chatMembers}
         .page-dialog__head-options

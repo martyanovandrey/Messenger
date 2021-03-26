@@ -8,7 +8,7 @@ import chatRoutes from "./routes/chat.js"
 import profileRoutes from "./routes/profile.js"
 
 import validateSession from "./controllers/validateSession.js"
-import {users} from "./static/pages/storage.js"
+
 
 const __dirname = path.resolve();
 const app = express();

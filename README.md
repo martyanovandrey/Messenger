@@ -1,18 +1,11 @@
-# [Messenger](https://optimistic-bhaskara-25a05f.netlify.app/pages/login/index.html)
-- [Вход](https://optimistic-bhaskara-25a05f.netlify.app/pages/login/index.html)
-- [Регистрация](https://optimistic-bhaskara-25a05f.netlify.app/pages/registration/registration.html)
-- [Чат](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat/chat.html)
-    - [Открытый диалог](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat-dialog/chat-dialog.html)
-    - [Поиск](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat-dialog_search/chat-dialog_search.html)
-    - [Меню](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat-dialog_pop-up/chat-dialog_pop-up.html)
-    - [Добавление нового пользователя в чат](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat/chat-dialog_overlay/chat-dialog_overlay.html)
+# [Messenger](https://optimistic-bhaskara-25a05f.netlify.app/)
+- [Вход](https://optimistic-bhaskara-25a05f.netlify.app/)
+- [Регистрация](https://optimistic-bhaskara-25a05f.netlify.app/signup)
+- [Чат](https://optimistic-bhaskara-25a05f.netlify.app/pages/chat)
 - [Профиль](https://optimistic-bhaskara-25a05f.netlify.app/pages/profile/profile/profile.html)
-    - [Изменение профиля](https://optimistic-bhaskara-25a05f.netlify.app/pages/profile/profile_changes/profile_changes.html)
-    - [Изменение пароля](https://optimistic-bhaskara-25a05f.netlify.app/pages/profile/profile_change_psw/profile_change_psw.html)
-    - [Изменение изображения](https://optimistic-bhaskara-25a05f.netlify.app/pages/profile/profile_change_image/profile_change_image.html)
-- Ошибки
-    - [404](https://optimistic-bhaskara-25a05f.netlify.app/pages/errors/404/404.html)
-    - [500](https://optimistic-bhaskara-25a05f.netlify.app/pages/errors/500/500.html)
+    - [Изменение профиля](https://optimistic-bhaskara-25a05f.netlify.app/pages/profile_changes)
+    - [Изменение пароля](https://optimistic-bhaskara-25a05f.netlify.app/pages/profile/profile_change_psw)
+
 ## Описание
 
 Messenger это веб-приложения для обмена сообщениями.
@@ -29,6 +22,10 @@ Messenger это веб-приложения для обмена сообщен�
 Шаблонизатор [PUG](https://github.com/pugjs/pug) Запустить отдельно компиляцию всех .pug файлов приложения можно командой 
     
     npm build-pug
+
+[POSTCSS](https://github.com/postcss/postcss) Запустить отдельно компиляцию всех .css файлов приложения можно командой
+
+    npm postcss
 
 
 В проекте реализован единый модуль создания блоков и валидации форм. 

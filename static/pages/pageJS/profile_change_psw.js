@@ -3,7 +3,7 @@ import Validation from '../../../utils/input_validation/input_validation.js';
 import { ProfileChangePswAPI } from '../../api/profile-api.js';
 document.querySelector(".profile-sidebar").addEventListener("click", event => {
     event.preventDefault();
-    router.back();
+    router.go("/profile");
 });
 //Validate data
 let node_inputs = document.querySelectorAll('.textinput-profile.right');

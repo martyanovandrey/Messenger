@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 (<HTMLButtonElement>document.querySelector(".profile-sidebar")).addEventListener("click", event => {
     event.preventDefault()
-    router.back();
+    router.go("/chat");
 });
 (<HTMLButtonElement>document.querySelector("#change_data")).addEventListener("click", event => {
     event.preventDefault()

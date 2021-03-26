@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 document.querySelector(".profile-sidebar").addEventListener("click", event => {
     event.preventDefault();
-    router.back();
+    router.go("/chat");
 });
 document.querySelector("#change_data").addEventListener("click", event => {
     event.preventDefault();

@@ -6,7 +6,7 @@ import {ProfileChangePswAPI} from '../../api/profile-api.js'
 
 (<HTMLButtonElement>document.querySelector(".profile-sidebar")).addEventListener("click", event => {
   event.preventDefault()
-  router.back();
+    router.go("/profile");
 });
 
 //Validate data

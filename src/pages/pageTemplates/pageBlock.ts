@@ -1,16 +1,17 @@
-// Page blocks
-import {Block, Router} from "../../utils/router/router.js";
+import {Block} from "../../utils/router/router.js";
 import {loginHTML} from "../pageTemplates/loginPage.js";
 import {registrationHTML} from "../pageTemplates/registrationPage.js";
 import {chatHTML} from "../pageTemplates/chatPage.js";
-import {chatDialogHTML} from "../pageTemplates/chatDialogPage.js";
 import {profileHTML} from "../pageTemplates/profilePage.js";
 import {profileChangesHTML} from "../pageTemplates/profileChanges.js";
 import {profileChangePswHTML} from "../pageTemplates/profileChangePsw.js";
+
+import {store} from "../../utils/store/store.js"
 const pug = require('pug');
 
 
 class loginPage extends Block {
+    private pageData: object;
     constructor() {
         super()
         this.pageData = store.state
@@ -22,7 +23,8 @@ class loginPage extends Block {
     }
 }
 
-class registationPage extends Block {
+class registrationPage extends Block {
+    private pageData: object;
     constructor() {
         super()
         this.pageData = store.state
@@ -35,6 +37,7 @@ class registationPage extends Block {
 }
 
 class chatPage extends Block {
+    private pageData: object;
     constructor() {
         super()
         this.pageData = store.state
@@ -46,19 +49,8 @@ class chatPage extends Block {
     }
 }
 
-class chatDialogPage extends Block {
-    constructor() {
-        super()
-        this.pageData = store.state
-    }
-    getContent(){
-        const compiledFunction = pug.compile(chatDialogHTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML
-    };
-}
-
 class profilePage extends Block {
+    private pageData: object;
     constructor() {
         super()
         this.pageData = store.state
@@ -71,6 +63,7 @@ class profilePage extends Block {
 }
 
 class profileChangesPage extends Block {
+    private pageData: object;
     constructor() {
         super()
         this.pageData = store.state
@@ -83,6 +76,7 @@ class profileChangesPage extends Block {
 }
 
 class profileChangePsw extends Block {
+    private pageData: object;
     constructor() {
         super()
         this.pageData = store.state
@@ -94,5 +88,5 @@ class profileChangePsw extends Block {
     }
 }
 
-export {loginPage, registationPage, chatPage,
-    chatDialogPage, profilePage, profileChangesPage, profileChangePsw}
+export {loginPage, registrationPage, chatPage,
+    profilePage, profileChangesPage, profileChangePsw}

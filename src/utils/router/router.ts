@@ -1,38 +1,46 @@
 class Block {
+    private data: any;
+
     getContent() {
         return this.data
     }
 
     show() {
-        //this.getContent().style.display = "block";
     }
 
     hide() {
-        //this.getContent().style.display = "none";
     }
 }
 
-function isEqual(lhs, rhs) {
+function isEqual(lhs: any, rhs: any) {
     return lhs === rhs;
 }
 
-function render(query, block) {
+function render(query: string, block: { getContent: () => string; }) {
     const root = document.querySelector(query);
     //root.innerHTML = ''
     //root.appendChild(block.getContent());
-    root.innerHTML = block.getContent();
-    return root;
+    if (root) {
+        root.innerHTML = block.getContent();
+        return root;
+    }
+
 }
 
 class Route {
-    constructor(pathname, view, props) {
+    private _pathname: string;
+    private _blockClass: any;
+    private _block: any;
+    private _props: { [k: string]: string; };
+
+    constructor(pathname: string, view: any, props: { [k: string]: string; }) {
         this._pathname = pathname;
         this._blockClass = view;
         this._block = null;
         this._props = props;
     }
 
-    navigate(pathname) {
+    navigate(pathname: string) {
         if (this.match(pathname)) {
             this._pathname = pathname;
             this.render();
@@ -45,40 +53,47 @@ class Route {
         }
     }
 
-    match(pathname) {
+    match(pathname: string) {
         return isEqual(pathname, this._pathname);
     }
 
     render() {
-        if (!this._block) {
+
             this._block = new this._blockClass();
             render(this._props.rootQuery, this._block);
             let location = this._pathname
-            if (location === "/"){
+            if (location === "/") {
+                // @ts-ignore
                 import('../../pages/pageJS/login.js')
-            }
-            else if(location === "/signup"){
+            } else if (location === "/signup") {
+                // @ts-ignore
                 import('../../pages/pageJS/registration.js')
-            } else if (location === "/chat"){
+            } else if (location === "/chat") {
+                // @ts-ignore
                 import('../../pages/pageJS/chat.js')
-            } else if (location === "/profile"){
+            } else if (location === "/profile") {
+                // @ts-ignore
                 import('../../pages/pageJS/profile.js')
-            }   else if (location === "/profile_changes"){
+            } else if (location === "/profile_changes") {
+                // @ts-ignore
                 import('../../pages/pageJS/profile_changes.js')
-            }   else if (location === "/profile_change_psw") {
+            } else if (location === "/profile_change_psw") {
+                // @ts-ignore
                 import('../../pages/pageJS/profile_change_psw.js')
-            }   else if (location === "/chat_dialog") {
-                import('../../pages/pageJS/chat_dialog.js')
             }
             return;
-        }
 
-        this._block.show();
     }
 }
 
 class Router {
-    constructor(rootQuery) {
+    private static __instance: any;
+    private _currentRoute: any;
+    private _rootQuery: string;
+    private history: History;
+    private routes: any[];
+
+    constructor(rootQuery: string) {
         if (Router.__instance) {
             return Router.__instance;
         }
@@ -86,12 +101,11 @@ class Router {
         this.history = window.history;
         this._currentRoute = null;
         this._rootQuery = rootQuery;
-
         Router.__instance = this;
 
     }
 
-    use(pathname, block) {
+    use(pathname: string, block: any) {
         const route = new Route(pathname, block, {rootQuery: this._rootQuery});
         this.routes.push(route);
         return this;
@@ -100,7 +114,7 @@ class Router {
     start() {
         // Реагируем на изменения в адресной строке и вызываем перерисовку
         //this.history.pushState({}, "", window.location.pathname);
-        window.onpopstate = event => {
+        window.onpopstate = (event: any) => {
             //this.history.pushState({}, "", event.currentTarget.location.pathname); хотел добавить, потому что при инициализации первой стрпаницы не попадает в попстейт ничего
             this._onRoute(event.currentTarget.location.pathname);
         };
@@ -108,7 +122,7 @@ class Router {
         this._onRoute(window.location.pathname);
     }
 
-    _onRoute(pathname) {
+    _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
 
         if (this._currentRoute) {
@@ -119,58 +133,26 @@ class Router {
         route.render(route, pathname);
     }
 
-    go(pathname) {
+    go(pathname: string) {
         this.history.pushState({}, "", pathname);
         this._onRoute(pathname);
     }
 
     back() {
         this.history.back()
-/*        let thisPathname = window.location.pathname
-        let thisBlock = this.getRoute(thisPathname)
-        thisBlock.navigate(thisPathname)*/
-
     }
 
     forward() {
         this.history.forward()
-/*        let thisPathname = window.location.pathname
-        let thisBlock = this.getRoute(thisPathname)
-        thisBlock.navigate(thisPathname)*/
-
     }
 
-    getRoute(pathname) {
+    getRoute(pathname: string) {
         return this.routes.find(route => route.match(pathname));
     }
 }
 
+const router = new Router('.block-wrapper');
 
-// Необходимо оставить в силу особенностей тренажёра
-//history.pushState({}, '', '/');
 
-export {Router, Block}
 
-//const router = new Router(".app");
-
-/*
-// Можно обновиться на /user и получить сразу пользователя
-router
-    .use("/", Chats)
-    .use("/users", Users)
-    .start();
-
-// Через секунду контент изменится сам, достаточно дёрнуть переход
-setTimeout(() => {
-    router.go("/users");
-}, 1000);
-
-// А можно и назад
-setTimeout(() => {
-    router.back();
-}, 3000);
-
-// И снова вперёд
-setTimeout(() => {
-    router.forward();
-}, 5000);*/
+export { router, Block }

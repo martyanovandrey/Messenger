@@ -31,7 +31,7 @@ function Validation(input_element) {
             message: "Password must contains a digit, uppercase and lowercase letter, any character and be at least 6 characters long"
         },
         "email": {
-            regExp_value: "^[\\w-\\.]+@[\w-]+\\.[a-z]{2,15}$",
+            regExp_value: "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
             message: "Email must contains @ and be from 2 to 15 characters long"
         },
         "tel": {

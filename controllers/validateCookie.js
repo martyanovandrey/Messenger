@@ -1,5 +1,3 @@
-
-
 const validateCookie = (req, res, next) => {
     const { cookies } = req;
     console.log(req.url);
@@ -16,9 +14,7 @@ const validateCookie = (req, res, next) => {
     } else {
         console.log('Session ID does not exist');
         res.status(403).send({server_msg: 'Session ID does not exist'})
-        /*res.redirect("/")*/
     }
-
 }
 
 export default validateCookie

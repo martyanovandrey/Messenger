@@ -1,24 +1,23 @@
-import { Button, render } from '../../../components/button/button.js';
-import Validation from '../../../utils/input_validation/input_validation.js';
-import { ProfileChangeAPI } from '../../../api/profile-api.js';
+import { Button, render } from '../../components/button/button.js';
+import Validation from '../../utils/input_validation/input_validation.js';
+import { ProfileChangeAPI } from '../../api/profile-api.js';
+import { store } from "../../utils/store/store.js";
+import { router } from "../../utils/router/router.js";
 document.querySelector(".profile-sidebar").addEventListener("click", event => {
     event.preventDefault();
     router.back();
 });
 function profile_change() {
-    console.log("test profile_change f<=-================");
     let form = document.querySelector('form');
     let formData = new FormData(form);
     let data = {};
     formData.forEach((value, key) => { data[key] = value; });
-    let data_json = JSON.stringify(data);
     input_select.find((el) => {
         if (!(Validation(el))) {
             console.log(`${el.placeholder} not valid`);
         }
     });
-    console.log(data_json);
-    return data_json;
+    return data;
 }
 //Validate data
 let node_inputs = document.querySelectorAll('.textinput-profile.right');
@@ -67,12 +66,10 @@ document.querySelector("#change_button").addEventListener("click", event => {
     event.preventDefault();
     let data = profile_change();
     let profileChangeApiClient = new ProfileChangeAPI();
-    profileChangeApiClient.update(data).then(function (data) {
-        console.log(JSON.parse(data.response), 'CHAGE DATA STOREEEE');
+    profileChangeApiClient.update(JSON.stringify(data)).then(function (data) {
+        console.log(data.response, 'CHAGE DATA STOREEEE');
         store.update(changeData(JSON.parse(data.response)));
         console.log(store.state, 'STOREEEESTOREEEESTOREEEESTOREEEE');
-        //window.location = '/profile';
-        router.go("/profile");
-    });
+    }).then(() => router.go("/profile"));
 });
 //# sourceMappingURL=profile_changes.js.map

@@ -11,13 +11,6 @@ export const chats = (req, res) => {
     res.status(200).send(userName)
 }
 
-/*
-export const remove = (req, res) => {
-    console.log('ID', req.params.id)
-    users = users.filter(s => s.id !== req.params.id)
-    res.json({message: 'Deleted'})
-}
-*/
 
 
 

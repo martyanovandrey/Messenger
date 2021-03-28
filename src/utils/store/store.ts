@@ -1,17 +1,16 @@
-import cloneDeep from "../cloneDeep/cloneDeep.js";
-
-function updateState(state, action) {
+function updateState(state:any, action: { type: string; data: object; }) {
     if (action.type === 'CHANGEDATA'){
         console.log('IM CHANGEDATA');
-        return cloneDeep(state, action.data)
+        return Object.assign(state, action.data)
     }
 }
 
-const changeData = {type: 'CHANGEDATA', data: {}}
+class Store{
+    private _updateState: any;
+    private _state: any;
+    private _callbacks: any;
 
-
-export default class Store{
-    constructor(updateState, state) {
+    constructor(updateState:any, state: any) {
         this._updateState = updateState;
         this._state = state;
         this._callbacks = [];
@@ -21,39 +20,30 @@ export default class Store{
         return this._state
     }
 
-    update(action){
+    update(action: { type: string; data: any; }){
         this._state = this._updateState(this._state, action)
-        this._callbacks.forEach(callback => callback())
+        this._callbacks.forEach((callback: () => void) => callback())
     }
 
-    subscribe(callback){
+    subscribe(callback: void){
         this._callbacks.push(callback)
-        return () => this._callbacks = this._callbacks.filter(cb => cb !== callback)
+        return () => this._callbacks = this._callbacks.filter((cb: void) => cb !== callback)
     }
 
 }
-const initialState = {count: 0}
 
-let usersData = [
-    {
-        id: '1',
-        first_name: "User",
-        second_name: "test",
-        display_name: "test",
-        login: "test",
-        email: "test",
-        password: "test",
-        phone: "test",
-    }, {
-        id: '2',
-        first_name: "Joe",
-        second_name: "test2",
-        display_name: "test2",
-        login: "test2",
-        email: "test2",
-        password: "test2",
-        phone: "test2"
-    },
-]
+const initialstate = {
+    id: '1',
+    first_name: "User",
+    second_name: "test",
+    display_name: "test",
+    login: "test",
+    email: "test",
+    password: "test",
+    phone: "test",
+    userMessage: "Wuzzzuuuuuup",
+    myMessage: "Wuzzzuuuuuuuuuuuuuuuuuuuup"
+}
 
-export const users = new Store(usersData, initialState)
+export const store = new Store(updateState, initialstate)
+

@@ -1,11 +1,13 @@
-import { ChatMembers } from '../../components/chatMembers/chatMembers.js';
-import { ChatList, render } from '../../components/chatList/chatList.js';
-import { router } from "../../utils/router/router.js";
-document.querySelector(".search__profile").addEventListener("click", event => {
+"use strict";
+exports.__esModule = true;
+var chatMembers_js_1 = require("../../components/chatMembers/chatMembers.js");
+var chatList_js_1 = require("../../components/chatList/chatList.js");
+var router_js_1 = require("../../utils/router/router.js");
+document.querySelector(".search__profile").addEventListener("click", function (event) {
     event.preventDefault();
-    router.go("/profile");
+    router_js_1.router.go("/profile");
 });
-let chatProps = [{
+var chatProps = [{
         id: '1',
         name: 'User',
         text: 'Hello!',
@@ -17,14 +19,14 @@ let chatProps = [{
         text: 'Hi!',
         date: '13:37'
     }];
-const chatList = new ChatList({ title: 'chatProps', users: chatProps });
-render(".page_chat_list", chatList);
-let chatListUsersUpdate = ['User'];
-let chats = document.querySelectorAll('.chat-list__element');
-chats.forEach((el) => {
+var chatList = new chatList_js_1.ChatList({ title: 'chatProps', users: chatProps });
+chatList_js_1.render(".page_chat_list", chatList);
+var chatListUsersUpdate = ['User'];
+var chats = document.querySelectorAll('.chat-list__element');
+chats.forEach(function (el) {
     el.addEventListener("click", openChatDialog);
     function openChatDialog() {
-        let chatUsers = this.dataset.name;
+        var chatUsers = this.dataset.name;
         if (chatListUsersUpdate[0] === chatUsers) {
             console.log('same');
         }
@@ -32,27 +34,27 @@ chats.forEach((el) => {
             chatListUsersUpdate = [];
             chatListUsersUpdate.push(chatUsers);
         }
-        let blankMessage = document.querySelector('.dialog-text.dialog-mask');
-        let pageDialog = document.querySelector('.page-dialog');
+        var blankMessage = document.querySelector('.dialog-text.dialog-mask');
+        var pageDialog = document.querySelector('.page-dialog');
         if (blankMessage) {
             blankMessage.remove();
         }
         else {
             pageDialog.innerHTML = '';
         }
-        const chatMembers = new ChatMembers({ title: 'chatProps', chatMembers: chatListUsersUpdate });
-        render(".page-dialog", chatMembers);
-        let headMenu = document.getElementById('headMenu');
+        var chatMembers = new chatMembers_js_1.ChatMembers({ title: 'chatProps', chatMembers: chatListUsersUpdate });
+        chatList_js_1.render(".page-dialog", chatMembers);
+        var headMenu = document.getElementById('headMenu');
         new Menu(headMenu);
     }
 });
-class Menu {
-    constructor(elem) {
+var Menu = /** @class */ (function () {
+    function Menu(elem) {
         console.log(elem);
-        elem.onclick = this.onClick.bind(this);
+        elem.onclick = this.onClick.bind(this); // (*)
     }
-    menu(event) {
-        let menuPopup = document.querySelector('.page-dialog__pop-up.user-menu');
+    Menu.prototype.menu = function (event) {
+        var menuPopup = document.querySelector('.page-dialog__pop-up.user-menu');
         if (menuPopup) {
             if (!menuPopup.hidden) {
                 menuPopup.style.left = (event.clientX - menuPopup.offsetWidth) + 'px';
@@ -62,9 +64,9 @@ class Menu {
         else {
             console.log('menuPopup not found on page');
         }
-    }
-    menuAdd(event) {
-        let menuAddPopup = document.getElementById('addMenu');
+    };
+    Menu.prototype.menuAdd = function (event) {
+        var menuAddPopup = document.getElementById('addMenu');
         if (menuAddPopup) {
             if (!menuAddPopup.hidden) {
                 menuAddPopup.style.left = (event.clientX - menuAddPopup.offsetWidth) + 'px';
@@ -74,9 +76,9 @@ class Menu {
         else {
             console.log('menuAddPopup not found on page');
         }
-    }
-    addUser() {
-        let addUserMenu = document.getElementById('addUserMenu');
+    };
+    Menu.prototype.addUser = function () {
+        var addUserMenu = document.getElementById('addUserMenu');
         if (addUserMenu) {
             chatListUsersUpdate.push(addUserMenu.value);
             addUserMenu.hidden;
@@ -85,9 +87,9 @@ class Menu {
         else {
             console.log('addUserMenu not found on page');
         }
-    }
-    menuDelete(event) {
-        let menuDeletePopup = document.getElementById('deleteMenu');
+    };
+    Menu.prototype.menuDelete = function (event) {
+        var menuDeletePopup = document.getElementById('deleteMenu');
         if (menuDeletePopup) {
             if (!menuDeletePopup.hidden) {
                 menuDeletePopup.style.left = (event.clientX - menuDeletePopup.offsetWidth) + 'px';
@@ -97,19 +99,19 @@ class Menu {
         else {
             console.log('menuDeletePopup not found on page');
         }
-    }
-    attach() {
-        let menuAttachPopup = document.querySelector('.page-dialog__pop-up.photo-file-menu');
+    };
+    Menu.prototype.attach = function () {
+        var menuAttachPopup = document.querySelector('.page-dialog__pop-up.photo-file-menu');
         if (menuAttachPopup) {
             menuAttachPopup.hidden = !menuAttachPopup.hidden;
         }
         else {
             console.log('menuAttachPopup not found on page');
         }
-    }
-    onClick(event) {
+    };
+    Menu.prototype.onClick = function (event) {
         if (event.target instanceof HTMLElement) {
-            let action = event.target.dataset.action;
+            var action = event.target.dataset.action;
             console.log(event.target.closest('button'));
             console.log(event);
             console.log(action);
@@ -117,7 +119,7 @@ class Menu {
                 this[action](event);
             }
         }
-    }
+    };
     ;
-}
-//# sourceMappingURL=chat.js.map
+    return Menu;
+}());

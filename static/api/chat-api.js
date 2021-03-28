@@ -1,7 +1,6 @@
-// chat-api.js
 import { HTTPTransport } from '../utils/xhr/xhr.js';
 import { BaseAPI } from './base-api.js';
-const chatAPIInstance = new HTTPTransport();
+const chatAPIInstance = new HTTPTransport('api/v1/chats');
 let options = {
     headers: {
         'Content-Type': 'application/json'
@@ -9,22 +8,8 @@ let options = {
 };
 class ChatAPI extends BaseAPI {
     create(data) {
-        // Здесь уже не нужно писать полный путь /api/v1/chats/
-        return chatAPIInstance.post('api/v1/chats', Object.assign(Object.assign({}, options), { data }));
-    }
-    request() {
-        // Здесь уже не нужно писать полный путь /api/v1/chats/
-        return chatAPIInstance.get('/full');
+        return chatAPIInstance.post('/', Object.assign(Object.assign({}, options), { data }));
     }
 }
 export { ChatAPI };
-// chat-messages-api.js
-/*
-const chatMessagesAPIInstance = new HTTP('api/v1/messages');
-
-class ChatMessagesAPI extends BaseAPI {
-    request({id}) {
-        return chatMessagesAPIInstance.get(`/${id}`);
-    }
-}*/
 //# sourceMappingURL=chat-api.js.map

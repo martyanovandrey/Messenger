@@ -5,7 +5,7 @@ interface Props {
 }
 
 class Button extends Block {
-    props: Props
+
     constructor(props: Props) {
       super("button", props);
     }
@@ -15,7 +15,7 @@ class Button extends Block {
     }
   }
 
-function render(query:string, block) {
+function render(query:string, block: Button) {
   const root = <Element>document.querySelector(query);
     console.log(block.getContent());
     root.appendChild(block.getContent());
@@ -23,5 +23,9 @@ function render(query:string, block) {
   return root;
 }
 
+
+
+
+
 export {Button, render}
-  
+

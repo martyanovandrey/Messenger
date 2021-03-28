@@ -2,13 +2,10 @@ import Block from '../../utils/block/block.js'
 
 const pug = require('pug');
 
-interface Props {
-    text: string
-}
-
 class ChatMembers extends Block {
-    props: Props
-    constructor(props: Props) {
+
+
+    constructor(props: { chatMembers: string[]; title: string }) {
         super("div", props);
     }
 
@@ -129,11 +126,10 @@ class ChatMembers extends Block {
     }
 }
 
-function render(query:string, block) {
+function render(query:string, block: ChatMembers) {
     const root = <Element>document.querySelector(query);
     console.log(block.getContent());
     root.appendChild(block.getContent().firstChild);
-
     return root;
 }
 

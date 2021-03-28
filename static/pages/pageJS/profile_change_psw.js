@@ -1,6 +1,8 @@
-import { Button, render } from '../../../components/button/button.js';
-import Validation from '../../../utils/input_validation/input_validation.js';
+import { Button, render } from '../../components/button/button.js';
+import Validation from '../../utils/input_validation/input_validation.js';
 import { ProfileChangePswAPI } from '../../api/profile-api.js';
+import { store } from "../../utils/store/store.js";
+import { router } from "../../utils/router/router.js";
 document.querySelector(".profile-sidebar").addEventListener("click", event => {
     event.preventDefault();
     router.go("/profile");
@@ -55,15 +57,13 @@ document.querySelector(".button_type_submit").addEventListener("click", event =>
     let formData = new FormData(form);
     let data = {};
     formData.forEach((value, key) => { data[key] = value; });
-    let data_json = JSON.stringify(data);
     input_select.find((el) => {
         if (!(Validation(el))) {
             console.log(`${el.placeholder} not valid`);
         }
     });
-    console.log(data_json);
     let profileChangeApiClient = new ProfileChangePswAPI();
-    profileChangeApiClient.update(data_json).then(function (data) {
+    profileChangeApiClient.update(JSON.stringify(data)).then(function (data) {
         store.update(changeData(JSON.parse(data.response)));
         router.go("/profile");
     });

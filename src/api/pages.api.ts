@@ -10,25 +10,21 @@ let options = {
 let signAPIInstance = new HTTPTransport();
 
 class SigninPageAPI extends BaseAPI {
-    create(data) {
-        // Здесь уже не нужно писать полный путь /api/v1/chats/
+    create(data:string): Promise<XMLHttpRequest> {
         return signAPIInstance.post('/', {...options, data});
     }
 
     request() {
-        // Здесь уже не нужно писать полный путь /api/v1/chats/
         return signAPIInstance.get('/', {...options});
     }
 }
 
 class SignupPageAPI extends BaseAPI {
-    create(data) {
-        // Здесь уже не нужно писать полный путь /api/v1/chats/
+    create(data:string): Promise<XMLHttpRequest> {
         return signAPIInstance.post('/signup', {...options, data});
     }
 
     request() {
-        // Здесь уже не нужно писать полный путь /api/v1/chats/
         return signAPIInstance.get('/signup', {...options});
     }
 }

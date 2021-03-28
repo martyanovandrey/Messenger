@@ -1,13 +1,12 @@
 import Block from '../../utils/block/block.js'
+import {ChatMembers} from "../chatMembers/chatMembers";
 const pug = require('pug');
 
-interface Props {
-    text: string
-}
+
 
 class ChatList extends Block {
-    props: Props
-    constructor(props: Props) {
+
+    constructor(props: { title: string; users: ({ date: string; badge: string; name: string; id: string; text: string } | { date: string; name: string; id: string; text: string })[] }) {
         super("div", props);
     }
 
@@ -30,15 +29,13 @@ ul.chat-list
                         span.chat_meta_badge= user.badge
 `
         const compiledFunction = pug.compile(pugData);
-        console.log(this.props.name, 'here <---------------');
         let doneHTML = compiledFunction(this.props);
         return doneHTML
     }
 }
 
-function render(query:string, block) {
+function render(query:string, block: ChatList | ChatMembers) {
     const root = <Element>document.querySelector(query);
-    console.log(block.getContent());
     root.appendChild(block.getContent().firstChild);
     return root;
 }

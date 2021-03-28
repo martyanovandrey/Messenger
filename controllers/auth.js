@@ -3,8 +3,7 @@ import {users} from '../static/pages/storage.js'
 
 export const signup = (req, res) => {
     const newUser = {id: v4(), ...req.body}
-    console.log(req.body)
-    console.log(users)
+    console.log(req.body, 'IM SIGNUP')
     if (users.find(el => el.email === newUser.email)) {
         res.status(400).send({
             message: 'This email already used!'
@@ -17,8 +16,7 @@ export const signup = (req, res) => {
     const name = req.body.name
     console.log(newUser)
     users.push(newUser)
-
-    res.redirect('/chat')
+    res.status(200).json(newUser)
 }
 
 export const signin = (req, res) => {
@@ -48,14 +46,6 @@ export const logout = (req, res) => {
     console.log("logout")
     res.status(201).json(newUser)
 }
-
-/*
-export const remove = (req, res) => {
-    console.log('ID', req.params.id)
-    users = users.filter(s => s.id !== req.params.id)
-    res.json({message: 'Deleted'})
-}
-*/
 
 
 

@@ -1,7 +1,12 @@
-import {Button, render} from '../../../components/button/button.js';
-import Validation from '../../../utils/input_validation/input_validation.js';
+import {Button, render} from '../../components/button/button.js';
+import Validation from '../../utils/input_validation/input_validation.js';
 import {ProfileChangePswAPI} from '../../api/profile-api.js'
+import {store} from "../../utils/store/store.js"
+import {router} from "../../utils/router/router.js";
 
+interface Data {
+    [key: string]: string;
+}
 
 
 (<HTMLButtonElement>document.querySelector(".profile-sidebar")).addEventListener("click", event => {
@@ -39,8 +44,6 @@ input_select.map((el: HTMLInputElement) => {
   });
 })
 
-
-
 //Create button
 const button = new Button({
   text: 'Сохранить',
@@ -54,7 +57,7 @@ button_div_b.type = 'submit';
 const button_span = button_div_b.firstElementChild as HTMLSpanElement;
 button_span.classList.add("button-text");
 
-function changeData(data){
+function changeData(data: object){
   return {type: 'CHANGEDATA', data: data}
 }
 
@@ -64,23 +67,19 @@ function changeData(data){
     console.log(`gogo`)
     let form = (<HTMLFormElement>document.querySelector('form'));
     let formData = new FormData(form);
-    interface Data {
-      [key: string]: string;
-    }
+
     let data: Data = {}
 
     formData.forEach((value: string, key: string) => {data[key] = value});
-    let data_json = JSON.stringify(data);
 
     input_select.find((el: HTMLInputElement) => {
       if (!(Validation(el))) {
         console.log(`${el.placeholder} not valid`)
       }
     })
-    console.log(data_json)
     let profileChangeApiClient = new ProfileChangePswAPI()
-    profileChangeApiClient.update(data_json).then(function(data) {
+    profileChangeApiClient.update(JSON.stringify(data)).then(function(data) {
       store.update(changeData(JSON.parse(data.response)))
       router.go("/profile");
-    }
-  } );
+    })
+  })

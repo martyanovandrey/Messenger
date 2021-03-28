@@ -7,24 +7,24 @@ let options = {
     }
 }
 
-let profileAPIInstance = new HTTPTransport();
+let profileAPIInstance = new HTTPTransport('/api/v1/user');
 class ProfileAPI extends BaseAPI {
-    update(data) {
-        return profileAPIInstance.put('/api/v1/user/profile', {...options, data});
+    update(data:string): Promise<XMLHttpRequest> {
+        return profileAPIInstance.put('/profile', {...options, data});
     }
 }
 
-let profileChange = new HTTPTransport();
+let profileChange = new HTTPTransport('/api/v1/user');
 class ProfileChangeAPI extends BaseAPI {
-    update(data) {
-        return profileChange.put('/api/v1/user/profile/change', {...options, data});
+    update(data:string): Promise<XMLHttpRequest> {
+        return profileChange.put('/profile/change', {...options, data});
     }
 }
 
 let profileChangePsw = new HTTPTransport();
 class ProfileChangePswAPI extends BaseAPI {
-    update(data) {
-        return profileChangePsw.put('/api/v1/user/password/change', {...options, data});
+    update(data:string): Promise<XMLHttpRequest> {
+        return profileChangePsw.put('/password/change', {...options, data});
     }
 }
 

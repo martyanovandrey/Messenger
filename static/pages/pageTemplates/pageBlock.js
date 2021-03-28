@@ -1,12 +1,11 @@
-// Page blocks
 import { Block } from "../../utils/router/router.js";
 import { loginHTML } from "../pageTemplates/loginPage.js";
 import { registrationHTML } from "../pageTemplates/registrationPage.js";
 import { chatHTML } from "../pageTemplates/chatPage.js";
-import { chatDialogHTML } from "../pageTemplates/chatDialogPage.js";
 import { profileHTML } from "../pageTemplates/profilePage.js";
 import { profileChangesHTML } from "../pageTemplates/profileChanges.js";
 import { profileChangePswHTML } from "../pageTemplates/profileChangePsw.js";
+import { store } from "../../utils/store/store.js";
 const pug = require('pug');
 class loginPage extends Block {
     constructor() {
@@ -19,7 +18,7 @@ class loginPage extends Block {
         return loginDoneHTML;
     }
 }
-class registationPage extends Block {
+class registrationPage extends Block {
     constructor() {
         super();
         this.pageData = store.state;
@@ -40,18 +39,6 @@ class chatPage extends Block {
         let chatDoneHTML = compiledFunction(this.pageData);
         return chatDoneHTML;
     }
-}
-class chatDialogPage extends Block {
-    constructor() {
-        super();
-        this.pageData = store.state;
-    }
-    getContent() {
-        const compiledFunction = pug.compile(chatDialogHTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML;
-    }
-    ;
 }
 class profilePage extends Block {
     constructor() {
@@ -87,5 +74,5 @@ class profileChangePsw extends Block {
         return doneHTML;
     }
 }
-export { loginPage, registationPage, chatPage, chatDialogPage, profilePage, profileChangesPage, profileChangePsw };
+export { loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw };
 //# sourceMappingURL=pageBlock.js.map

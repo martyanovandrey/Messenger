@@ -14,7 +14,6 @@ var Block = /** @class */ (function () {
         if (props === void 0) { props = {}; }
         this._element = null;
         this._meta = null;
-        this.props = {};
         this.setProps = function (nextProps) {
             if (!nextProps) {
                 return;
@@ -93,9 +92,8 @@ var Block = /** @class */ (function () {
         return this.element;
     };
     Block.prototype._makePropsProxy = function (props) {
-        // Можно и так передать this
+        // Можно и так передать const self = this;
         // Такой способ больше не применяется с приходом ES6+
-        var self = this;
         props = new Proxy(props, {
             deleteProperty: function (target, prop) {
                 throw Error('Нет доступа');

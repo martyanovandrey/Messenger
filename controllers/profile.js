@@ -14,6 +14,7 @@ export const profileChange = (req, res) => {
     let login = 'test'
     let userName = users.find(x => x.login === login);
     let data = req.body
+    console.log(data);
     Object.values(data).forEach(value => {
         if(!value){
             res.status(400).send({
@@ -21,21 +22,13 @@ export const profileChange = (req, res) => {
             });
         }
     })
-    Object.assign(userName, data)
+    //Object.assign(userName, data)
     console.log(userName);
-    res.status(200).send(userName)
+    res.status(200).send(data)
 }
 
 export const avatar = (req, res) => {
-    // const newUser = {id: v4(), ...req.body}
-    // if (users.find(el => el.email === newUser.email)) {
-    //     res.status(400).send({
-    //         message: 'This email already used!'
-    //     });
-    // }
-    // console.log(newUser)
-    // users.push(newUser)
-    // res.status(201).json(newUser)
+
 }
 
 export const password = (req, res) => {
@@ -58,8 +51,7 @@ export const password = (req, res) => {
 }
 
 export  const getUserById = (req, res) => {
-/*    console.log('getUser')
-    res.status(200).json(auth)*/
+
 }
 
 export const search = (req, res) => {

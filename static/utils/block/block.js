@@ -1,15 +1,9 @@
 import EventBus from '../event-bus/event-bus.js';
+//не вышло сделать с onClick
 export default class Block {
-    /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
     constructor(tagName = "div", props = {}) {
         this._element = null;
         this._meta = null;
-        this.props = {};
         this.setProps = (nextProps) => {
             if (!nextProps) {
                 return;
@@ -46,6 +40,7 @@ export default class Block {
         this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }
     // Может переопределять пользователь, необязательно трогать
+    // @ts-ignore
     componentDidMount(oldProps) { }
     _componentDidUpdate(oldProps, newProps) {
         const response = this.componentDidUpdate(oldProps, newProps);
@@ -84,10 +79,10 @@ export default class Block {
         return this.element;
     }
     _makePropsProxy(props) {
-        // Можно и так передать this
+        // Можно и так передать const self = this;
         // Такой способ больше не применяется с приходом ES6+
-        const self = this;
         props = new Proxy(props, {
+            // @ts-ignore
             deleteProperty(target, prop) {
                 throw Error('Нет доступа');
             }

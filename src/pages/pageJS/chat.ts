@@ -1,76 +1,12 @@
-import Validation from "../../utils/input_validation/input_validation";
-import {HTTPTransport} from "../../utils/xhr/xhr.js";
-import {ChatAPI} from "../../api/chat-api.js";
-import {EventBus} from "../../../static/utils/event-bus/event-bus.js"
 import {ChatMembers} from '../../components/chatMembers/chatMembers.js';
 import {ChatList, render} from '../../components/chatList/chatList.js';
-const pug = require('pug');
-
-document.addEventListener('DOMContentLoaded', function () {
-    (<HTMLButtonElement>document.querySelector(".button")).addEventListener("click", popup);
-});
+import {router} from "../../utils/router/router.js";
 
 (<HTMLButtonElement>document.querySelector(".search__profile")).addEventListener("click", event => {
     event.preventDefault()
     router.go("/profile");
 });
-/*(<HTMLButtonElement>document.getElementById("1")).addEventListener("click", event => {
-    event.preventDefault()
-    router.go("/chat_dialog");
-});*/
 
-
-
-
-
-/*let chats = document.querySelectorAll('.chat-list__element')
-chats.forEach((el) => {
-    el.addEventListener("click", function test(id) {chat(this.id)});
-})
-//(<HTMLButtonElement>document.querySelector(".chat_link")).addEventListener("click", chat(this.id));
-
-
-function chat(id):void {
-    //let userName = document.getElementById('1');
-    let data = {id: id}
-    sendData(data)
-
-}*/
-
-//Send req
-/*function sendData(data){
-
-    let chatPage = new ChatAPI()
-    chatPage.create(JSON.stringify(data)).then(function(data) {
-        console.log('WHAT I GET ');
-        console.log(data);
-        let textBlock = document.querySelector('.dialog-text.dialog-mask')
-        if (textBlock === null){
-            console.log("test");
-            textBlock = document.querySelector('.page-dialog__wrap')
-        }
-        textBlock.style.display = "none"
-        let dialogBlock = document.querySelector('.page-dialog')
-        dialogBlock.innerHTML = data.response
-    });
-}*/
-
-
-//(<HTMLButtonElement>document.querySelector(".button.button_send")).addEventListener("click", message);
-
-function message():void {
-    interface Data {
-        message: String
-    }
-    let data: Data = {
-        message: ''
-    }
-
-    data.message = (<HTMLInputElement>document.querySelector('textarea[name="message"]')).value
-    console.log(data)
-}
-
-//Create button
 let chatProps = [{
     id: '1',
     name: 'User',
@@ -84,52 +20,25 @@ let chatProps = [{
     date: '13:37'
 }]
 
-let chatProps2 = [{
-    id: '13',
-    name: 'Us12312312312er',
-    text: 'Hello!',
-    date: '13:37',
-    badge: '4'
-}]
-
 const chatList = new ChatList({ title: 'chatProps', users: chatProps});
 render(".page_chat_list", chatList);
 
-//chatList.setProps({ title: 'chatProps', users: chatProps2 })
-
-
-
 let chatListUsersUpdate = ['User']
-//window.chatListUsersUpdate = chatListUsersUpdate
-/*function changeData(data){
-    return {type: 'CHANGEDATA', data: data}
-}
-
-function mergeData(data){
-    return {type: 'MERGEDATA', data: data}
-}
-console.log(store.state, 'STATEEEEE')
-console.log(chatListUsersUpdate.chatListUsers)
-store.update(mergeData(chatListUsersUpdate.chatListUsers))
-console.log(store.state, 'STATEEEEE')*/
-
-
 
 let chats = document.querySelectorAll('.chat-list__element')
 chats.forEach((el) => {
 
     el.addEventListener("click", openChatDialog);
     function openChatDialog(){
-        let chatUsers = this.dataset.name
+        let chatUsers: string = this.dataset.name
         if(chatListUsersUpdate[0] === chatUsers){
             console.log('same');
         } else {
             chatListUsersUpdate = []
             chatListUsersUpdate.push(chatUsers)
         }
-
         let blankMessage = document.querySelector('.dialog-text.dialog-mask')
-        let pageDialog = document.querySelector('.page-dialog')
+        let pageDialog = (<HTMLElement>document.querySelector('.page-dialog'))
         if(blankMessage){
             blankMessage.remove()
         } else {
@@ -137,61 +46,84 @@ chats.forEach((el) => {
         }
         const chatMembers = new ChatMembers({title: 'chatProps', chatMembers: chatListUsersUpdate});
         render(".page-dialog", chatMembers);
+        let headMenu = (<HTMLElement>document.getElementById('headMenu'))
         new Menu(headMenu);
     }
-
 })
 
+interface IRawParams {
+    [key: string]: any
+}
 
-class Menu {
-    constructor(elem) {
-        this._elem = elem;
+class Menu implements IRawParams{
+    [k: string]: any;
+
+    constructor(elem: HTMLElement) {
         console.log(elem);
-        elem.onclick = this.onClick.bind(this); // (*)
+        elem.onclick = this.onClick.bind(this);
     }
-    menu(event) {
-        let menuPopup = document.querySelector('.page-dialog__pop-up.user-menu')
-        if (!menuPopup.hidden){
-            menuPopup.style.left = (event.clientX - menuPopup.offsetWidth) + 'px';
+    menu(event: MouseEvent) {
+        let menuPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.user-menu')
+        if (menuPopup){
+            if (!menuPopup.hidden){
+                menuPopup.style.left = (event.clientX - menuPopup.offsetWidth) + 'px';
+            }
+            menuPopup.hidden = !menuPopup.hidden;
+        } else {
+            console.log('menuPopup not found on page');
         }
-        menuPopup.hidden = !menuPopup.hidden;
     }
-    menuAdd (event) {
-        let menuAddPopup = document.getElementById('addMenu')
-        if (!menuAddPopup.hidden){
-            menuAddPopup.style.left = (event.clientX - menuAddPopup.offsetWidth) + 'px';
+    menuAdd (event: MouseEvent) {
+        let menuAddPopup: HTMLElement | null = document.getElementById('addMenu')
+        if (menuAddPopup){
+            if (!menuAddPopup.hidden){
+                menuAddPopup.style.left = (event.clientX - menuAddPopup.offsetWidth) + 'px';
+            }
+            menuAddPopup.hidden = !menuAddPopup.hidden
+        } else {
+            console.log('menuAddPopup not found on page');
         }
-        menuAddPopup.hidden = !menuAddPopup.hidden;
     }
-    addUser (event) {
-        let addUserMenu = document.getElementById('addUserMenu')
-        let chatMembersDiv = document.getElementById('chatMembers')
-        chatListUsersUpdate.push(addUserMenu.value)
-        addUserMenu.hidden
-        //chatMembers.setProps({title: 'chatProps', chatMembers: chatListUsersUpdate});
-
-    }
-    menuDelete (event) {
-        let menuDeletePopup = document.getElementById('deleteMenu')
-        if (!menuDeletePopup.hidden){
-            menuDeletePopup.style.left = (event.clientX - menuDeletePopup.offsetWidth) + 'px';
+    addUser () {
+        let addUserMenu = (<HTMLInputElement>document.getElementById('addUserMenu'));
+        if (addUserMenu) {
+            chatListUsersUpdate.push(addUserMenu.value)
+            addUserMenu.hidden
+            //chatMembers.setProps({title: 'chatProps', chatMembers: chatListUsersUpdate});
+        } else {
+            console.log('addUserMenu not found on page');
         }
-        menuDeletePopup.hidden = !menuDeletePopup.hidden;
+    }
+    menuDelete (event: MouseEvent) {
+        let menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu')
+        if (menuDeletePopup) {
+            if (!menuDeletePopup.hidden) {
+                menuDeletePopup.style.left = (event.clientX - menuDeletePopup.offsetWidth) + 'px';
+            }
+            menuDeletePopup.hidden = !menuDeletePopup.hidden;
+        } else {
+            console.log('menuDeletePopup not found on page');
+        }
     }
     attach () {
-        let menuAttachPopup = document.querySelector('.page-dialog__pop-up.photo-file-menu')
-        menuAttachPopup.hidden = !menuAttachPopup.hidden;
+        let menuAttachPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.photo-file-menu')
+        if (menuAttachPopup) {
+            menuAttachPopup.hidden = !menuAttachPopup.hidden;
+        } else {
+            console.log('menuAttachPopup not found on page');
+        }
     }
 
-    onClick(event) {
-        let action = event.target.dataset.action;
-        console.log(event.target.closest('button'));
-        console.log(event);
-        console.log(action);
-        if (action) {
-            this[action](event);
+    onClick(event: Event) {
+        if (event.target instanceof HTMLElement) {
+            let action = event.target.dataset.action
+            console.log(event.target.closest('button'));
+            console.log(event);
+            console.log(action);
+            if (action) {
+                this[action](event);
+            }
         }
     };
 }
-
 

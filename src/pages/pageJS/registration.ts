@@ -1,29 +1,12 @@
 import {Button, render} from '../../components/button/button.js';
 import Validation from '../../utils/input_validation/input_validation.js';
-import {HTTPTransport} from '../../utils/xhr/xhr.js'
 import {SignupAPI} from "../../api/signin-api.js";
+import {store} from "../../utils/store/store.js"
+import {router} from "../../utils/router/router.js";
 
-//Catch data from fields
 
-function registration() {
-  console.log('OKAAY');
-  let form = (<HTMLFormElement>document.querySelector('form'));
-  let formData = new FormData(form);
-  interface Data {
-    [key: string]: string;
-  }
-  let data: Data = {}
-
-  formData.forEach((value: string, key: string) => {data[key] = value});
-  let data_json:string = JSON.stringify(data);
-
-  input_select.find((el: HTMLInputElement) => {
-    if (!(Validation(el))) {
-      console.log(`${el.placeholder} not valid`)
-    }
-  })
-  console.log(data)
-  sendData(data)
+interface Data {
+  [key: string]: string;
 }
 
 
@@ -70,25 +53,39 @@ button_div_b.type = 'submit';
 const button_span = button_div_b.firstElementChild as HTMLSpanElement;
 button_span.classList.add("button-text")
 
+function changeData(data: Data){
+  return {type: 'CHANGEDATA', data: data}
+}
+
 //Send req
-function sendData(data) {
-/*  const xhr = new HTTPTransport();
-  let options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  }
-  xhr.request('/auth/api/v1/signup', options).then(console.log(data))*/
+
+
+(<HTMLButtonElement>document.querySelector(".button_bottom")).addEventListener("click", event => {
+
+  event.preventDefault()
+  console.log('OKAAY');
+  let form = (<HTMLFormElement>document.querySelector('form'));
+  let formData = new FormData(form);
+  let data: Data = {}
+
+  formData.forEach((value: string, key: string) => {data[key] = value});
+
+  input_select.find((el: HTMLInputElement) => {
+    if (!(Validation(el))) {
+      console.log(`${el.placeholder} not valid`)
+    }
+  })
+  console.log(data)
+  sendData(data)
+});
+
+function sendData(data: object): void {
+  console.log(data, 'YYYYYYYYYYYYYYYYYYY');
   let signunApiClient = new SignupAPI()
   signunApiClient.create(JSON.stringify(data)).then(function(data) {
     console.log('WHAT I GET ');
     console.log(data);
-    router.go("/chat");
-  });
+    store.update(changeData(JSON.parse(data.response)))
+
+  }).then(() => router.go("/chat"));
 }
-
-  (<HTMLButtonElement>document.querySelector(".button_bottom")).addEventListener("click", registration);
-
-

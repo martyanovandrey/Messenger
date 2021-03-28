@@ -8,13 +8,13 @@ interface EVENTS {
 }
 
 interface Props {
-  tagName: string,
-  props:{
-    text: string
-  }
+    [key: string]: string
 }
 
-export default class Block {
+//не вышло сделать с onClick
+export default class Block{
+    protected props: Props
+
     static EVENTS: EVENTS = {
       INIT: "init",
       FLOW_CDM: "flow:component-did-mount",
@@ -24,16 +24,10 @@ export default class Block {
   
     _element = null;
     _meta = null;
-  eventBus: () => EventBus;
-  props: object = {};
-  
-    /** JSDoc
-     * @param {string} tagName
-     * @param {Object} props
-     *
-     * @returns {void}
-     */
-    constructor(tagName: string = "div", props: object = {}) {
+    eventBus: () => EventBus;
+
+
+    constructor(tagName = "div", props = {})  {
       const eventBus = new EventBus();
       this._meta = {
         tagName,
@@ -71,6 +65,7 @@ export default class Block {
     }
   
       // Может переопределять пользователь, необязательно трогать
+    // @ts-ignore
     componentDidMount(oldProps?:string) {}
   
     _componentDidUpdate(oldProps:string, newProps:string) {
@@ -100,15 +95,14 @@ export default class Block {
     get element() {
       return this._element;
     }
-  
-  
+
     _render() {
       const block = this.render();
       this.eventBus().off(Block.EVENTS.INIT, this.init.bind(this));
       this.eventBus().off(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
       this.eventBus().off(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
       this.eventBus().off(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-  
+
       this._element.innerHTML = block;
       this.eventBus().on(Block.EVENTS.INIT, this.init.bind(this));
       this.eventBus().on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
@@ -121,18 +115,19 @@ export default class Block {
   
     }
   
-    getContent(): HTMLElement {
+    getContent():any {
       return this.element;
     }
   
     _makePropsProxy(props: object) {
-      // Можно и так передать this
+      // Можно и так передать const self = this;
       // Такой способ больше не применяется с приходом ES6+
-      const self = this;
-      props = new Proxy(props, {
-          deleteProperty(target, prop) {
-                throw Error('Нет доступа')
-          }
+
+        props = new Proxy(props, {
+        // @ts-ignore
+      deleteProperty(target, prop) {
+            throw Error('Нет доступа')
+      }
       });
   
       return props;
@@ -140,7 +135,7 @@ export default class Block {
   
     _createDocumentElement(tagName: string) {
       // Можно сделать метод, который через фрагменты в цикле создаёт сразу несколько блоков
-      return document.createElement(tagName);
+      return document.createElement(tagName) as HTMLElement;
     }
   
     show() {

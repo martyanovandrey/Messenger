@@ -1,11 +1,11 @@
   // base-api.js
-  export class BaseAPI {
-    // На случай, если забудете переопределить метод и используете его, — выстрелит ошибка
-    create() { throw new Error('Not implemented'); }
+  export abstract class BaseAPI {
+    // Абстрактным не делаю все методы, потому что не все их реализую
+    create(_data:string): Promise<XMLHttpRequest> { throw new Error('Not implemented'); }
 
-    request() { throw new Error('Not implemented'); }
+    request(): Promise<XMLHttpRequest>  { throw new Error('Not implemented'); }
 
-    update() { throw new Error('Not implemented'); }
+    update(_data:string): Promise<XMLHttpRequest>  { throw new Error('Not implemented'); }
 
-    delete() { throw new Error('Not implemented'); }
-}
+    delete(): Promise<XMLHttpRequest>  { throw new Error('Not implemented'); }
+  }

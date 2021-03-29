@@ -58,7 +58,6 @@ class Route {
     }
 
     render() {
-
             this._block = new this._blockClass();
             render(this._props.rootQuery, this._block);
             let location = this._pathname
@@ -82,7 +81,6 @@ class Route {
                 import('../../pages/pageJS/profile_change_psw.js')
             }
             return;
-
     }
 }
 
@@ -124,13 +122,17 @@ class Router {
 
     _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
-
-        if (this._currentRoute) {
-            this._currentRoute.leave();
+        if(route){
+            if (this._currentRoute) {
+                this._currentRoute.leave();
+            }
+            this._currentRoute = route;
+            route.render(route, pathname);
+        } else {
+            let pathname = '/404'
+            let routeError = this.getRoute(pathname);
+            routeError.render(routeError, pathname);
         }
-
-        this._currentRoute = route;
-        route.render(route, pathname);
     }
 
     go(pathname: string) {

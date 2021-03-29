@@ -1,10 +1,12 @@
 import { Block } from "../../utils/router/router.js";
-import { loginHTML } from "../pageTemplates/loginPage.js";
-import { registrationHTML } from "../pageTemplates/registrationPage.js";
-import { chatHTML } from "../pageTemplates/chatPage.js";
-import { profileHTML } from "../pageTemplates/profilePage.js";
-import { profileChangesHTML } from "../pageTemplates/profileChanges.js";
-import { profileChangePswHTML } from "../pageTemplates/profileChangePsw.js";
+import { loginHTML } from "./loginPage.js";
+import { registrationHTML } from "./registrationPage.js";
+import { chatHTML } from "./chatPage.js";
+import { profileHTML } from "./profilePage.js";
+import { profileChangesHTML } from "./profileChanges.js";
+import { profileChangePswHTML } from "./profileChangePsw.js";
+import { error500HTML } from "./error500.js";
+import { error404HTML } from "./error404.js";
 import { store } from "../../utils/store/store.js";
 const pug = require('pug');
 class loginPage extends Block {
@@ -74,5 +76,27 @@ class profileChangePsw extends Block {
         return doneHTML;
     }
 }
-export { loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw };
+class error404 extends Block {
+    constructor() {
+        super();
+        this.pageData = store.state;
+    }
+    getContent() {
+        const compiledFunction = pug.compile(error404HTML);
+        let doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
+    }
+}
+class error500 extends Block {
+    constructor() {
+        super();
+        this.pageData = store.state;
+    }
+    getContent() {
+        const compiledFunction = pug.compile(error500HTML);
+        let doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
+    }
+}
+export { loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw, error404, error500 };
 //# sourceMappingURL=pageBlock.js.map

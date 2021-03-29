@@ -9,8 +9,7 @@
     publish = "/static"
 
 [[redirects]]
-    from = "/*"
-    to = "/index.html"
+    from = "/profile"
+    to = "/"
     status = 200
     force = true
-    headers = {X-From = "Netlify"}

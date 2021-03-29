@@ -9,7 +9,13 @@
     publish = "/static"
 
 [[redirects]]
-    from = "/*"
+    from = "/signup"
+    from = "/chat"
+    from = "/profile"
+    from = "/profile_changes"
+    from = "/profile_change_psw"
+    from = "/404"
+    from = "/500"
     to = "/"
     status = 200
     force = true

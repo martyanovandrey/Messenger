@@ -1,4 +1,5 @@
 import express from 'express'
+import serverless from 'serverless-http'
 import path from 'path'
 import session from "express-session"
 
@@ -36,3 +37,9 @@ app.use(`${API_PREFIX}/user`, validateSession, profileRoutes)
 export default app.listen(PORT, () => {
   console.log(`Мой текст и порт: ${PORT}!`);
 });
+
+const router = express.Router();
+router.get('/', (req, res) => {
+
+})
+module.exports.handler = serverless(app)

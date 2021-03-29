@@ -7,4 +7,7 @@
 
 [build]
     publish = "/static"
-    functions = "functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://ya-praktikum.tech/api:splat"

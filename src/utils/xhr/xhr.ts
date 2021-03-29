@@ -32,7 +32,6 @@ class HTTPTransport {
         return this.request(this.baseUrl + url, {...options, method: METHOD.POST});
     };
     put = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => {
-        console.log((this.baseUrl + url), 'URL TEST !!');
         return this.request(this.baseUrl + url, {...options, method: METHOD.PUT});
     };
     delete = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => {

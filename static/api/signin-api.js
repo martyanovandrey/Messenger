@@ -6,7 +6,7 @@ let options = {
         'Content-Type': 'application/json'
     }
 };
-let signinAPIInstance = new HTTPTransport('/api/v1/auth');
+let signinAPIInstance = new HTTPTransport('/api/v2/auth');
 class SigninAPI extends BaseAPI {
     create(data) {
         return signinAPIInstance.post('/signin', Object.assign(Object.assign({}, options), { data }));
@@ -15,7 +15,7 @@ class SigninAPI extends BaseAPI {
         return signinAPIInstance.get('/signin', Object.assign({}, options));
     }
 }
-let signupAPIInstance = new HTTPTransport('/api/v1/auth');
+let signupAPIInstance = new HTTPTransport('/api/v2/auth');
 class SignupAPI extends BaseAPI {
     create(data) {
         return signupAPIInstance.post('/signup', Object.assign(Object.assign({}, options), { data }));

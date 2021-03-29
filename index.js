@@ -1,5 +1,4 @@
 import express from 'express'
-import serverless from 'serverless-http'
 import path from 'path'
 import session from "express-session"
 
@@ -29,17 +28,11 @@ app.get(`/*`, (req, res, next) => {
   console.log('send index.html');
   res.sendFile(__dirname + "/static/index.html")
 })
-
+/*
 app.use(`${API_PREFIX}/auth`, authRoutes)
 app.use(`${API_PREFIX}/chats`, validateSession, chatRoutes)
-app.use(`${API_PREFIX}/user`, validateSession, profileRoutes)
+app.use(`${API_PREFIX}/user`, validateSession, profileRoutes)*/
 
 export default app.listen(PORT, () => {
   console.log(`Мой текст и порт: ${PORT}!`);
 });
-
-const router = express.Router();
-router.get('/', (req, res) => {
-
-})
-module.exports.handler = serverless(app)

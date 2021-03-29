@@ -25,6 +25,7 @@ let signupAPIInstance = new HTTPTransport('/api/v2/auth');
 
 class SignupAPI extends BaseAPI {
     create(data:string): Promise<XMLHttpRequest> {
+        //добавил комментарий в readme
         return signupAPIInstance.post('/signup', {...options, data});
     }
 

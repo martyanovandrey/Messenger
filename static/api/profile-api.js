@@ -14,6 +14,7 @@ class ProfileAPI extends BaseAPI {
 let profileChange = new HTTPTransport('/api/v1/user');
 class ProfileChangeAPI extends BaseAPI {
     update(data) {
+        //добавил комментарий в readme
         return profileChange.put('/profile/change', Object.assign(Object.assign({}, options), { data }));
     }
 }

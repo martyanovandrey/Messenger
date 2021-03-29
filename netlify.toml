@@ -9,7 +9,7 @@
     publish = "/static"
 
 [[redirects]]
-    from = "/profile"
+    from = "/*"
     to = "/"
     status = 200
     force = true

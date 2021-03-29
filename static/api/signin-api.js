@@ -18,6 +18,7 @@ class SigninAPI extends BaseAPI {
 let signupAPIInstance = new HTTPTransport('/api/v2/auth');
 class SignupAPI extends BaseAPI {
     create(data) {
+        //добавил комментарий в readme
         return signupAPIInstance.post('/signup', Object.assign(Object.assign({}, options), { data }));
     }
     request() {

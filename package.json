@@ -7,8 +7,6 @@
   "scripts": {
     "test": "mocha \\\"./{,!(node_modules)/**/}*.test.js\\\"",
     "build-ts": "tsc",
-    "build-pug": "pug --pretty src/pages --out ./static -w",
-    "build": "npm run build-pug -w && npm run build-ts",
     "start": "node index.js",
     "dev": "nodemon index.js ",
     "postcss": "postcss src/style/ -d static/style/"

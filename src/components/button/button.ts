@@ -16,10 +16,14 @@ class Button extends Block {
   }
 
 function render(query:string, block: Button) {
-  const root = <Element>document.querySelector(query);
-    console.log(block.getContent());
+    const root = <Element>document.querySelector(query);
+    const blockHTML = block.getContent();
+    blockHTML.classList.add("button_type_submit");
+    blockHTML.type = 'submit';
+    blockHTML.id = 'change_button'
+    const button_span = blockHTML.firstElementChild
+    button_span.classList.add("button-text");
     root.appendChild(block.getContent());
-
   return root;
 }
 

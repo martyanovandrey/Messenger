@@ -2,11 +2,19 @@ import Block from '../../utils/block/block.js'
 import {ChatMembers} from "../chatMembers/chatMembers";
 const pug = require('pug');
 
+type User = {
+    date: string;
+    badge?: string;
+    name: string;
+    id: string;
+    text: string;
+};
 
+type Props = {title: string; users: User[]};
 
 class ChatList extends Block {
 
-    constructor(props: { title: string; users: ({ date: string; badge: string; name: string; id: string; text: string } | { date: string; name: string; id: string; text: string })[] }) {
+    constructor(props: Props) {
         super("div", props);
     }
 

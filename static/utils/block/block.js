@@ -28,8 +28,13 @@ export default class Block {
         eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
     }
     _createResources() {
-        const { tagName } = this._meta;
-        this._element = this._createDocumentElement(tagName);
+        if (this._meta) {
+            const { tagName } = this._meta;
+            this._element = this._createDocumentElement(tagName);
+        }
+        else {
+            console.log(`this._meta === null !`);
+        }
     }
     init() {
         this._createResources();
@@ -71,9 +76,6 @@ export default class Block {
         this.eventBus().on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         this.eventBus().on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         this.eventBus().on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-    }
-    // Может переопределять пользователь, необязательно трогать
-    render() {
     }
     getContent() {
         return this.element;

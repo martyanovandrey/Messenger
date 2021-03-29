@@ -19,7 +19,6 @@ class HTTPTransport {
             return this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.POST }));
         };
         this.put = (url, options = {}) => {
-            console.log((this.baseUrl + url), 'URL TEST !!');
             return this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.PUT }));
         };
         this.delete = (url, options = {}) => {

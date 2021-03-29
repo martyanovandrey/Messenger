@@ -8,7 +8,7 @@ let options = {
     }
 }
 
-let signinAPIInstance = new HTTPTransport('/api/v1/auth');
+let signinAPIInstance = new HTTPTransport('/api/v2/auth');
 
 class SigninAPI extends BaseAPI {
     create(data:string): Promise<XMLHttpRequest> {
@@ -21,7 +21,7 @@ class SigninAPI extends BaseAPI {
 
 }
 
-let signupAPIInstance = new HTTPTransport('/api/v1/auth');
+let signupAPIInstance = new HTTPTransport('/api/v2/auth');
 
 class SignupAPI extends BaseAPI {
     create(data:string): Promise<XMLHttpRequest> {

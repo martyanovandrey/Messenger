@@ -7,13 +7,16 @@ interface EVENTS {
      FLOW_CDU: string 
 }
 
-interface Props {
-    [key: string]: string
-}
+type Props = Record<string, any>
+
+type Meta = {
+    tagName: string;
+    props: Props;
+};
+
 
 //не вышло сделать с onClick
-export default class Block{
-    protected props: Props
+export default abstract class Block{
 
     static EVENTS: EVENTS = {
       INIT: "init",
@@ -22,9 +25,10 @@ export default class Block{
       FLOW_CDU: "flow:component-did-update"
     };
   
-    _element = null;
-    _meta = null;
+    _element: any = null;
+    _meta: Meta | null = null;
     eventBus: () => EventBus;
+    props: Props;
 
 
     constructor(tagName = "div", props = {})  {
@@ -50,8 +54,13 @@ export default class Block{
     }
   
     _createResources() {
-      const { tagName } = this._meta;
-      this._element = this._createDocumentElement(tagName);
+        if(this._meta){
+            const { tagName } = this._meta;
+            this._element = this._createDocumentElement(tagName);
+        } else {
+            console.log(`this._meta === null !`);
+        }
+
     }
   
     init() {
@@ -111,9 +120,7 @@ export default class Block{
     }
   
       // Может переопределять пользователь, необязательно трогать
-    render() {
-  
-    }
+    abstract render(): string;
   
     getContent():any {
       return this.element;

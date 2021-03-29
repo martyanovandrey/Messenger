@@ -1,4 +1,4 @@
-import {loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw} from './pages/pageTemplates/pageBlock.js'
+import {loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw, error404, error500} from './pages/pageTemplates/pageBlock.js'
 import {router} from "./utils/router/router.js";
 
 router
@@ -8,4 +8,6 @@ router
     .use('/profile', profilePage)
     .use('/profile_changes', profileChangesPage)
     .use('/profile_change_psw', profileChangePsw)
+    .use('/404', error404)
+    .use('/500', error500)
     .start();

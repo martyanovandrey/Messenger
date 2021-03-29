@@ -99,11 +99,18 @@ class Router {
     }
     _onRoute(pathname) {
         const route = this.getRoute(pathname);
-        if (this._currentRoute) {
-            this._currentRoute.leave();
+        if (route) {
+            if (this._currentRoute) {
+                this._currentRoute.leave();
+            }
+            this._currentRoute = route;
+            route.render(route, pathname);
         }
-        this._currentRoute = route;
-        route.render(route, pathname);
+        else {
+            let pathname = '/404';
+            let routeError = this.getRoute(pathname);
+            routeError.render(routeError, pathname);
+        }
     }
     go(pathname) {
         this.history.pushState({}, "", pathname);

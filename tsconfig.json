@@ -1,17 +1,15 @@
 {
-    "compilerOptions": {
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "sourceMap": true,
-        "strictNullChecks": true,
-        "downlevelIteration": true,
-        "outDir": "static",
-        "target": "es6",
-        "module": "es6"
-    },
-    "include": [
-        "**/*"
-    ],
-    "compileOnSave": true
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "downlevelIteration": true,
+    "outDir": "static",
+    "target": "es6",
+    "module": "es6"
+  },
+  "include": ["**/*"],
+  "compileOnSave": true
 }

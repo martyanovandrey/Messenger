@@ -47,4 +47,4 @@ block variables
             .form__field.form-space-between#logout
                 a.link(href='/' style='color: #FF0000;')
                     | Выйти
-`
+`;

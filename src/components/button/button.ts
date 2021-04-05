@@ -5,31 +5,30 @@ interface Props {
 }
 
 class Button extends Block {
-
-    constructor(props: Props) {
-      super("button", props);
-    }
-  
-    render() {
-      return `<span>${this.props.text}</span>`;
-    }
+  constructor(props: Props) {
+    super('button', props);
   }
 
+  componentDidMount() {
+    this._element.addEventListener('click', this.props.event);
+      //this.eventBus.on('test', console.log('event BUS TEST'));
+  }
+
+  render() {
+    return `<span>${this.props.text}</span>`;
+  }
+}
+
 function render(query:string, block: Button) {
-    const root = <Element>document.querySelector(query);
-    const blockHTML = block.getContent();
-    blockHTML.classList.add("button_type_submit");
-    blockHTML.type = 'submit';
-    blockHTML.id = 'change_button'
-    const button_span = blockHTML.firstElementChild
-    button_span.classList.add("button-text");
-    root.appendChild(block.getContent());
+  const root = <Element>document.querySelector(query);
+  const blockHTML = block.getContent();
+  blockHTML.classList.add('button_type_submit');
+  blockHTML.type = 'submit';
+  blockHTML.id = 'change_button';
+  const button_span = blockHTML.firstElementChild;
+  button_span.classList.add('button-text');
+  root.appendChild(block.getContent());
   return root;
 }
 
-
-
-
-
-export {Button, render}
-
+export { Button, render };

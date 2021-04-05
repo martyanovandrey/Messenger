@@ -1,16 +1,14 @@
-import Block from '../../utils/block/block.js'
+import Block from '../../utils/block/block.js';
 
 const pug = require('pug');
 
 class ChatMembers extends Block {
+  constructor(props: { chatMembers: string[]; title: string }) {
+    super('div', props);
+  }
 
-
-    constructor(props: { chatMembers: string[]; title: string }) {
-        super("div", props);
-    }
-
-    render() {
-        let pugData = `
+  render() {
+    const pugData = `
 #headMenu.page-dialog__wrap
     .page-dialog__head
         .page-dialog__head-image
@@ -119,21 +117,18 @@ class ChatMembers extends Block {
                     circle(cx='14' cy='14' r='14' fill='#3369F3')
                     rect(x='8' y='13.2' width='11' height='1.6' fill='white')
                     path(d='M15 9L19 14L15 19' stroke='white' stroke-width='1.6')
-`
-        const compiledFunction = pug.compile(pugData);
-        let doneHTML = compiledFunction(this.props);
-        return doneHTML
-    }
+`;
+    const compiledFunction = pug.compile(pugData);
+    const doneHTML = compiledFunction(this.props);
+    return doneHTML;
+  }
 }
 
 function render(query:string, block: ChatMembers) {
-    const root = <Element>document.querySelector(query);
-    console.log(block.getContent());
-    root.appendChild(block.getContent().firstChild);
-    return root;
+  const root = <Element>document.querySelector(query);
+  console.log(block.getContent());
+  root.appendChild(block.getContent().firstChild);
+  return root;
 }
 
-export {ChatMembers, render}
-
-
-
+export {ChatMembers, render};

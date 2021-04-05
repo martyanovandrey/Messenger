@@ -1,32 +1,32 @@
-import { HTTPTransport } from '../utils/xhr/xhr.js'
-import { BaseAPI} from "./base-api.js";
+import { HTTPTransport } from '../utils/xhr/xhr.js';
+import { BaseAPI } from './base-api.js';
 
-let options = {
-    headers: {
-        'Content-Type': 'application/json'
-    }
-}
+const options = {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 
-let profileAPIInstance = new HTTPTransport('/api/v1/user');
-class ProfileAPI extends BaseAPI {
-    update(data:string): Promise<XMLHttpRequest> {
-        return profileAPIInstance.put('/profile', {...options, data});
-    }
-}
+// const profileAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
+// class ProfileAPI extends BaseAPI {
+//   update(data:string): Promise<XMLHttpRequest> {
+//     return profileAPIInstance.put('/profile', { ...options, data });
+//   }
+// }
 
-let profileChange = new HTTPTransport('/api/v1/user');
+const profileChange = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 class ProfileChangeAPI extends BaseAPI {
-    update(data:string): Promise<XMLHttpRequest> {
-        //добавил комментарий в readme
-        return profileChange.put('/profile/change', {...options, data});
-    }
+  update(data:string): Promise<XMLHttpRequest> {
+    // добавил комментарий в readme
+    return profileChange.put('/profile', { ...options, data });
+  }
 }
 
-let profileChangePsw = new HTTPTransport();
+const profileChangePsw = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 class ProfileChangePswAPI extends BaseAPI {
-    update(data:string): Promise<XMLHttpRequest> {
-        return profileChangePsw.put('/password/change', {...options, data});
-    }
+  update(data:string): Promise<XMLHttpRequest> {
+    return profileChangePsw.put('/password', { ...options, data });
+  }
 }
 
-export { ProfileAPI, ProfileChangeAPI, ProfileChangePswAPI }
+export { ProfileChangeAPI, ProfileChangePswAPI };

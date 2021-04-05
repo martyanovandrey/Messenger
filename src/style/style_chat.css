@@ -325,11 +325,11 @@ html *
     justify-content: center;
 }
 
-.button:focus {
+.button:hover {
     outline: none;
 }
 
-.button-focus:focus {
+.button-focus:hover {
     background: #F5F5F5;
     border-radius: 25px;
 }

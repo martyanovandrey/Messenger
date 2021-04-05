@@ -2,10 +2,10 @@ import Block from '../../utils/block/block.js';
 const pug = require('pug');
 class ChatMembers extends Block {
     constructor(props) {
-        super("div", props);
+        super('div', props);
     }
     render() {
-        let pugData = `
+        const pugData = `
 #headMenu.page-dialog__wrap
     .page-dialog__head
         .page-dialog__head-image
@@ -116,7 +116,7 @@ class ChatMembers extends Block {
                     path(d='M15 9L19 14L15 19' stroke='white' stroke-width='1.6')
 `;
         const compiledFunction = pug.compile(pugData);
-        let doneHTML = compiledFunction(this.props);
+        const doneHTML = compiledFunction(this.props);
         return doneHTML;
     }
 }

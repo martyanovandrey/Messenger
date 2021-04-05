@@ -1,45 +1,47 @@
 import Validation from '../../utils/input_validation/input_validation.js';
-import { router } from "../../utils/router/router.js";
-document.querySelector(".profile-sidebar").addEventListener("click", event => {
+import { router } from '../../utils/router/router.js';
+import { LogoutAPI } from '../../api/signin-api.js';
+document.querySelector('.profile-sidebar').addEventListener('click', (event) => {
     event.preventDefault();
-    router.go("/chat");
+    router.go('/chat');
 });
-document.querySelector("#change_data").addEventListener("click", event => {
+document.querySelector('#change_data').addEventListener('click', (event) => {
     event.preventDefault();
-    router.go("/profile_changes");
+    router.go('/profile_changes');
 });
-document.querySelector("#change_psw").addEventListener("click", event => {
+document.querySelector('#change_psw').addEventListener('click', (event) => {
     event.preventDefault();
-    router.go("/profile_change_psw");
+    router.go('/profile_change_psw');
 });
-document.querySelector("#logout").addEventListener("click", event => {
+document.querySelector('#logout').addEventListener('click', (event) => {
     event.preventDefault();
-    router.go("/");
-});
-let node_inputs = document.querySelectorAll('.textinput-profile.right');
-let input_select = [...node_inputs];
-input_select.map(el => {
-    let input_span = el.parentElement;
-    let error_label = input_span.querySelector('.registration__invalid');
-    el.addEventListener("focus", () => {
-        el.style.background = "";
+    const logoutApiClient = new LogoutAPI();
+    logoutApiClient.create(JSON.stringify()).then(() => {
+        router.go('/');
     });
-    el.addEventListener("blur", () => {
+});
+const node_inputs = document.querySelectorAll('.textinput-profile.right');
+const input_select = [...node_inputs];
+input_select.map((el) => {
+    const input_span = el.parentElement;
+    const error_label = input_span.querySelector('.registration__invalid');
+    el.addEventListener('focus', () => {
+        el.style.background = '';
+    });
+    el.addEventListener('blur', () => {
         if (Validation(el)) {
-            el.style.background = "";
+            el.style.background = '';
+        }
+        else if (el.value === '') {
+            el.style.background = '';
         }
         else {
-            if (el.value === "") {
-                el.style.background = "";
-            }
-            else {
-                el.style.background = "#ffe9ec";
-                error_label.textContent = `${el.dataset.message}`;
-                error_label.style.textAlign = "right";
-                error_label.style.width = '350px';
-                console.log(error_label === null || error_label === void 0 ? void 0 : error_label.textContent);
-                error_label.style.visibility = "visible";
-            }
+            el.style.background = '#ffe9ec';
+            error_label.textContent = `${el.dataset.message}`;
+            error_label.style.textAlign = 'right';
+            error_label.style.width = '350px';
+            console.log(error_label === null || error_label === void 0 ? void 0 : error_label.textContent);
+            error_label.style.visibility = 'visible';
         }
     });
 });

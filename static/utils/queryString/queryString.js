@@ -29,7 +29,7 @@ function queryString(data) {
     if (!isPlainObject(data)) {
         throw new Error('input must be an object');
     }
-    return getParams(data).map(arr => arr.join('=')).join('&');
+    return getParams(data).map((arr) => arr.join('=')).join('&');
 }
-export { isPlainObject, isArray, isArrayOrObject, getKey, getParams, queryString };
+export { isPlainObject, isArray, isArrayOrObject, getKey, getParams, queryString, };
 //# sourceMappingURL=queryString.js.map

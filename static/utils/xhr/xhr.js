@@ -7,23 +7,15 @@ var METHOD;
     METHOD["PUT"] = "PUT";
     METHOD["DELETE"] = "DELETE";
 })(METHOD || (METHOD = {}));
-;
 class HTTPTransport {
     constructor(baseUrl) {
-        this.get = (url, options = {}) => {
-            options.data = queryString(options.data);
-            url = url + '/' + options.data;
-            return this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.GET }));
-        };
-        this.post = (url, options = {}) => {
-            return this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.POST }));
-        };
-        this.put = (url, options = {}) => {
-            return this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.PUT }));
-        };
-        this.delete = (url, options = {}) => {
-            return this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.DELETE }));
-        };
+        this.get = (url, options = {}) => 
+        // options.data = queryString(options.data);
+        // url = `${url}/${options.data}`;
+        this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.GET }));
+        this.post = (url, options = {}) => this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.POST }));
+        this.put = (url, options = {}) => this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.PUT }));
+        this.delete = (url, options = {}) => this.request(this.baseUrl + url, Object.assign(Object.assign({}, options), { method: METHOD.DELETE }));
         this.baseUrl = baseUrl;
     }
     request(url, options = { method: METHOD.GET }) {
@@ -48,6 +40,5 @@ class HTTPTransport {
             }
         });
     }
-    ;
 }
 //# sourceMappingURL=xhr.js.map

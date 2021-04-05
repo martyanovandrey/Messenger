@@ -19,4 +19,4 @@ export const loginHTML = `
         .not-registered
             a.not-registered-text(href='/signup') Нет аккаунта?
 script(type= "module" src="/pages/login/index.js")
-`
+`;

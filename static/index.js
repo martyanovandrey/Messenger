@@ -1,5 +1,5 @@
-import { loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw, error404, error500 } from './pages/pageTemplates/pageBlock.js';
-import { router } from "./utils/router/router.js";
+import { loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw, error404, error500, } from './pages/pageTemplates/pageBlock.js';
+import { router } from './utils/router/router.js';
 router
     .use('/', loginPage)
     .use('/signup', registrationPage)

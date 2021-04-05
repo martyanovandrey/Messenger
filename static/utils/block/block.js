@@ -1,7 +1,7 @@
 import EventBus from '../event-bus/event-bus.js';
-//не вышло сделать с onClick
+// не вышло сделать с onClick
 export default class Block {
-    constructor(tagName = "div", props = {}) {
+    constructor(tagName = 'div', props = {}) {
         this._element = null;
         this._meta = null;
         this.setProps = (nextProps) => {
@@ -14,7 +14,7 @@ export default class Block {
         const eventBus = new EventBus();
         this._meta = {
             tagName,
-            props
+            props,
         };
         this.props = this._makePropsProxy(props);
         this.eventBus = () => eventBus;
@@ -33,7 +33,7 @@ export default class Block {
             this._element = this._createDocumentElement(tagName);
         }
         else {
-            console.log(`this._meta === null !`);
+            console.log('this._meta === null !');
         }
     }
     init() {
@@ -58,9 +58,7 @@ export default class Block {
         if (oldProps === newProps) {
             return false;
         }
-        else {
-            return true;
-        }
+        return true;
     }
     get element() {
         return this._element;
@@ -87,7 +85,7 @@ export default class Block {
             // @ts-ignore
             deleteProperty(target, prop) {
                 throw Error('Нет доступа');
-            }
+            },
         });
         return props;
     }
@@ -96,16 +94,16 @@ export default class Block {
         return document.createElement(tagName);
     }
     show() {
-        this.getContent().style.display = "block";
+        this.getContent().style.display = 'block';
     }
     hide() {
-        this.getContent().style.display = "none";
+        this.getContent().style.display = 'none';
     }
 }
 Block.EVENTS = {
-    INIT: "init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_RENDER: "flow:render",
-    FLOW_CDU: "flow:component-did-update"
+    INIT: 'init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_RENDER: 'flow:render',
+    FLOW_CDU: 'flow:component-did-update',
 };
 //# sourceMappingURL=block.js.map

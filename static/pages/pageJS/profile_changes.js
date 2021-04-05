@@ -1,16 +1,16 @@
 import { Button, render } from '../../components/button/button.js';
 import Validation from '../../utils/input_validation/input_validation.js';
 import { ProfileChangeAPI } from '../../api/profile-api.js';
-import { store } from "../../utils/store/store.js";
-import { router } from "../../utils/router/router.js";
-document.querySelector(".profile-sidebar").addEventListener("click", event => {
+import { store } from '../../utils/store/store.js';
+import { router } from '../../utils/router/router.js';
+document.querySelector('.profile-sidebar').addEventListener('click', (event) => {
     event.preventDefault();
     router.back();
 });
 function profile_change() {
-    let form = document.querySelector('form');
-    let formData = new FormData(form);
-    let data = {};
+    const form = document.querySelector('form');
+    const formData = new FormData(form);
+    const data = {};
     formData.forEach((value, key) => { data[key] = value; });
     input_select.find((el) => {
         if (!(Validation(el))) {
@@ -19,50 +19,48 @@ function profile_change() {
     });
     return data;
 }
-//Validate data
-let node_inputs = document.querySelectorAll('.textinput-profile.right');
+// Validate data
+const node_inputs = document.querySelectorAll('.textinput-profile.right');
 let input_select = [...node_inputs];
-input_select.map(el => {
-    let input_span = el.parentElement;
-    let error_label = input_span.querySelector('.registration__invalid');
-    el.addEventListener("focus", () => {
-        el.style.background = "";
+input_select.map((el) => {
+    const input_span = el.parentElement;
+    const error_label = input_span.querySelector('.registration__invalid');
+    el.addEventListener('focus', () => {
+        el.style.background = '';
     });
-    el.addEventListener("blur", () => {
+    el.addEventListener('blur', () => {
         if (Validation(el)) {
-            el.style.background = "";
+            el.style.background = '';
+        }
+        else if (el.value === '') {
+            el.style.background = '';
         }
         else {
-            if (el.value === "") {
-                el.style.background = "";
-            }
-            else {
-                el.style.background = "#ffe9ec";
-                error_label.textContent = `${el.dataset.message}`;
-                error_label.style.textAlign = "right";
-                error_label.style.width = '350px';
-                console.log(error_label === null || error_label === void 0 ? void 0 : error_label.textContent);
-                error_label.style.visibility = "visible";
-            }
+            el.style.background = '#ffe9ec';
+            error_label.textContent = `${el.dataset.message}`;
+            error_label.style.textAlign = 'right';
+            error_label.style.width = '350px';
+            console.log(error_label === null || error_label === void 0 ? void 0 : error_label.textContent);
+            error_label.style.visibility = 'visible';
         }
     });
 });
-//Create button
+// Create button
 const button = new Button({
     text: 'Сохранить',
 });
-render(".app", button);
+render('.app', button);
 function changeData(data) {
-    return { type: 'CHANGEDATA', data: data };
+    return { type: 'CHANGEDATA', data };
 }
-document.querySelector("#change_button").addEventListener("click", event => {
+document.querySelector('#change_button').addEventListener('click', (event) => {
     event.preventDefault();
-    let data = profile_change();
-    let profileChangeApiClient = new ProfileChangeAPI();
-    profileChangeApiClient.update(JSON.stringify(data)).then(function (data) {
+    const data = profile_change();
+    const profileChangeApiClient = new ProfileChangeAPI();
+    profileChangeApiClient.update(JSON.stringify(data)).then((data) => {
         console.log(data.response, 'CHAGE DATA STOREEEE');
         store.update(changeData(JSON.parse(data.response)));
         console.log(store.state, 'STOREEEESTOREEEESTOREEEESTOREEEE');
-    }).then(() => router.go("/profile"));
+    }).then(() => router.go('/profile'));
 });
 //# sourceMappingURL=profile_changes.js.map

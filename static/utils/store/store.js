@@ -1,9 +1,17 @@
 import { UserAPI } from '../../api/signin-api.js';
+import merge from "../merge/merge.js";
 function updateState(state, action) {
     if (action.type === 'CHANGEDATA') {
-        console.log('IM CHANGEDATA');
-        let newState = Object.assign(state, action.data);
+        //    let newState = Object.assign(state, action.data);
+        let newState = merge(state, action.data);
         return newState;
+    }
+    if (action.type === 'PUSHDATA') {
+        //    let newState = Object.assign(state, action.data);
+        let updMessages = state.messages;
+        console.log(updMessages, action.data, 'action.dataaction.dataaction.data');
+        let newState = updMessages.push(action.data);
+        return state;
     }
 }
 class Store {
@@ -33,20 +41,22 @@ const initialstate = {
     email: 'test',
     password: 'test',
     phone: 'test',
-    userMessage: 'Wuzzzuuuuuup',
-    myMessage: 'Wuzzzuuuuuuuuuuuuuuuuuuuup',
-    users: [{
-            id: '1',
-            title: '2222222222User',
-            text: 'Hello!',
-            date: '13:37',
-            badge: '4',
-        }, {
-            id: '2',
-            title: 'Teeeeeest',
-            text: 'Hi!',
-            date: '13:37',
-        }]
+    currentChat: {
+        chatId: 'chatId',
+        chatName: 'chatName',
+    },
+    chatMembers: [
+        {
+            first_name: ''
+        }
+    ],
+    messages: [
+        {
+            content: '',
+            time: ''
+        }
+    ],
+    users: []
 };
 export const store = new Store(updateState, initialstate);
 function changeData(data) {
@@ -54,7 +64,6 @@ function changeData(data) {
 }
 const userApiClient = new UserAPI();
 userApiClient.request().then((data) => {
-    console.log(JSON.parse(data.response), 'daataaaaaaaaaaaaaa');
     store.update(changeData(JSON.parse(data.response)));
 });
 //# sourceMappingURL=store.js.map

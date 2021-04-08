@@ -71,5 +71,13 @@ function sendData(data: object): void {
     console.log('WHAT I GET ');
     console.log(data);
     store.update(changeData(JSON.parse(data.response)));
-  }).then(() => router.go('/chat'));
+    return JSON.parse(data.status)
+  }).then((data) =>  {
+      console.log(data, 'statusss');
+      if(data >= 400){
+          console.log(data.response, 'error');
+      } else {
+          router.go('/chat')
+      }
+  });
 }

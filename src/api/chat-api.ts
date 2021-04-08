@@ -18,4 +18,20 @@ class ChatAPI extends BaseAPI {
     }
 }
 
-export { ChatAPI };
+class ChatDialogAPI extends BaseAPI {
+    create(data:string): Promise<XMLHttpRequest> {
+        return chatAPIInstance.post(`/chats/token/${data}`, { ...options});
+    }
+}
+
+class ChatMembersAPI extends BaseAPI {
+    request(data:string): Promise<XMLHttpRequest> {
+        return chatAPIInstance.get(`/chats/${data}/users`, { ...options});
+    }
+
+    update(data:string): Promise<XMLHttpRequest> {
+        return chatAPIInstance.put('/chats/users', { ...options, data});
+    }
+}
+
+export { ChatAPI, ChatDialogAPI, ChatMembersAPI };

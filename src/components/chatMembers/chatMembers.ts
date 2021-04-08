@@ -1,48 +1,61 @@
 import Block from '../../utils/block/block.js';
+import {store} from "../../utils/store/store.js";
+import {ChatDialogAPI, ChatMembersAPI} from "../../api/chat-api.js";
 
 const pug = require('pug');
 
 class ChatMembers extends Block {
   constructor(props: { chatMembers: string[]; title: string }) {
     super('div', props);
+    this.state = store.state.currentChat
+      store.subscribe(() => {
+          this.render()
+      })
   }
+    componentDidMount() {
+        console.log(store.state.messages, 'CDMCDMCDMCDMCDMCDM');
+        this.setProps(store.state.messages)
 
-  render() {
+    }
+
+    render() {
     const pugData = `
 #headMenu.page-dialog__wrap
     .page-dialog__head
         .page-dialog__head-image
             img(src='../../data/circle.png' alt='')
         .page-dialog__head-name
-            span#chatMembers  #{chatMembers}
+            span#chatName= currentChat.chatName
+            span(class='chat_text_message')#chatMembers Участники чата: 
+                each member in chatMembers
+                      span(class='chat_text_message')  #{member.first_name} 
         .page-dialog__head-options
             button.button.button-focus
-                svg(xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' data-action='menu')
+                svg(class="delegate" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' data-action='menu')
                     path(fill='currentColor' d='M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z')
     .dialog-text
         .dialog-text__date-body
             .dialog-text__date
                 span 19 июня
-        mixin dialog-text(text, time)
-            .dialog-text__body
-                .dialog-text__message
-                    span= text
-                .dialog-text__info
-                    time.time= time
-        
-        mixin dialog-text-user(text, time)
-            .dialog-text__body.user-message
-                .dialog-text__message
-                    span= text
-                .dialog-text__info
-                    .read
-                        svg(width='11' height='5' viewBox='0 0 11 5' fill='none' xmlns='http://www.w3.org/2000/svg')
-                            line(y1='-0.5' x2='3.765' y2='-0.5' transform='matrix(0.705933 0.708278 -0.705933 0.708278 0.700195 2.33313)' stroke='#3369F3')
-                            line(y1='-0.5' x2='5.6475' y2='-0.5' transform='matrix(0.705933 -0.708278 0.705933 0.708278 3.35828 5)' stroke='#3369F3')
-                            line(y1='-0.5' x2='5.6475' y2='-0.5' transform='matrix(0.705933 -0.708278 0.705933 0.708278 6.01587 5)' stroke='#3369F3')
-                    time.time= time
-        +dialog-text(userMessage, '10:25')
-        +dialog-text-user(myMessage, '10:25')
+        each message in messages
+            if message.user_id != currentUser
+                .dialog-text__body
+                    .dialog-text__message
+                        span= message.content
+                    .dialog-text__info
+                        time.time= message.time
+            else
+                .dialog-text__body.user-message
+                    .dialog-text__message
+                        span= message.content
+                    .dialog-text__info
+                        if message.is_read
+                            .read
+                                svg(width='11' height='5' viewBox='0 0 11 5' fill='none' xmlns='http://www.w3.org/2000/svg')
+                                    line(y1='-0.5' x2='3.765' y2='-0.5' transform='matrix(0.705933 0.708278 -0.705933 0.708278 0.700195 2.33313)' stroke='#3369F3')
+                                    line(y1='-0.5' x2='5.6475' y2='-0.5' transform='matrix(0.705933 -0.708278 0.705933 0.708278 3.35828 5)' stroke='#3369F3')
+                                    line(y1='-0.5' x2='5.6475' y2='-0.5' transform='matrix(0.705933 -0.708278 0.705933 0.708278 6.01587 5)' stroke='#3369F3')
+                        time.time= message.time
     .page-dialog__pop-up-wrap
         #optionsMenu.page-dialog__pop-up.photo-file-menu(hidden='')
             .photo-video.flex_center
@@ -61,7 +74,7 @@ class ChatMembers extends Block {
                 span.pop-up__margin
                     | Локация
         .page-dialog__pop-up.user-menu(hidden='')
-            .flex_center(data-action='menuAdd')
+            .flex_center(class='menuAdd' data-action='menuAdd')
                 svg(width='22' height='22' viewBox='0 0 22 22' fill='none' xmlns='http://www.w3.org/2000/svg')
                     circle(cx='11' cy='11' r='10.25' stroke='#3369F3' stroke-width='1.5')
                     line(x1='10.9999' y1='5.5' x2='10.9999' y2='16.5' stroke='#3369F3' stroke-width='1.5')
@@ -110,8 +123,8 @@ class ChatMembers extends Block {
                     path(fill-rule='evenodd' clip-rule='evenodd' d='M22.6195 13.7806L23.5623 14.7234C26.003 12.2826 26.0118 8.3341 23.5819 5.90417C21.152 3.47424 17.2035 3.48303 14.7627 5.92381L15.7055 6.86662C17.6233 4.94887 20.7257 4.94196 22.6349 6.85119C24.5441 8.76042 24.5372 11.8628 22.6195 13.7806Z' fill='#999999')
                     path(fill-rule='evenodd' clip-rule='evenodd' d='M9.70092 16.0144C7.95751 17.7578 7.95123 20.5782 9.68689 22.3138C11.4226 24.0495 14.2429 24.0432 15.9863 22.2998L15.0435 21.357C13.8231 22.5774 11.8489 22.5818 10.6339 21.3668C9.41894 20.1518 9.42334 18.1776 10.6437 16.9572L9.70092 16.0144Z' fill='#999999')
         .page-dialog__textarea
-            textarea.textarea(name='message' rows='1' placeholder='Сообщение')
-        .page-dialog__send
+            textarea.textarea(name='message' rows='1' placeholder='Сообщение')#messageInput
+        .page-dialog__send(data-action='sendMessage')#sendMessage
             button.button.button_send
                 svg(width='28' height='28' viewBox='0 0 28 28' fill='none' xmlns='http://www.w3.org/2000/svg')
                     circle(cx='14' cy='14' r='14' fill='#3369F3')
@@ -119,14 +132,27 @@ class ChatMembers extends Block {
                     path(d='M15 9L19 14L15 19' stroke='white' stroke-width='1.6')
 `;
     const compiledFunction = pug.compile(pugData);
-    const doneHTML = compiledFunction(this.props);
+
+      const doneHTML = compiledFunction({
+          currentUser: store.state.id,
+          currentChat: store.state.currentChat,
+          chatMembers: store.state.chatMembers,
+          messages: store.state.messages,
+      });
+      function createElementFromHTML(htmlString) {
+          var div = document.createElement('div');
+          div.innerHTML = htmlString.trim();
+
+          // Change this to div.childNodes to support multiple top-level nodes
+          return div.firstChild;
+      }
+      document.querySelector('.page-dialog').innerHTML = doneHTML
     return doneHTML;
   }
 }
 
 function render(query:string, block: ChatMembers) {
   const root = <Element>document.querySelector(query);
-  console.log(block.getContent());
   root.appendChild(block.getContent().firstChild);
   return root;
 }

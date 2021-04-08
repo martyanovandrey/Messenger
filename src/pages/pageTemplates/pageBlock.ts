@@ -53,6 +53,7 @@ class chatPage extends Block {
   getContent() {
     const compiledFunction = pug.compile(chatHTML);
     const chatDoneHTML = compiledFunction(this.pageData);
+
     return chatDoneHTML;
   }
 

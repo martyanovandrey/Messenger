@@ -31,9 +31,10 @@ input_select.map((el) => {
 });
 // Create button
 const button = new Button({
-    text: 'Авторизоваться',
+    text: 'Авторизоваться'
 });
 render('.app', button);
+//console.log(button)
 document.querySelector('.button_type_submit').addEventListener('click', (event) => {
     console.log('bbbbb');
     event.preventDefault();

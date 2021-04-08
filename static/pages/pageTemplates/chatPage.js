@@ -1,5 +1,7 @@
 export const chatHTML = `
 .page-wrap
+    .menuPopUpCreateChat
+    .menuPopUpAddMember
     .page-sidebar#chat
         .search
             .search__profile-wrap
@@ -10,7 +12,6 @@ export const chatHTML = `
                         line(x1='5.49988' y1='11' x2='16.4999' y2='11' stroke='#3369F3' stroke-width='1.5')
                     span.search__profile(data-action='createNewChat')#createNewChat
                         | Создать чат
-
                 a.search__profile(href='/profile')#profile-link Профиль >
             .search__bar
                 svg(width='13' height='14' viewBox='0 0 13 14' fill='none' xmlns='http://www.w3.org/2000/svg')
@@ -20,18 +21,5 @@ export const chatHTML = `
     .page-dialog
         .dialog-text.dialog-mask
             | Выберите чат чтобы отправить сообщение
-    .page-overlay(style="display: none")
-        .page-overlay__wrap
-            .page-dialog__pop-up.pop-up-width
-                h1.header__descr.header-overlay Добавить пользователя
-                form
-                    .form_wrap
-                        .form__field.registration-field
-                            span.textinput
-                                input.textinput-control(type='email' placeholder='Логин')
-                                label.registration__label(for='name') Логин
-                                label.registration__invalid Неверный логин
-                        .button_overlay
-                            .app
 `;
 //# sourceMappingURL=chatPage.js.map

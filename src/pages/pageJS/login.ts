@@ -36,12 +36,14 @@ input_select.map((el: HTMLInputElement) => {
   });
 });
 
+
 // Create button
 const button = new Button({
-  text: 'Авторизоваться',
+  text: 'Авторизоваться'
 });
 
 render('.app', button);
+//console.log(button)
 
 (<HTMLButtonElement>document.querySelector('.button_type_submit')).addEventListener('click', (event) => {
   console.log('bbbbb');

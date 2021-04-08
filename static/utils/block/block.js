@@ -63,6 +63,13 @@ export default class Block {
     get element() {
         return this._element;
     }
+    //????
+    _addEvents() {
+        const { events = {} } = this.props;
+        Object.keys(events).forEach(eventName => {
+            this._element.addEventListener(eventName, events[eventName]);
+        });
+    }
     _render() {
         const block = this.render();
         this.eventBus().off(Block.EVENTS.INIT, this.init.bind(this));
@@ -74,6 +81,8 @@ export default class Block {
         this.eventBus().on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
         this.eventBus().on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
         this.eventBus().on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+        //????
+        this._addEvents();
     }
     getContent() {
         return this.element;
@@ -94,9 +103,13 @@ export default class Block {
         return document.createElement(tagName);
     }
     show() {
+        console.log('show');
+        console.log(this.getContent());
         this.getContent().style.display = 'block';
     }
     hide() {
+        console.log('hide');
+        console.log(this.getContent());
         this.getContent().style.display = 'none';
     }
 }

@@ -31,7 +31,6 @@ class HTTPTransport {
             xhr.onabort = reject;
             xhr.onerror = reject;
             xhr.ontimeout = reject;
-            console.log(data);
             if (method === METHOD.GET || !data) {
                 xhr.send();
             }

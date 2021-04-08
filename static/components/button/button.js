@@ -4,7 +4,8 @@ class Button extends Block {
         super('button', props);
     }
     componentDidMount() {
-        this._element.addEventListener('click', this.props.event);
+        //this._element.addEventListener('click', this.props.event);
+        //this._element.addEventListener('click', console.log('ttttttteeeeeeeeeeeeeeeeeeeeeee'));
         //this.eventBus.on('test', console.log('event BUS TEST'));
     }
     render() {

@@ -14,5 +14,18 @@ class ChatAPI extends BaseAPI {
         return chatAPIInstance.get('/chats', Object.assign({}, options));
     }
 }
-export { ChatAPI };
+class ChatDialogAPI extends BaseAPI {
+    create(data) {
+        return chatAPIInstance.post(`/chats/token/${data}`, Object.assign({}, options));
+    }
+}
+class ChatMembersAPI extends BaseAPI {
+    request(data) {
+        return chatAPIInstance.get(`/chats/${data}/users`, Object.assign({}, options));
+    }
+    update(data) {
+        return chatAPIInstance.put('/chats/users', Object.assign(Object.assign({}, options), { data }));
+    }
+}
+export { ChatAPI, ChatDialogAPI, ChatMembersAPI };
 //# sourceMappingURL=chat-api.js.map

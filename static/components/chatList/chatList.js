@@ -6,26 +6,37 @@ class ChatList extends Block {
     constructor(props) {
         super('div', props);
         this.pageData = store.state.users;
+        store.subscribe(() => {
+            this.render();
+        });
     }
     componentDidMount() {
-        const createChatApiClient = new ChatAPI();
-        createChatApiClient.request()
-            .then((data) => data.response)
-            .then(data => {
-            function changeData(data) {
-                return { type: 'CHANGEDATA', data };
-            }
-            console.log({ users: JSON.parse(data) }, 'rererer');
-            store.update(changeData({ users: JSON.parse(data) }));
-            console.log(store.state);
-        });
+        if (store.state.users.length === 0) {
+            const createChatApiClient = new ChatAPI();
+            createChatApiClient.request()
+                .then((data) => data.response)
+                .then(data => {
+                function changeData(data) {
+                    return { type: 'CHANGEDATA', data };
+                }
+                let chatData = JSON.parse(data).map(el => {
+                    el.last_message = JSON.parse(el.last_message);
+                    if (el.last_message != null) {
+                        let dataTest = el.last_message;
+                        el.last_message = dataTest.content;
+                    }
+                    return el;
+                });
+                store.update(changeData({ users: chatData }));
+            });
+        }
         this.setProps({ users: store.state.users });
     }
     render() {
         const pugData = `
 ul.chat-list
     each user in users
-        li.chat-list__element(data-name= user.title)
+        li.chat-list__element(data-action='openChat' data-id= user.id data-name= user.title)
             div.chat_link
                 .chat_image(data-action='chatListEvent')
                     img(src='../../data/circle.png' alt='')
@@ -41,6 +52,13 @@ ul.chat-list
 `;
         const compiledFunction = pug.compile(pugData);
         let doneHTML = compiledFunction({ users: store.state.users });
+        function createElementFromHTML(htmlString) {
+            var div = document.createElement('div');
+            div.innerHTML = htmlString.trim();
+            // Change this to div.childNodes to support multiple top-level nodes
+            return div.firstChild;
+        }
+        document.querySelector('.page_chat_list').innerHTML = doneHTML;
         return doneHTML;
     }
 }

@@ -92,8 +92,8 @@ export default abstract class Block {
   }
 
   setProps = (nextProps: any) => {
-    if (!nextProps) {
-      return;
+      if (!nextProps) {
+        return;
     }
     Object.assign(this.props, nextProps);
     this.eventBus().emit(Block.EVENTS.FLOW_CDU, this.props, nextProps);
@@ -102,6 +102,15 @@ export default abstract class Block {
   get element() {
     return this._element;
   }
+
+  //????
+    _addEvents() {
+        const {events = {}} = this.props;
+
+        Object.keys(events).forEach(eventName => {
+            this._element.addEventListener(eventName, events[eventName]);
+        });
+    }
 
   _render() {
     const block = this.render();
@@ -115,6 +124,8 @@ export default abstract class Block {
     this.eventBus().on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
     this.eventBus().on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
     this.eventBus().on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+      //????
+    this._addEvents();
   }
 
   // Может переопределять пользователь, необязательно трогать
@@ -144,10 +155,14 @@ export default abstract class Block {
   }
 
   show() {
-    this.getContent().style.display = 'block';
+      console.log('show');
+      console.log(this.getContent());
+      this.getContent().style.display = 'block';
   }
 
   hide() {
+      console.log('hide');
+      console.log(this.getContent());
     this.getContent().style.display = 'none';
   }
 }

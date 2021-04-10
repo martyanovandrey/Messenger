@@ -148,7 +148,7 @@ delegate(fixedBoxEl, 'click', 'change_members', (event: MouseEvent) => {
             const chatMemberstApiClient = new ChatMembersAPI();
             chatMemberstApiClient.update(JSON.stringify(inputAddMemberData))
                 .then((data) => data.response)
-                .then((data) => {
+                .then(() => {
                     store.update(pushData( {first_name: addUserInput.login  }));
                 });
         });
@@ -297,16 +297,17 @@ delegate(fixedBoxEl, 'click', 'delete_members', (event: MouseEvent) => {
             const chatMemberstApiClient = new ChatMembersAPI();
             chatMemberstApiClient.delete(JSON.stringify(inputAddMemberData))
                 .then((data) => data.response)
-                .then((data) => {
+                .then(() => {
                     store.update(deleteFromArrayData( {first_name: addUserInput.login  }));
                 });
         });
 });
 
-delegate(fixedBoxEl, 'click', 'menuDeleteChat', () => {
+delegate(fixedBoxEl, 'click', 'menuDeleteChat', (event: MouseEvent) => {
     const menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu');
     if (menuDeletePopup) {
         if (!menuDeletePopup.hidden) {
+            // @ts-ignore
             menuDeletePopup.style.left = `${event.clientX - menuDeletePopup.offsetWidth}px`;
         }
         menuDeletePopup.hidden = !menuDeletePopup.hidden;
@@ -316,7 +317,7 @@ delegate(fixedBoxEl, 'click', 'menuDeleteChat', () => {
 });
 
 delegate(fixedBoxEl, 'click', 'deleteChatYes', () => {
-    let chatDelId = {
+    const chatDelId = {
         "chatId": store.state.currentChat.chatId
     }
     const createChatApiClient = new ChatAPI();
@@ -346,6 +347,6 @@ delegate(fixedBoxEl, 'click', 'deleteChatYes', () => {
 
 delegate(fixedBoxEl, 'click', 'deleteChatNo', () => {
     console.log('chaat deleeee');
-    const menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu');
+    const menuDeletePopup = (<HTMLElement>document.getElementById('deleteMenu'));
     menuDeletePopup.hidden = true
 });

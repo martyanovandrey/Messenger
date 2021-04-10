@@ -37,7 +37,7 @@ class OverlayMenu extends Block {
                 .form_wrap
                     .form__field.registration-field
                         span.textinput
-                            input.textinput-control(type='text' placeholder= inputData)
+                            input.textinput-control(type='text' placeholder= inputData id= inputId)
                             label.registration__label(for='name')= inputData
                             label.registration__invalid Текст должен быть от 2 до 10 символов
                     .button_overlay
@@ -46,22 +46,12 @@ class OverlayMenu extends Block {
 `;
         const compiledFunction = pug.compile(pugData);
         const doneHTML = compiledFunction({
+            inputId: this.props.inputId,
             hideClass: this.props.hideClass,
             title: this.props.title,
             inputData: this.props.inputData,
             button: this.props.button.render(),
         });
-        // function createElementFromHTML(htmlString) {
-        //     var div = document.createElement('div');
-        //     div.innerHTML = htmlString.trim();
-        //
-        //     // Change this to div.childNodes to support multiple top-level nodes
-        //     return div.firstChild;
-        // }
-        // console.log(createElementFromHTML(doneHTML).querySelector('.app').appendChild(this.props.button.getContent()), '222222222222222')
-        // document.querySelector('.test').innerHTML = doneHTML
-        // doneHTML = createElementFromHTML(doneHTML).querySelector('.app').appendChild(this.props.button.getContent())
-        // console.log(doneHTML, 'doneeeeeeeee');
         return doneHTML;
     }
 }

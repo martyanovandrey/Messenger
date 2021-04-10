@@ -107,6 +107,7 @@ export default {
     mode: "development",
     entry: "./index.ts",
     output: {
+        publicPath: "/",
         filename: filename("js"),
         path: path.resolve(__dirname, "dist"),
     },
@@ -131,9 +132,12 @@ export default {
     },
     optimization: optimization(),
     devServer: {
-        host: '0.0.0.0',
+        //host: '0.0.0.0',
         port: 3000,
         hot: isDev,
+        historyApiFallback: {
+            index: 'index.html'
+        }
     },
     devtool: "source-map",
     plugins: plugins(),

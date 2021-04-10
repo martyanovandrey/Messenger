@@ -2,6 +2,7 @@ export const chatHTML = `
 .page-wrap
     .menuPopUpCreateChat
     .menuPopUpAddMember
+    .menuPopUpDeleteMember
     .page-sidebar#chat
         .search
             .search__profile-wrap
@@ -19,6 +20,6 @@ export const chatHTML = `
                 input.search__input(type='search' placeholder='Поиск')
         .page_chat_list
     .page-dialog
-        .dialog-text.dialog-mask
+        .dialog-text.dialog-mask(style="height: auto")
             | Выберите чат чтобы отправить сообщение
 `;

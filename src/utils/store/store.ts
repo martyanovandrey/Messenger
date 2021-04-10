@@ -4,18 +4,25 @@ import merge from '../merge/merge';
 function updateState(state:any, action: { type: string; data: Record<string, any> }) {
     if (action.type === 'CHANGEDATA') {
         //    let newState = Object.assign(state, action.data);
+        console.log(action, '123123123123123123123')
         const newState = merge(state, action.data);
 
         return newState;
     }
     if (action.type === 'PUSHDATA') {
-        //    let newState = Object.assign(state, action.data);
-        const updMessages = state.messages;
-        updMessages.push(action.data);
-
+        state.chatMembers.push(action.data);
+        console.log(state, action.data, 'newstateeeeeeeeee');
+        return state;
+    }
+    if (action.type === 'DELETEFROMARRAY') {
+        state.chatMembers = state.chatMembers.filter((obj: any) => obj.first_name !== action.data.first_name)
+        console.log(state, action.data, 'newstateeeeeeeeee');
         return state;
     }
 }
+
+
+
 
 class Store {
     private _updateState: any;

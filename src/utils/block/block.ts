@@ -156,14 +156,10 @@ export default abstract class Block {
     }
 
     show() {
-        console.log('show');
-        console.log(this.getContent());
         this.getContent().style.display = 'block';
     }
 
     hide() {
-        console.log('hide');
-        console.log(this.getContent());
         this.getContent().style.display = 'none';
     }
 }

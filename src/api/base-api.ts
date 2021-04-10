@@ -7,5 +7,5 @@ export abstract class BaseAPI {
 
     update(_data:any): Promise<XMLHttpRequest> { throw new Error('Not implemented'); }
 
-    delete(): Promise<XMLHttpRequest> { throw new Error('Not implemented'); }
+    delete(_data?:any): Promise<XMLHttpRequest> { throw new Error('Not implemented'); }
 }

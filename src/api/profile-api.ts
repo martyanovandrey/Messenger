@@ -7,26 +7,24 @@ const options = {
     },
 };
 
-// const profileAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
-// class ProfileAPI extends BaseAPI {
-//   update(data:string): Promise<XMLHttpRequest> {
-//     return profileAPIInstance.put('/profile', { ...options, data });
-//   }
-// }
-
-const profileChange = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
+const profileApi = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 class ProfileChangeAPI extends BaseAPI {
-    update(data:string): Promise<XMLHttpRequest> {
+    update(data:any): Promise<XMLHttpRequest> {
     // добавил комментарий в readme
-        return profileChange.put('/profile', { ...options, data });
+        return profileApi.put('/profile', { ...options, data });
     }
 }
 
-const profileChangePsw = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 class ProfileChangePswAPI extends BaseAPI {
-    update(data:string): Promise<XMLHttpRequest> {
-        return profileChangePsw.put('/password', { ...options, data });
+    update(data:any): Promise<XMLHttpRequest> {
+        return profileApi.put('/password', { ...options, data });
     }
 }
 
-export { ProfileChangeAPI, ProfileChangePswAPI };
+class getUserAPI extends BaseAPI {
+    create(data:any): Promise<XMLHttpRequest> {
+        return profileApi.post('/search', { ...options, data });
+    }
+}
+
+export { ProfileChangeAPI, ProfileChangePswAPI, getUserAPI };

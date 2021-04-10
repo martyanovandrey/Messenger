@@ -21,10 +21,10 @@ block variables
             form
                 mixin form(field_name, field_placeholder, style)
                     if (style == no_border)
-                        .form__field.form-space-between(style='border: none;')
+                        .form-space-between(style='border: none;')
                             +form_input(field_name, field_placeholder)
                     else
-                        .form__field.form-space-between
+                        .form-space-between
                             +form_input(field_name, field_placeholder)
                 
                 mixin form_input(field_name, field_placeholder)

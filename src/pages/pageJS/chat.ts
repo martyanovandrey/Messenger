@@ -3,12 +3,14 @@ import { ChatList } from '../../components/chatList/chatList';
 import { router } from '../../utils/router/router';
 import { OverlayMenu, render as renderOverlay } from '../../components/overlayMenu/overlayMenu';
 import { ChatAPI, ChatDialogAPI, ChatMembersAPI } from '../../api/chat-api';
+import { getUserAPI } from '../../api/profile-api';
 import { store } from '../../utils/store/store';
 import { Menu } from '../../utils/event-delegation/event-delegation';
 import { delegate } from '../../utils/event-delegation/event-delegation-function';
 import { newButton } from '../../components/newButton/newButton';
 
 const overlayMenuAdd = new OverlayMenu({
+    inputId: 'createChat',
     title: 'Создать чат',
     button: new newButton({
         id: 'change_button',
@@ -23,6 +25,7 @@ overlayMenuAdd.setProps({
 });
 
 const overlayMembersAdd = new OverlayMenu({
+    inputId: 'addMember',
     title: 'Добавить пользователя',
     button: new newButton({
         id: 'change_members',
@@ -33,6 +36,21 @@ renderOverlay('.menuPopUpAddMember', overlayMembersAdd);
 overlayMembersAdd.hide();
 overlayMembersAdd.setProps({
     title: 'Добавить',
+    inputData: 'Имя пользователя',
+});
+
+const overlayMembersDelete = new OverlayMenu({
+    inputId: 'deleteMember',
+    title: 'Удалить пользователя',
+    button: new newButton({
+        id: 'delete_members',
+        text: 'Удалить'
+    }),
+});
+renderOverlay('.menuPopUpDeleteMember', overlayMembersDelete);
+overlayMembersDelete.hide();
+overlayMembersDelete.setProps({
+    title: 'Удалить',
     inputData: 'Имя пользователя',
 });
 
@@ -51,64 +69,13 @@ function changeData(data: Record<string, any>) {
     return { type: 'CHANGEDATA', data };
 }
 
-// Event delegation for dialog menu
-// @ts-ignore
-class DialogMenu extends Menu {
-    menu(event: MouseEvent) {
-        const menuPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.user-menu');
-        if (menuPopup) {
-            if (!menuPopup.hidden) {
-                menuPopup.style.left = `${event.clientX - menuPopup.offsetWidth}px`;
-            }
-            menuPopup.hidden = !menuPopup.hidden;
-        } else {
-            console.log('menuPopup not found on page');
-        }
-    }
-
-    menuAdd(event: MouseEvent) {
-        const menuAddPopup: HTMLElement | null = document.getElementById('addMenu');
-        if (menuAddPopup) {
-            if (!menuAddPopup.hidden) {
-                menuAddPopup.style.left = `${event.clientX - menuAddPopup.offsetWidth}px`;
-            }
-            menuAddPopup.hidden = !menuAddPopup.hidden;
-        } else {
-            console.log('menuAddPopup not found on page');
-        }
-    }
-
-    addUser() {
-        const addUserMenu = (<HTMLInputElement>document.getElementById('addUserMenu'));
-        if (addUserMenu) {
-            addUserMenu.hidden;
-        } else {
-            console.log('addUserMenu not found on page');
-        }
-    }
-
-    menuDelete(event: MouseEvent) {
-        const menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu');
-        if (menuDeletePopup) {
-            if (!menuDeletePopup.hidden) {
-                menuDeletePopup.style.left = `${event.clientX - menuDeletePopup.offsetWidth}px`;
-            }
-            menuDeletePopup.hidden = !menuDeletePopup.hidden;
-        } else {
-            console.log('menuDeletePopup not found on page');
-        }
-    }
-
-    attach() {
-        const menuAttachPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.photo-file-menu');
-        if (menuAttachPopup) {
-            menuAttachPopup.hidden = !menuAttachPopup.hidden;
-        } else {
-            console.log('menuAttachPopup not found on page');
-        }
-    }
+function pushData(data: Record<string, any>) {
+    return { type: 'PUSHDATA', data };
 }
 
+function deleteFromArrayData(data: Record<string, any>) {
+    return { type: 'DELETEFROMARRAY', data };
+}
 
 class addChatBtn extends Menu {
     addChat(event: MouseEvent) {
@@ -123,9 +90,6 @@ class addChatBtn extends Menu {
             createChatApiClient.request()
                 .then((data) => data.response)
                 .then((data) => {
-                    function changeData(data: Record<string, any>) {
-                        return { type: 'CHANGEDATA', data };
-                    }
                     const chatData = JSON.parse(data).map((el: any) => {
                         el.last_message = JSON.parse(el.last_message);
                         if (el.last_message != null) {
@@ -165,18 +129,28 @@ delegate(fixedBoxEl, 'click', 'menuAdd', () => {
 delegate(fixedBoxEl, 'click', 'change_members', (event: MouseEvent) => {
     event.preventDefault();
     overlayMembersAdd.hide();
-    const inputAddMemberData = {
-        users: [
-            (<HTMLInputElement>document.querySelector('.textinput-control')).value,
-        ],
-        chatId: store.state.currentChat,
-    };
-    // call chat members
-    const chatMemberstApiClient = new ChatMembersAPI();
-    chatMemberstApiClient.update(inputAddMemberData)
+
+    const addUserInput = {
+        login: (<HTMLInputElement>document.getElementById('addMember')).value
+    }
+
+    const getUserApiClient = new getUserAPI();
+    getUserApiClient.create(JSON.stringify(addUserInput))
         .then((data) => data.response)
         .then((data) => {
-            store.update(changeData({ chatMembers: JSON.parse(data) }));
+            const usersId = JSON.parse(data).map((el: { id: any; }) => el.id)
+            const inputAddMemberData = {
+                users: usersId,
+                chatId: store.state.currentChat.chatId,
+            };
+
+            // call chat members
+            const chatMemberstApiClient = new ChatMembersAPI();
+            chatMemberstApiClient.update(JSON.stringify(inputAddMemberData))
+                .then((data) => data.response)
+                .then((data) => {
+                    store.update(pushData( {first_name: addUserInput.login  }));
+                });
         });
 });
 
@@ -185,6 +159,7 @@ delegate(fixedBoxEl, 'click', 'page-overlay__wrap', (event: MouseEvent) => {
     if(event.target.className === 'page-overlay__wrap'){
         overlayMenuAdd.hide();
         overlayMembersAdd.hide();
+        overlayMembersDelete.hide();
     }
 });
 
@@ -193,7 +168,6 @@ delegate(fixedBoxEl, 'click', 'chat_link', (event: MouseEvent) => {
     const chatId: string = event.target.closest('li').dataset.id;
     // @ts-ignore
     const chatName: string = event.target.closest('li').dataset.name;
-    console.log(event.target, chatId, chatName, 'logggggggggggg');
     // update current chat
     store.update(changeData({
         currentChat: {
@@ -295,4 +269,83 @@ delegate(fixedBoxEl, 'click', 'chat_link', (event: MouseEvent) => {
             console.log('Ошибка', event.message);
         });
     });
+});
+
+delegate(fixedBoxEl, 'click', 'menuDelete', () => {
+    overlayMembersDelete.show()
+});
+
+delegate(fixedBoxEl, 'click', 'delete_members', (event: MouseEvent) => {
+    event.preventDefault();
+    overlayMembersDelete.hide();
+
+    const addUserInput = {
+        login: (<HTMLInputElement>document.getElementById('deleteMember')).value
+    }
+
+    const getUserApiClient = new getUserAPI();
+    getUserApiClient.create(JSON.stringify(addUserInput))
+        .then((data) => data.response)
+        .then((data) => {
+            const usersId = JSON.parse(data).map((el: { id: any; }) => el.id)
+            const inputAddMemberData = {
+                users: usersId,
+                chatId: store.state.currentChat.chatId,
+            };
+
+            // call chat members
+            const chatMemberstApiClient = new ChatMembersAPI();
+            chatMemberstApiClient.delete(JSON.stringify(inputAddMemberData))
+                .then((data) => data.response)
+                .then((data) => {
+                    store.update(deleteFromArrayData( {first_name: addUserInput.login  }));
+                });
+        });
+});
+
+delegate(fixedBoxEl, 'click', 'menuDeleteChat', () => {
+    const menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu');
+    if (menuDeletePopup) {
+        if (!menuDeletePopup.hidden) {
+            menuDeletePopup.style.left = `${event.clientX - menuDeletePopup.offsetWidth}px`;
+        }
+        menuDeletePopup.hidden = !menuDeletePopup.hidden;
+    } else {
+        console.log('menuDeletePopup not found on page');
+    }
+});
+
+delegate(fixedBoxEl, 'click', 'deleteChatYes', () => {
+    let chatDelId = {
+        "chatId": store.state.currentChat.chatId
+    }
+    const createChatApiClient = new ChatAPI();
+    createChatApiClient.delete(JSON.stringify(chatDelId)).then(() => {
+
+    });
+
+    createChatApiClient.request()
+        .then((data) => data.response)
+        .then((data) => {
+            const chatData = JSON.parse(data).map((el: any) => {
+                el.last_message = JSON.parse(el.last_message);
+                if (el.last_message != null) {
+                    const dataTest = el.last_message;
+                    el.last_message = dataTest.content;
+                }
+                return el;
+            });
+            store.update(changeData({ users: chatData }));
+            store.update(changeData({ currentChat: {
+                    chatId: '',
+                    chatName: ''
+                } }));
+        });
+    //(<HTMLElement>document.querySelector('.page-dialog')).innerHTML = '';
+});
+
+delegate(fixedBoxEl, 'click', 'deleteChatNo', () => {
+    console.log('chaat deleeee');
+    const menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu');
+    menuDeletePopup.hidden = true
 });

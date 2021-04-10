@@ -17,6 +17,9 @@ class ChatAPI extends BaseAPI {
     request(): Promise<XMLHttpRequest> {
         return chatAPIInstance.get('/chats', { ...options });
     }
+    delete(data:any): Promise<XMLHttpRequest> {
+        return chatAPIInstance.delete('/chats', { ...options, data });
+    }
 }
 
 class ChatDialogAPI extends BaseAPI {
@@ -32,6 +35,9 @@ class ChatMembersAPI extends BaseAPI {
 
     update(data:any): Promise<XMLHttpRequest> {
         return chatAPIInstance.put('/chats/users', { ...options, data });
+    }
+    delete(data:any): Promise<XMLHttpRequest> {
+        return chatAPIInstance.delete('/chats/users', { ...options, data });
     }
 }
 

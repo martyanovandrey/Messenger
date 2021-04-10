@@ -1,17 +1,19 @@
 {
-    "compilerOptions": {
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "sourceMap": true,
-        "strictNullChecks": true,
-        "downlevelIteration": true,
-        "outDir": "static",
-        "target": "es6",
-        "module": "es6"
-    },
-    "include": [
-        "**/*"
-    ],
-    "compileOnSave": true
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "downlevelIteration": true,
+    "outDir": "static",
+    "target": "es6",
+    "module": "es6"
+  },
+  "include": ["**/*"],
+  "exclude": [ "node_modules" ],
+  "compileOnSave": true,
+  "esModuleInterop": true,
+  "allowSyntheticDefaultImports": true
 }

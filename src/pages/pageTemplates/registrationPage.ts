@@ -27,4 +27,4 @@ export const registrationHTML = `
                     .app
                 .not-registered.registration_page
                     a.not-registered-text(href='/') Войти
-`
+`;

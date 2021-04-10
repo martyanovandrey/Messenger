@@ -34,4 +34,4 @@ export const profileChangePswHTML = `
                 input.textinput-profile.right(type='password')
                 label.registration__invalid
             .button_profile
-              .app`
+              .app`;

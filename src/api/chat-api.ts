@@ -1,20 +1,44 @@
-import {HTTPTransport} from '../utils/xhr/xhr.js'
-import { BaseAPI } from './base-api.js';
+import { HTTPTransport } from '../utils/xhr/xhr';
+import { BaseAPI } from './base-api';
 
-const chatAPIInstance = new HTTPTransport('api/v1/chats');
+const chatAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2');
 
-let options = {
+const options = {
     headers: {
-        'Content-Type': 'application/json'
-    }
-}
+        'Content-Type': 'application/json',
+    },
+};
 
 class ChatAPI extends BaseAPI {
     create(data:string): Promise<XMLHttpRequest> {
-        return chatAPIInstance.post('/', {...options, data});
+        return chatAPIInstance.post('/chats', { ...options, data });
     }
 
+    request(): Promise<XMLHttpRequest> {
+        return chatAPIInstance.get('/chats', { ...options });
+    }
+    delete(data:any): Promise<XMLHttpRequest> {
+        return chatAPIInstance.delete('/chats', { ...options, data });
+    }
 }
 
-export { ChatAPI }
+class ChatDialogAPI extends BaseAPI {
+    create(data:string): Promise<XMLHttpRequest> {
+        return chatAPIInstance.post(`/chats/token/${data}`, { ...options });
+    }
+}
 
+class ChatMembersAPI extends BaseAPI {
+    request(data:any): Promise<XMLHttpRequest> {
+        return chatAPIInstance.get(`/chats/${data}/users`, { ...options });
+    }
+
+    update(data:any): Promise<XMLHttpRequest> {
+        return chatAPIInstance.put('/chats/users', { ...options, data });
+    }
+    delete(data:any): Promise<XMLHttpRequest> {
+        return chatAPIInstance.delete('/chats/users', { ...options, data });
+    }
+}
+
+export { ChatAPI, ChatDialogAPI, ChatMembersAPI };

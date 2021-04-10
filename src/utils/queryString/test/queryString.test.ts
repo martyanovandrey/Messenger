@@ -1,3 +1,4 @@
+// @ts-ignore
 import assert = require("assert")
 import { queryString } from '../queryString';
 

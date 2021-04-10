@@ -1,5 +1,11 @@
-import {loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw, error404, error500} from './pages/pageTemplates/pageBlock.js'
-import {router} from "./utils/router/router.js";
+import {
+    loginPage, registrationPage, chatPage, profilePage, profileChangesPage, profileChangePsw, error404, error500,
+} from './pages/pageTemplates/pageBlock';
+import { router } from './utils/router/router';
+import './style/style_chat.css';
+import './style/style_error.css';
+import './style/style_profile.css';
+import './style/style_reg.css';
 
 router
     .use('/', loginPage)

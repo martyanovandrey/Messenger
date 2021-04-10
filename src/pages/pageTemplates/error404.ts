@@ -5,4 +5,4 @@ export const error404HTML = `
     span.error__message.text-style
         | Не туда попали
     a.link.text-style(href='/') Назад к чатам
-`
+`;

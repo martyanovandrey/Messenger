@@ -24,7 +24,7 @@ function getKey(key: string, parentKey?: string) {
 function getParams(data: PlainObject | [], parentKey?: string) {
     const result: [string, string][] = [];
 
-    for(const [key, value] of Object.entries(data)) {
+    for (const [key, value] of Object.entries(data)) {
         if (isArrayOrObject(value)) {
             result.push(...getParams(value, getKey(key, parentKey)));
         } else {
@@ -36,11 +36,13 @@ function getParams(data: PlainObject | [], parentKey?: string) {
 }
 
 function queryString(data: PlainObject) {
-        if (!isPlainObject(data)) {
-            throw new Error('input must be an object');
-        }
+    if (!isPlainObject(data)) {
+        throw new Error('input must be an object');
+    }
 
-        return getParams(data).map(arr => arr.join('=')).join('&');
+    return getParams(data).map((arr) => arr.join('=')).join('&');
 }
 
-export {isPlainObject, isArray, isArrayOrObject, getKey, getParams, queryString}
+export {
+    isPlainObject, isArray, isArrayOrObject, getKey, getParams, queryString,
+};

@@ -1,120 +1,139 @@
-import {Block} from "../../utils/router/router.js";
-import {loginHTML} from "./loginPage.js";
-import {registrationHTML} from "./registrationPage.js";
-import {chatHTML} from "./chatPage.js";
-import {profileHTML} from "./profilePage.js";
-import {profileChangesHTML} from "./profileChanges.js";
-import {profileChangePswHTML} from "./profileChangePsw.js";
-import {error500HTML} from "./error500.js";
-import {error404HTML} from "./error404.js";
+import { Block } from '../../utils/router/router';
+import { loginHTML } from './loginPage';
+import { registrationHTML } from './registrationPage';
+import { chatHTML } from './chatPage';
+import { profileHTML } from './profilePage';
+import { profileChangesHTML } from './profileChanges';
+import { profileChangePswHTML } from './profileChangePsw';
+import { error500HTML } from './error500';
+import { error404HTML } from './error404';
 
-import {store} from "../../utils/store/store.js"
-const pug = require('pug');
-
+import { store } from '../../utils/store/store';
+// @ts-ignore
+import pug from 'pug'
 
 class loginPage extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(loginHTML);
-        let loginDoneHTML = compiledFunction(this.pageData);
-        return loginDoneHTML
+        const loginDoneHTML = compiledFunction(this.pageData);
+        return loginDoneHTML;
     }
 }
 
 class registrationPage extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(registrationHTML);
-        let registrationDoneHTML = compiledFunction(this.pageData);
-        return registrationDoneHTML
+        const registrationDoneHTML = compiledFunction(this.pageData);
+        return registrationDoneHTML;
     }
 }
 
 class chatPage extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(chatHTML);
-        let chatDoneHTML = compiledFunction(this.pageData);
-        return chatDoneHTML
+        const chatDoneHTML = compiledFunction(this.pageData);
+
+        return chatDoneHTML;
     }
 }
 
 class profilePage extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(profileHTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML
-    };
+        const doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
+    }
 }
 
 class profileChangesPage extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(profileChangesHTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML
+        const doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
     }
 }
 
 class profileChangePsw extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(profileChangePswHTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML
+        const doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
     }
 }
 
 class error404 extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(error404HTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML
+        const doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
     }
 }
 
 class error500 extends Block {
     private pageData: object;
+
     constructor() {
-        super()
-        this.pageData = store.state
+        super();
+        this.pageData = store.state;
     }
-    getContent(){
+
+    getContent() {
         const compiledFunction = pug.compile(error500HTML);
-        let doneHTML = compiledFunction(this.pageData);
-        return doneHTML
+        const doneHTML = compiledFunction(this.pageData);
+        return doneHTML;
     }
 }
 
-export {loginPage, registrationPage, chatPage,
-    profilePage, profileChangesPage, profileChangePsw, error404, error500}
+export {
+    loginPage, registrationPage, chatPage,
+    profilePage, profileChangesPage, profileChangePsw, error404, error500,
+};

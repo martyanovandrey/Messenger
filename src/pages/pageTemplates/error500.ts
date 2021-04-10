@@ -5,4 +5,4 @@ export const error500HTML = `
     span.error__message.text-style
         | Мы уже фиксим
     a.link.text-style(href='/') Назад к чатам
-`
+`;

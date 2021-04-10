@@ -45,4 +45,4 @@ block variables
                 .button_profile
                     .app
 
-`
+`;

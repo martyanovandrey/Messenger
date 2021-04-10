@@ -1,37 +1,47 @@
 // chat-api.js
-import { HTTPTransport } from '../utils/xhr/xhr.js'
-import { BaseAPI} from "./base-api.js";
+import { HTTPTransport } from '../utils/xhr/xhr';
+import { BaseAPI } from './base-api';
 
-let options = {
+const options = {
     headers: {
-        'Content-Type': 'application/json'
-    }
-}
+        'Content-Type': 'application/json',
+    },
+};
 
-let signinAPIInstance = new HTTPTransport('/api/v2/auth');
+const authAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
 
 class SigninAPI extends BaseAPI {
     create(data:string): Promise<XMLHttpRequest> {
-        return signinAPIInstance.post('/signin', {...options, data});
+        return authAPIInstance.post('/signin', { ...options, data });
     }
 
     request() {
-        return signinAPIInstance.get('/signin', {...options});
+        return authAPIInstance.get('/signin', { ...options });
     }
-
 }
-
-let signupAPIInstance = new HTTPTransport('/api/v2/auth');
 
 class SignupAPI extends BaseAPI {
     create(data:string): Promise<XMLHttpRequest> {
-        //добавил комментарий в readme
-        return signupAPIInstance.post('/signup', {...options, data});
+        return authAPIInstance.post('/signup', { ...options, data });
     }
 
     request() {
-        return signupAPIInstance.get('/signup', {...options});
+        return authAPIInstance.get('/signup', { ...options });
     }
 }
 
-export { SigninAPI, SignupAPI }
+class LogoutAPI extends BaseAPI {
+    create(data?:string): Promise<XMLHttpRequest> {
+        return authAPIInstance.post('/logout', { ...options, data });
+    }
+}
+
+class UserAPI extends BaseAPI {
+    request(): Promise<XMLHttpRequest> {
+        return authAPIInstance.get('/user', { ...options });
+    }
+}
+
+export {
+    SigninAPI, SignupAPI, LogoutAPI, UserAPI,
+};

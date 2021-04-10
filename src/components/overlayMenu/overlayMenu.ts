@@ -1,19 +1,18 @@
-import Block from '../../utils/block/block.js';
-import {newButton} from '../newButton/newButton.js'
-const pug = require('pug');
+import Block from '../../utils/block/block';
+// @ts-ignore
+import pug from 'pug'
 
 interface Props {
-    text: string
+    [key: string]: any
 }
 
 class OverlayMenu extends Block {
     constructor(props: Props) {
-        super("div", props)
+        super('div', props);
     }
 
     componentDidMount() {
-
-        //let roottest = document.querySelector('.test2');
+        // let roottest = document.querySelector('.test2');
         // let roottest = this.getContent();
         // console.log(this.getContent(), '111111111111111')
         // //let roottest = this.getContent().querySelector('.app');
@@ -23,11 +22,10 @@ class OverlayMenu extends Block {
         // }
         //
         // console.log(this.props.button.getContent(), '22222222222222')
-        //roottest.appendChild(this.props.button.getContent());
+        // roottest.appendChild(this.props.button.getContent());
         this._element.addEventListener('click', this.props.event);
-        //this.eventBus.on('test', console.log('event BUS TEST'));
+        // this.eventBus.on('test', console.log('event BUS TEST'));
     }
-
 
     render() {
         const pugData = `
@@ -47,11 +45,11 @@ class OverlayMenu extends Block {
                             | !{button}
 `;
         const compiledFunction = pug.compile(pugData);
-        let doneHTML = compiledFunction({
+        const doneHTML = compiledFunction({
             hideClass: this.props.hideClass,
             title: this.props.title,
             inputData: this.props.inputData,
-            button: this.props.button.render()
+            button: this.props.button.render(),
         });
         // function createElementFromHTML(htmlString) {
         //     var div = document.createElement('div');
@@ -60,29 +58,18 @@ class OverlayMenu extends Block {
         //     // Change this to div.childNodes to support multiple top-level nodes
         //     return div.firstChild;
         // }
-        //console.log(createElementFromHTML(doneHTML).querySelector('.app').appendChild(this.props.button.getContent()), '222222222222222')
-        //document.querySelector('.test').innerHTML = doneHTML
-        //doneHTML = createElementFromHTML(doneHTML).querySelector('.app').appendChild(this.props.button.getContent())
-        //console.log(doneHTML, 'doneeeeeeeee');
+        // console.log(createElementFromHTML(doneHTML).querySelector('.app').appendChild(this.props.button.getContent()), '222222222222222')
+        // document.querySelector('.test').innerHTML = doneHTML
+        // doneHTML = createElementFromHTML(doneHTML).querySelector('.app').appendChild(this.props.button.getContent())
+        // console.log(doneHTML, 'doneeeeeeeee');
         return doneHTML;
     }
 }
 
 function render(query:string, block: OverlayMenu) {
-    const root = document.querySelector(query);
+    const root = (<HTMLElement>document.querySelector(query));
     root.appendChild(block.getContent());
     return root;
-}
-
-// const overlayMenuAdd = new OverlayMenu({
-//     title: "Добавить пользователя",
-//     button: new newButton({
-//         text: "Добавить"
-//     })});
-
-function test(event){
-    event.preventDefault();
-    console.log('teseeeeeeeeeeest', event)
 }
 
 export { OverlayMenu, render };

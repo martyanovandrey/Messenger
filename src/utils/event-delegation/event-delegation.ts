@@ -1,7 +1,7 @@
 interface IRawParams {
     [key: string]: any
 }
-class Menu implements IRawParams{
+class Menu implements IRawParams {
     [k: string]: any;
 
     constructor(elem: HTMLElement) {
@@ -10,12 +10,12 @@ class Menu implements IRawParams{
 
     onClick(event: Event) {
         if (event.target instanceof HTMLElement) {
-            let action = event.target.dataset.action
+            const { action } = event.target.dataset;
             if (action) {
                 this[action](event);
             }
         }
-    };
+    }
 }
 
-export { Menu }
+export { Menu };

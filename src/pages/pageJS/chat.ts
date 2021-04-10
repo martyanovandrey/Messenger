@@ -1,116 +1,97 @@
-import { ChatMembers } from '../../components/chatMembers/chatMembers.js';
-import { ChatList, render } from '../../components/chatList/chatList.js';
-import { router } from '../../utils/router/router.js';
-import { Button, render as renderButton } from '../../components/button/button.js';
-import { OverlayMenu, render as renderOverlay} from '../../components/overlayMenu/overlayMenu.js';
-import {ChatAPI, ChatDialogAPI, ChatMembersAPI} from '../../api/chat-api.js';
-import { store } from '../../utils/store/store.js';
-import { Menu } from '../../utils/event-delegation/event-delegation.js';
-import { delegate } from '../../utils/event-delegation/event-delegation-function.js';
-import {newButton} from "../../components/newButton/newButton.js";
-
-const eventButton = (event) => {
-    event.preventDefault();
-    console.log('test btn');
-    overlayMenuAdd.hide()
-    // let inputCreateChatData = {
-    //     title: document.querySelector('.textinput-control').value
-    // }
-    //
-    // const createChatApiClient = new ChatAPI();
-    // createChatApiClient.create(JSON.stringify(inputCreateChatData)).then((data) => {
-    //     menuCreateChat.style.display = 'none'
-    // })
-    }
-
-    function test(event){
-        event.preventDefault();
-        console.log('teseeeeeeeeeeest', event)
-    }
+import { ChatMembers } from '../../components/chatMembers/chatMembers';
+import { ChatList } from '../../components/chatList/chatList';
+import { router } from '../../utils/router/router';
+import { OverlayMenu, render as renderOverlay } from '../../components/overlayMenu/overlayMenu';
+import { ChatAPI, ChatDialogAPI, ChatMembersAPI } from '../../api/chat-api';
+import { store } from '../../utils/store/store';
+import { Menu } from '../../utils/event-delegation/event-delegation';
+import { delegate } from '../../utils/event-delegation/event-delegation-function';
+import { newButton } from '../../components/newButton/newButton';
 
 const overlayMenuAdd = new OverlayMenu({
-    title: "Создать чат",
+    title: 'Создать чат',
     button: new newButton({
-        id: "change_button",
-        text: "Создать",
-        event: test
-    })});
+        id: 'change_button',
+        text: 'Создать'
+    }),
+});
 renderOverlay('.menuPopUpCreateChat', overlayMenuAdd);
-overlayMenuAdd.hide()
+overlayMenuAdd.hide();
 overlayMenuAdd.setProps({
-    title: "Создать чат",
+    title: 'Создать чат',
     inputData: 'Имя чата',
 });
 
 const overlayMembersAdd = new OverlayMenu({
-    title: "Добавить пользователя",
+    title: 'Добавить пользователя',
     button: new newButton({
-        id: "change_members",
-        text: "Добавить",
-        event: test
-    })});
+        id: 'change_members',
+        text: 'Добавить'
+    }),
+});
 renderOverlay('.menuPopUpAddMember', overlayMembersAdd);
-overlayMembersAdd.hide()
+overlayMembersAdd.hide();
 overlayMembersAdd.setProps({
-    title: "Добавить",
+    title: 'Добавить',
     inputData: 'Имя пользователя',
 });
 
-
-(<HTMLButtonElement>document.getElementById('createNewChat')).addEventListener('click', (event) => {
-    overlayMenuAdd.show()
+(<HTMLButtonElement>document.getElementById('createNewChat')).addEventListener('click', () => {
+    overlayMenuAdd.show();
 });
 
-
-let chatList = new ChatList();
+new ChatList();
 
 (<HTMLButtonElement>document.getElementById('profile-link')).addEventListener('click', (event) => {
     event.preventDefault();
     router.go('/profile');
 });
 
-
-function changeData(data) {
+function changeData(data: Record<string, any>) {
     return { type: 'CHANGEDATA', data };
 }
 
-//Event delegation for dialog menu
+// Event delegation for dialog menu
+// @ts-ignore
 class DialogMenu extends Menu {
     menu(event: MouseEvent) {
-        let menuPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.user-menu')
-        if (menuPopup){
-            if (!menuPopup.hidden){
-                menuPopup.style.left = (event.clientX - menuPopup.offsetWidth) + 'px';
+        const menuPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.user-menu');
+        if (menuPopup) {
+            if (!menuPopup.hidden) {
+                menuPopup.style.left = `${event.clientX - menuPopup.offsetWidth}px`;
             }
             menuPopup.hidden = !menuPopup.hidden;
         } else {
             console.log('menuPopup not found on page');
         }
     }
-    menuAdd (event: MouseEvent) {
-        let menuAddPopup: HTMLElement | null = document.getElementById('addMenu')
-        if (menuAddPopup){
-            if (!menuAddPopup.hidden){
-                menuAddPopup.style.left = (event.clientX - menuAddPopup.offsetWidth) + 'px';
+
+    menuAdd(event: MouseEvent) {
+        const menuAddPopup: HTMLElement | null = document.getElementById('addMenu');
+        if (menuAddPopup) {
+            if (!menuAddPopup.hidden) {
+                menuAddPopup.style.left = `${event.clientX - menuAddPopup.offsetWidth}px`;
             }
-            menuAddPopup.hidden = !menuAddPopup.hidden
+            menuAddPopup.hidden = !menuAddPopup.hidden;
         } else {
             console.log('menuAddPopup not found on page');
         }
     }
-    addUser () {
-        let addUserMenu = (<HTMLInputElement>document.getElementById('addUserMenu'));
+
+    addUser() {
+        const addUserMenu = (<HTMLInputElement>document.getElementById('addUserMenu'));
         if (addUserMenu) {
-            addUserMenu.hidden
+            addUserMenu.hidden;
         } else {
             console.log('addUserMenu not found on page');
         }
     }
-    menuDelete (event: MouseEvent) {
-        let menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu')
+
+    menuDelete(event: MouseEvent) {
+        const menuDeletePopup: HTMLElement | null = document.getElementById('deleteMenu');
         if (menuDeletePopup) {
             if (!menuDeletePopup.hidden) {
-                menuDeletePopup.style.left = (event.clientX - menuDeletePopup.offsetWidth) + 'px';
+                menuDeletePopup.style.left = `${event.clientX - menuDeletePopup.offsetWidth}px`;
             }
             menuDeletePopup.hidden = !menuDeletePopup.hidden;
         } else {
@@ -118,8 +99,8 @@ class DialogMenu extends Menu {
         }
     }
 
-    attach () {
-        let menuAttachPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.photo-file-menu')
+    attach() {
+        const menuAttachPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.photo-file-menu');
         if (menuAttachPopup) {
             menuAttachPopup.hidden = !menuAttachPopup.hidden;
         } else {
@@ -128,58 +109,48 @@ class DialogMenu extends Menu {
     }
 }
 
-//Event delegation for chat menu
-class ChatMenu extends Menu {
-    openChat(event: MouseEvent) {
-
-    }
-}
-
-new ChatMenu(chat);
-
 
 class addChatBtn extends Menu {
     addChat(event: MouseEvent) {
         event.preventDefault();
-        overlayMenuAdd.hide()
-        let inputCreateChatData = {
-            title: document.querySelector('.textinput-control').value
-        }
+        overlayMenuAdd.hide();
+        const inputCreateChatData = {
+            title: (<HTMLInputElement>document.querySelector('.textinput-control')).value,
+        };
         const createChatApiClient = new ChatAPI();
-        createChatApiClient.create(JSON.stringify(inputCreateChatData)).then((data) => {
+        createChatApiClient.create(JSON.stringify(inputCreateChatData)).then(() => {
             const createChatApiClient = new ChatAPI();
             createChatApiClient.request()
                 .then((data) => data.response)
-                .then(data => {
-                    function changeData(data) {
+                .then((data) => {
+                    function changeData(data: Record<string, any>) {
                         return { type: 'CHANGEDATA', data };
                     }
-                    let chatData = JSON.parse(data).map(el => {
-                        el.last_message = JSON.parse(el.last_message)
-                        if(el.last_message != null){
-                            let dataTest = el.last_message
-                            el.last_message = dataTest.content
+                    const chatData = JSON.parse(data).map((el: any) => {
+                        el.last_message = JSON.parse(el.last_message);
+                        if (el.last_message != null) {
+                            const dataTest = el.last_message;
+                            el.last_message = dataTest.content;
                         }
-                        return el
-                    })
-                    store.update(changeData({users: chatData}));
+                        return el;
+                    });
+                    store.update(changeData({ users: chatData }));
                 });
-        })
+        });
     }
 }
 
+// @ts-ignore
 new addChatBtn(change_button);
 
 // event delegation v2
 
-
-
-let fixedBoxEl = document.querySelector('.page-wrap');
-delegate(fixedBoxEl, 'click', 'delegate', function(event){
-    let menuPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.user-menu')
-    if (menuPopup){
-        if (!menuPopup.hidden){
-            menuPopup.style.left = (event.clientX - menuPopup.offsetWidth) + 'px';
+const fixedBoxEl = document.querySelector('.page-wrap');
+delegate(fixedBoxEl, 'click', 'delegate', (event: MouseEvent) => {
+    const menuPopup: HTMLElement | null = document.querySelector('.page-dialog__pop-up.user-menu');
+    if (menuPopup) {
+        if (!menuPopup.hidden) {
+            menuPopup.style.left = `${event.clientX - menuPopup.offsetWidth}px`;
         }
         menuPopup.hidden = !menuPopup.hidden;
     } else {
@@ -187,75 +158,78 @@ delegate(fixedBoxEl, 'click', 'delegate', function(event){
     }
 });
 
-delegate(fixedBoxEl, 'click', 'menuAdd', function(event){
-    overlayMembersAdd.show()
+delegate(fixedBoxEl, 'click', 'menuAdd', () => {
+    overlayMembersAdd.show();
 });
 
-delegate(fixedBoxEl, 'click', 'change_members', function(event){
+delegate(fixedBoxEl, 'click', 'change_members', (event: MouseEvent) => {
     event.preventDefault();
-    overlayMembersAdd.hide()
-    let inputAddMemberData =
-    {
-        "users": [
-        document.querySelector('.textinput-control').value
-    ],
-        "chatId": store.state.currentChat
-    }
+    overlayMembersAdd.hide();
+    const inputAddMemberData = {
+        users: [
+            (<HTMLInputElement>document.querySelector('.textinput-control')).value,
+        ],
+        chatId: store.state.currentChat,
+    };
     // call chat members
     const chatMemberstApiClient = new ChatMembersAPI();
     chatMemberstApiClient.update(inputAddMemberData)
         .then((data) => data.response)
-        .then(data => {
-            store.update(changeData({chatMembers: JSON.parse(data)}));
+        .then((data) => {
+            store.update(changeData({ chatMembers: JSON.parse(data) }));
         });
 });
 
-
-delegate(fixedBoxEl, 'click', 'page-overlay__wrap', function(event){
-    overlayMenuAdd.hide()
-    overlayMembersAdd.hide()
+delegate(fixedBoxEl, 'click', 'page-overlay__wrap', (event: MouseEvent) => {
+    // @ts-ignore
+    if(event.target.className === 'page-overlay__wrap'){
+        overlayMenuAdd.hide();
+        overlayMembersAdd.hide();
+    }
 });
 
-delegate(fixedBoxEl, 'click', 'chat_link', function(event){
-
-    let chatId: string = event.target.closest('li').dataset.id
-    let chatName: string = event.target.closest('li').dataset.name
-    console.log(event.target, chatId, chatName,'logggggggggggg');
-    //update current chat
-    store.update(changeData({currentChat: {
-            chatId: chatId,
-            chatName: chatName
-        }}));
+delegate(fixedBoxEl, 'click', 'chat_link', (event: MouseEvent) => {
+    // @ts-ignore
+    const chatId: string = event.target.closest('li').dataset.id;
+    // @ts-ignore
+    const chatName: string = event.target.closest('li').dataset.name;
+    console.log(event.target, chatId, chatName, 'logggggggggggg');
+    // update current chat
+    store.update(changeData({
+        currentChat: {
+            chatId,
+            chatName,
+        },
+    }));
 
     // call chat members
     const chatMemberstApiClient = new ChatMembersAPI();
     chatMemberstApiClient.request(chatId)
         .then((data) => data.response)
-        .then(data => {
-            store.update(changeData({chatMembers: JSON.parse(data)}));
+        .then((data) => {
+            store.update(changeData({ chatMembers: JSON.parse(data) }));
         });
 
     // call chat token
-    store.update(changeData({messages: []}));
-    const chatMembersPage = new ChatMembers({
+    store.update(changeData({ messages: [] }));
+    new ChatMembers({
         title: 'chatProps',
         currentChat: {
-            chatId: chatId,
-            chatName: chatName,
-        }
+            chatId,
+            chatName,
+        },
     });
     console.log(store.state, 'STATEEEEE');
 
-    //scroll down
-    let dialogText = document.querySelector(".dialog-text");
+    // scroll down
+    const dialogText = (<HTMLElement>document.querySelector('.dialog-text'));
     dialogText.scrollTop = dialogText.scrollHeight;
 
     // open WSS and load chat messages
     const chatDialogApiClient = new ChatDialogAPI();
     chatDialogApiClient.create(store.state.currentChat.chatId).then((data) => {
-        let token = JSON.parse(data.response).token
-        store.update(changeData({chatToken: token
-        } ));
+        const { token } = JSON.parse(data.response);
+        store.update(changeData({ chatToken: token }));
         const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${store.state.id}/${store.state.currentChat.chatId}/${store.state.chatToken}`);
         socket.addEventListener('open', () => {
             console.log('Соединение установлено');
@@ -263,37 +237,34 @@ delegate(fixedBoxEl, 'click', 'chat_link', function(event){
                 content: '0',
                 type: 'get old',
             }));
-            socket.addEventListener('message', event => {
-
-
-                if(JSON.parse(event.data).length > 1){
+            socket.addEventListener('message', (event) => {
+                if (JSON.parse(event.data).length > 1) {
                     console.log(JSON.parse(event.data), 'JSON.parse(event.data)');
-                    let newMessages = JSON.parse(event.data).map(el => {
-                        let date = new Date(el.time)
-                        let min = date.getMinutes()
-                        if (min < 10){
-                            min = '0' + min
+                    const newMessages = JSON.parse(event.data).map((el: any) => {
+                        const date = new Date(el.time);
+                        let min: any = date.getMinutes();
+                        if (min < 10) {
+                            min = `0${min}`;
                         }
-                        el.time = `${date.getHours()}:${min}`
-                        return el
-                    })
-                    store.update(changeData({messages: newMessages}));
-                } else if (store.state.messages.length != 0){
+                        el.time = `${date.getHours()}:${min}`;
+                        return el;
+                    });
+                    store.update(changeData({ messages: newMessages }));
+                } else if (store.state.messages.length != 0) {
                     socket.send(JSON.stringify({
                         content: '0',
                         type: 'get old',
                     }));
-                } else if (store.state.messages.length === 0 && JSON.parse(event.data).length === 1){
-
-                    store.update(changeData({messages: JSON.parse(event.data)}));
+                } else if (store.state.messages.length === 0 && JSON.parse(event.data).length === 1) {
+                    store.update(changeData({ messages: JSON.parse(event.data) }));
                     console.log(store.state);
                 }
-                document.getElementById('sendMessage').addEventListener('click', sendMe)
-                function sendMe(event){
+                (<HTMLElement>document.getElementById('sendMessage')).addEventListener('click', sendMe);
+                function sendMe(event: MouseEvent) {
                     event.preventDefault();
                     console.log('clicked!');
-                    let message = document.getElementById('messageInput').value;
-                    if (message != ''){
+                    const message = (<HTMLInputElement>document.getElementById('messageInput')).value;
+                    if (message != '') {
                         socket.send(JSON.stringify({
                             content: `${message}`,
                             type: 'message',
@@ -309,7 +280,7 @@ delegate(fixedBoxEl, 'click', 'chat_link', function(event){
             });
         });
 
-        socket.addEventListener('close', event => {
+        socket.addEventListener('close', (event) => {
             if (event.wasClean) {
                 console.log('Соединение закрыто чисто');
             } else {
@@ -319,8 +290,9 @@ delegate(fixedBoxEl, 'click', 'chat_link', function(event){
             console.log(`Код: ${event.code} | Причина: ${event.reason}`);
         });
 
-        socket.addEventListener('error', event => {
+        socket.addEventListener('error', (event) => {
+            // @ts-ignore
             console.log('Ошибка', event.message);
         });
-    })
+    });
 });

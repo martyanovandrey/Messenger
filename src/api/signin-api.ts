@@ -1,53 +1,47 @@
 // chat-api.js
-import { HTTPTransport } from '../utils/xhr/xhr.js';
-import { BaseAPI } from './base-api.js';
+import { HTTPTransport } from '../utils/xhr/xhr';
+import { BaseAPI } from './base-api';
 
 const options = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
+    headers: {
+        'Content-Type': 'application/json',
+    },
 };
 
-const signinAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
+const authAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
 
 class SigninAPI extends BaseAPI {
-  create(data:string): Promise<XMLHttpRequest> {
-    return signinAPIInstance.post('/signin', { ...options, data });
-  }
+    create(data:string): Promise<XMLHttpRequest> {
+        return authAPIInstance.post('/signin', { ...options, data });
+    }
 
-  request() {
-    return signinAPIInstance.get('/signin', { ...options });
-  }
+    request() {
+        return authAPIInstance.get('/signin', { ...options });
+    }
 }
-
-const signupAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
 
 class SignupAPI extends BaseAPI {
-  create(data:string): Promise<XMLHttpRequest> {
-    return signupAPIInstance.post('/signup', { ...options, data });
-  }
+    create(data:string): Promise<XMLHttpRequest> {
+        return authAPIInstance.post('/signup', { ...options, data });
+    }
 
-  request() {
-    return signupAPIInstance.get('/signup', { ...options });
-  }
+    request() {
+        return authAPIInstance.get('/signup', { ...options });
+    }
 }
-
-const logoutAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
 
 class LogoutAPI extends BaseAPI {
-  create(data:string): Promise<XMLHttpRequest> {
-    return signupAPIInstance.post('/logout', { ...options, data });
-  }
+    create(data?:string): Promise<XMLHttpRequest> {
+        return authAPIInstance.post('/logout', { ...options, data });
+    }
 }
 
-const userAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
-
 class UserAPI extends BaseAPI {
-  request(): Promise<XMLHttpRequest> {
-    return userAPIInstance.get('/user', { ...options });
-  }
+    request(): Promise<XMLHttpRequest> {
+        return authAPIInstance.get('/user', { ...options });
+    }
 }
 
 export {
-  SigninAPI, SignupAPI, LogoutAPI, UserAPI,
+    SigninAPI, SignupAPI, LogoutAPI, UserAPI,
 };

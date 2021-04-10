@@ -1,29 +1,29 @@
-import Block from '../../utils/block/block.js';
-import {store} from "../../utils/store/store.js";
-import {ChatDialogAPI, ChatMembersAPI} from "../../api/chat-api.js";
-
-const pug = require('pug');
+import Block from '../../utils/block/block';
+import { store } from '../../utils/store/store';
+// @ts-ignore
+import circle from '../../data/circle.png';
+// @ts-ignore
+import pug from 'pug'
 
 class ChatMembers extends Block {
-  constructor(props: { chatMembers: string[]; title: string }) {
-    super('div', props);
-    this.state = store.state.currentChat
-      store.subscribe(() => {
-          this.render()
-      })
-  }
+    constructor(props: { [key: string]: any }) {
+        super('div', props);
+        store.subscribe(() => {
+            this.render();
+        });
+    }
+
     componentDidMount() {
         console.log(store.state.messages, 'CDMCDMCDMCDMCDMCDM');
-        this.setProps(store.state.messages)
-
+        this.setProps(store.state.messages);
     }
 
     render() {
-    const pugData = `
+        const pugData = `
 #headMenu.page-dialog__wrap
     .page-dialog__head
         .page-dialog__head-image
-            img(src='../../data/circle.png' alt='')
+            img(src= image alt='')
         .page-dialog__head-name
             span#chatName= currentChat.chatName
             span(class='chat_text_message')#chatMembers Участники чата: 
@@ -131,30 +131,25 @@ class ChatMembers extends Block {
                     rect(x='8' y='13.2' width='11' height='1.6' fill='white')
                     path(d='M15 9L19 14L15 19' stroke='white' stroke-width='1.6')
 `;
-    const compiledFunction = pug.compile(pugData);
+        const compiledFunction = pug.compile(pugData);
 
-      const doneHTML = compiledFunction({
-          currentUser: store.state.id,
-          currentChat: store.state.currentChat,
-          chatMembers: store.state.chatMembers,
-          messages: store.state.messages,
-      });
-      function createElementFromHTML(htmlString) {
-          var div = document.createElement('div');
-          div.innerHTML = htmlString.trim();
+        const doneHTML = compiledFunction({
+            currentUser: store.state.id,
+            currentChat: store.state.currentChat,
+            chatMembers: store.state.chatMembers,
+            messages: store.state.messages,
+            image: circle,
+        });
 
-          // Change this to div.childNodes to support multiple top-level nodes
-          return div.firstChild;
-      }
-      document.querySelector('.page-dialog').innerHTML = doneHTML
-    return doneHTML;
-  }
+        (<HTMLElement>document.querySelector('.page-dialog')).innerHTML = doneHTML;
+        return doneHTML;
+    }
 }
 
 function render(query:string, block: ChatMembers) {
-  const root = <Element>document.querySelector(query);
-  root.appendChild(block.getContent().firstChild);
-  return root;
+    const root = <Element>document.querySelector(query);
+    root.appendChild(block.getContent().firstChild);
+    return root;
 }
 
-export {ChatMembers, render};
+export { ChatMembers, render };

@@ -2,11 +2,11 @@ import express from "express";
 import path from "path";
 import session from "express-session";
 
-import authRoutes from "./routes/auth.js";
-import chatRoutes from "./routes/chat.js";
-import profileRoutes from "./routes/profile.js";
+// import authRoutes from "./routes/auth";
+// import chatRoutes from "./routes/chat";
+// import profileRoutes from "./routes/profile";
 
-import validateSession from "./controllers/validateSession.js";
+//import validateSession from "./controllers/validateSession";
 
 const __dirname = path.resolve();
 const app = express();
@@ -25,15 +25,15 @@ app.use(
     })
 );
 
-app.use(express.static(`${__dirname}/static`));
+app.use(express.static(`${__dirname}/dist`));
 app.get("/*", (req, res, next) => {
     console.log("send index.html");
-    res.sendFile(`${__dirname}/static/index.html`);
+    res.sendFile(`${__dirname}/dist/index.html`);
 });
-
-app.use(`${API_PREFIX}/auth`, authRoutes);
-app.use(`${API_PREFIX}/chats`, validateSession, chatRoutes);
-app.use(`${API_PREFIX}/user`, validateSession, profileRoutes);
+//
+// app.use(`${API_PREFIX}/auth`, authRoutes);
+// app.use(`${API_PREFIX}/chats`, validateSession, chatRoutes);
+// app.use(`${API_PREFIX}/user`, validateSession, profileRoutes);
 
 export default app.listen(PORT, () => {
     console.log(`Мой текст и порт: ${PORT}!`);

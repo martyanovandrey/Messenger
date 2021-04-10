@@ -1,10 +1,10 @@
-import { HTTPTransport } from '../utils/xhr/xhr.js';
-import { BaseAPI } from './base-api.js';
+import { HTTPTransport } from '../utils/xhr/xhr';
+import { BaseAPI } from './base-api';
 
 const options = {
-  headers: {
-    'Content-Type': 'application/json',
-  },
+    headers: {
+        'Content-Type': 'application/json',
+    },
 };
 
 // const profileAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
@@ -16,17 +16,17 @@ const options = {
 
 const profileChange = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 class ProfileChangeAPI extends BaseAPI {
-  update(data:string): Promise<XMLHttpRequest> {
+    update(data:string): Promise<XMLHttpRequest> {
     // добавил комментарий в readme
-    return profileChange.put('/profile', { ...options, data });
-  }
+        return profileChange.put('/profile', { ...options, data });
+    }
 }
 
 const profileChangePsw = new HTTPTransport('https://ya-praktikum.tech/api/v2/user');
 class ProfileChangePswAPI extends BaseAPI {
-  update(data:string): Promise<XMLHttpRequest> {
-    return profileChangePsw.put('/password', { ...options, data });
-  }
+    update(data:string): Promise<XMLHttpRequest> {
+        return profileChangePsw.put('/password', { ...options, data });
+    }
 }
 
 export { ProfileChangeAPI, ProfileChangePswAPI };

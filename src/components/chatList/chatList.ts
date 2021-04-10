@@ -1,67 +1,65 @@
-import Block from '../../utils/block/block.js';
-import {ChatMembers} from '../chatMembers/chatMembers.js';
-import {ChatAPI} from "../../api/chat-api.js";
-import { store } from '../../utils/store/store.js';
+import Block from '../../utils/block/block';
+import { ChatMembers } from '../chatMembers/chatMembers';
+import { ChatAPI } from '../../api/chat-api';
+import { store } from '../../utils/store/store';
+// @ts-ignore
+import circle from '../../data/circle.png';
+// @ts-ignore
+import pug from 'pug'
 
-
-const pug = require('pug');
 
 type User = {
-  date: string;
+    date: string;
     unread_count?: string;
     title: string;
-  id: string;
+    id: string;
     last_message: string;
 };
 
-type Props = {title: string; users: User[]};
+type Props = { title: string; users: User[] };
 
 class ChatList extends Block {
-    private state: any;
-    private pageData: any;
-  constructor(props?: Props) {
-    super('div', props);
-      this.pageData = store.state.users;
-      store.subscribe(() => {
-          this.render()
-      })
 
-  }
-
-    componentDidMount() {
-      if(store.state.users.length === 0){
-          const createChatApiClient = new ChatAPI();
-          createChatApiClient.request()
-              .then((data) => data.response)
-              .then(data => {
-
-                  function changeData(data) {
-                      return { type: 'CHANGEDATA', data };
-                  }
-
-                  let chatData = JSON.parse(data).map(el => {
-                      el.last_message = JSON.parse(el.last_message)
-                      if(el.last_message != null){
-                          let dataTest = el.last_message
-                          el.last_message = dataTest.content
-                      }
-                      return el
-                  })
-                  store.update(changeData({users: chatData}));
-              });
-      }
-
-        this.setProps({users: store.state.users})
+    constructor(props?: Props) {
+        super('div', props);
+        store.subscribe(() => {
+            this.render();
+        });
     }
 
-  render() {
-    const pugData = `
+    componentDidMount() {
+        if (store.state.users.length === 0) {
+            const createChatApiClient = new ChatAPI();
+            createChatApiClient.request()
+                .then((data) => data.response)
+                .then((data) => {
+                    function changeData(data: Record<string, any>) {
+                        return { type: 'CHANGEDATA', data };
+                    }
+
+                    const chatData = JSON.parse(data).map((el: any) => {
+                        el.last_message = JSON.parse(el.last_message);
+                        if (el.last_message != null) {
+                            const dataTest = el.last_message;
+                            el.last_message = dataTest.content;
+                        }
+                        return el;
+                    });
+                    store.update(changeData({ users: chatData }));
+                });
+        }
+
+        this.setProps({ users: store.state.users });
+    }
+
+    render() {
+        const pugData = `
 ul.chat-list
     each user in users
         li.chat-list__element(data-action='openChat' data-id= user.id data-name= user.title)
             div.chat_link
                 .chat_image(data-action='chatListEvent')
-                    img(src='../../data/circle.png' alt='')
+                    img(src= image alt='')
                 .chat_text_wrap(data-action='chatListEvent')
                     .chat_text_name
                         span= user.title
@@ -72,25 +70,21 @@ ul.chat-list
                     if (user.unread_count)
                         span.chat_meta_badge= user.unread_count
 `;
-    const compiledFunction = pug.compile(pugData);
-      let doneHTML = compiledFunction({users: store.state.users});
-      function createElementFromHTML(htmlString) {
-          var div = document.createElement('div');
-          div.innerHTML = htmlString.trim();
-
-          // Change this to div.childNodes to support multiple top-level nodes
-          return div.firstChild;
-      }
-      document.querySelector('.page_chat_list').innerHTML = doneHTML
-    return doneHTML;
-  }
+        const compiledFunction = pug.compile(pugData);
+        const doneHTML = compiledFunction({
+            users: store.state.users,
+            image: circle,
+        });
+        (<HTMLElement>document.querySelector('.page_chat_list')).innerHTML = doneHTML;
+        return doneHTML;
+    }
 }
 
 function render(query:string, block: ChatList | ChatMembers) {
-  const root = <Element>document.querySelector(query);
-  root.appendChild(block.getContent().firstChild);
+    const root = <Element>document.querySelector(query);
+    root.appendChild(block.getContent().firstChild);
 
     return root;
 }
 
-export {ChatList, render};
+export { ChatList, render };

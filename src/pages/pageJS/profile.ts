@@ -2,19 +2,19 @@ import Validation from '../../utils/input_validation/input_validation';
 import { router } from '../../utils/router/router';
 import { LogoutAPI } from '../../api/signin-api';
 
-(<HTMLButtonElement>document.querySelector('.profile-sidebar')).addEventListener('click', (event) => {
+document.querySelector('.profile-sidebar')?.addEventListener('click', (event) => {
     event.preventDefault();
     router.go('/chat');
 });
-(<HTMLButtonElement>document.querySelector('#change_data')).addEventListener('click', (event) => {
+document.querySelector('#change_data')?.addEventListener('click', (event) => {
     event.preventDefault();
     router.go('/profile_changes');
 });
-(<HTMLButtonElement>document.querySelector('#change_psw')).addEventListener('click', (event) => {
+document.querySelector('#change_psw')?.addEventListener('click', (event) => {
     event.preventDefault();
     router.go('/profile_change_psw');
 });
-(<HTMLButtonElement>document.querySelector('#logout')).addEventListener('click', (event) => {
+document.querySelector('#logout')?.addEventListener('click', (event) => {
     event.preventDefault();
     const logoutApiClient = new LogoutAPI();
     logoutApiClient.create().then(() => {

@@ -46,7 +46,7 @@ function changeData(data: Data) {
 
 // Send req
 
-(<HTMLButtonElement>document.querySelector('.button_bottom')).addEventListener('click', (event) => {
+document.querySelector('.button_bottom')?.addEventListener('click', (event) => {
     event.preventDefault();
     console.log('OKAAY');
     const form = (<HTMLFormElement>document.querySelector('form'));

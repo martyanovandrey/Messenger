@@ -17,9 +17,9 @@ type Options = {
 type OptionsWithoutMethod = Omit<Options, 'method'>;
 
 class HTTPTransport {
-    private baseUrl?: string;
+    private baseUrl: string;
 
-    constructor(baseUrl?: string) {
+    constructor(baseUrl: string) {
         this.baseUrl = baseUrl;
     }
 
@@ -29,14 +29,14 @@ class HTTPTransport {
         this.request(this.baseUrl + url, { ...options, method: METHOD.GET })
     ;
 
-    // eslint-disable-next-line max-len
-    post = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => this.request(this.baseUrl + url, { ...options, method: METHOD.POST });
+    post = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> =>
+        this.request(this.baseUrl + url, { ...options, method: METHOD.POST });
 
-    // eslint-disable-next-line max-len
-    put = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => this.request(this.baseUrl + url, { ...options, method: METHOD.PUT });
+    put = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> =>
+        this.request(this.baseUrl + url, {...options, method: METHOD.PUT});
 
-    // eslint-disable-next-line max-len
-    delete = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> => this.request(this.baseUrl + url, { ...options, method: METHOD.DELETE });
+    delete = (url: string, options: OptionsWithoutMethod = {}): Promise<XMLHttpRequest> =>
+        this.request(this.baseUrl + url, { ...options, method: METHOD.DELETE });
 
     request(url: string, options: Options = { method: METHOD.GET }): Promise<XMLHttpRequest> {
         const { method, data, headers } = options;
@@ -46,6 +46,11 @@ class HTTPTransport {
             xhr.setRequestHeader(Object.keys(headers)[0], headers[Object.keys(headers)[0]]);
             xhr.withCredentials = true;
             xhr.onload = function () {
+                console.log(xhr, 'XHRRRRRRRRRRR');
+                console.log(resolve(xhr), 'XHRRRRRRRRRRR1222222222222222222');
+                if(xhr.status >= 400){
+                    throw Error (`xhr status ${xhr.status}`)
+                }
                 resolve(xhr);
             };
             xhr.onabort = reject;

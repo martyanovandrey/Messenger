@@ -7,7 +7,7 @@ interface Data {
     [key: string]: string;
 }
 
-(<HTMLButtonElement>document.querySelector('.not-registered-text')).addEventListener('click', (event) => {
+document.querySelector('.not-registered-text')?.addEventListener('click', (event) => {
     event.preventDefault();
     router.go('/signup');
 });
@@ -44,7 +44,7 @@ const button = new Button({
 render('.app', button);
 // console.log(button)
 
-(<HTMLButtonElement>document.querySelector('.button_type_submit')).addEventListener('click', (event) => {
+document.querySelector('.button_type_submit')?.addEventListener('click', (event) => {
     console.log('bbbbb');
     event.preventDefault();
     const form = (<HTMLFormElement>document.querySelector('form'));

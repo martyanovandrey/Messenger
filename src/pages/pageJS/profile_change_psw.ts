@@ -8,7 +8,7 @@ interface Data {
     [key: string]: string;
 }
 
-(<HTMLButtonElement>document.querySelector('.profile-sidebar')).addEventListener('click', (event) => {
+document.querySelector('.profile-sidebar')?.addEventListener('click', (event) => {
     event.preventDefault();
     router.go('/profile');
 });
@@ -52,7 +52,7 @@ function changeData(data: Record<string, any>) {
     return { type: 'CHANGEDATA', data };
 }
 
-(<HTMLButtonElement>document.querySelector('.button_type_submit')).addEventListener('click', (event) => {
+document.querySelector('.button_type_submit')?.addEventListener('click', (event) => {
     event.preventDefault();
     console.log('gogo');
     const form = (<HTMLFormElement>document.querySelector('form'));

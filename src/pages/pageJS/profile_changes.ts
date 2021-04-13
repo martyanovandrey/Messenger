@@ -8,7 +8,7 @@ interface Data {
     [key: string]: string;
 }
 
-(<HTMLButtonElement>document.querySelector('.profile-sidebar')).addEventListener('click', (event) => {
+document.querySelector('.profile-sidebar')?.addEventListener('click', (event) => {
     event.preventDefault();
     router.back();
 });
@@ -65,7 +65,7 @@ function changeData(data: Data) {
     return { type: 'CHANGEDATA', data };
 }
 
-(<HTMLButtonElement>document.querySelector('#change_button')).addEventListener('click', (event) => {
+document.querySelector('#change_button')?.addEventListener('click', (event) => {
     event.preventDefault();
     const data = profile_change();
     const profileChangeApiClient = new ProfileChangeAPI();

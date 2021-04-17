@@ -46,8 +46,6 @@ class HTTPTransport {
             xhr.setRequestHeader(Object.keys(headers)[0], headers[Object.keys(headers)[0]]);
             xhr.withCredentials = true;
             xhr.onload = function () {
-                console.log(xhr, 'XHRRRRRRRRRRR');
-                console.log(resolve(xhr), 'XHRRRRRRRRRRR1222222222222222222');
                 if(xhr.status >= 400){
                     throw Error (`xhr status ${xhr.status}`)
                 }

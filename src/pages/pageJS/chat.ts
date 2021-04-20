@@ -119,7 +119,7 @@ delegate(fixedBoxEl, 'click', 'menuAdd', () => {
 delegate(fixedBoxEl, 'click', 'change_members', (event: MouseEvent) => {
     event.preventDefault();
     overlayMembersAdd.hide();
-    let addMembersInput = document.getElementById('addMember');
+    const addMembersInput = document.getElementById('addMember');
     if(addMembersInput) {
         const addUserInput = {
             login: (addMembersInput as HTMLInputElement).value
